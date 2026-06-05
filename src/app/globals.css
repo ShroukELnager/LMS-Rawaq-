@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
+
+
+@theme {
+  /* Colors */
+  --color-primary: #006d77;
+  --color-secondary: #d4a373;
+  --color-tertiary: #5e4700;
+
+  --color-surface: #f9f9ff;
+  --color-surface-container: #e7eeff;
+
+  --color-error: #ba1a1a;
+
+  /* Fonts */
+  --font-sans: "Inter", sans-serif;
+
+  /* Font Sizes */
+  --text-display-lg: 57px;
+  --text-display-lg--line-height: 64px;
+  --text-display-lg--font-weight: 700;
+
+  --text-headline-md: 28px;
+  --text-headline-md--line-height: 36px;
+  --text-headline-md--font-weight: 600;
+
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 28px;
+  --text-body-lg--font-weight: 400;
+
+  --text-label-md: 14px;
+  --text-label-md--line-height: 20px;
+  --text-label-md--font-weight: 500;
+
+  /* Border Radius */
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+}
