@@ -85,7 +85,6 @@ const onSubmit = async (data: SignUpFormData) => {
 
   return (
     <div className="min-h-screen bg-[#F8F8FB] flex">
-      {/* Banner Section */}
       <div className="hidden lg:flex w-[45%] bg-primary text-white flex-col items-center justify-center px-12">
         <h1 className="text-display-lg font-bold mb-6">Rawaq</h1>
 
@@ -134,10 +133,8 @@ const onSubmit = async (data: SignUpFormData) => {
         </div>
       </div>
 
-      {/* Form Section */}
       <div className="flex-1 flex justify-center lg:items-center">
         <div className="w-full max-w-xl bg-white min-h-screen lg:min-h-fit lg:rounded-2xl lg:shadow-lg p-5 md:p-8">
-          {/* Mobile Header */}
           <div className="lg:hidden border-b -mx-5 px-5 pb-4 mb-6">
             <h1 className="text-display-lg text-primary font-bold mb-6">
               Rawaq
@@ -150,14 +147,12 @@ const onSubmit = async (data: SignUpFormData) => {
             Fill in the details below to get started.
           </p>
 
-          {/* Role Selection */}
           <div className="mt-6">
             <label className="block text-label-md text-gray-600 mb-3">
               I am a...
             </label>
 
             <div className="grid grid-cols-2 gap-3">
-              {/* Student */}
               <button
                 type="button"
                 onClick={() => setAccountType('student')}
@@ -176,7 +171,6 @@ const onSubmit = async (data: SignUpFormData) => {
                 <span className="text-sm font-medium">Student</span>
               </button>
 
-              {/* Teacher */}
               <button
                 type="button"
                 onClick={() => setAccountType('teacher')}
@@ -197,9 +191,7 @@ const onSubmit = async (data: SignUpFormData) => {
             </div>
           </div>
 
-          {/* Form */}
           <form onSubmit={handleSubmit(onSubmit)} className="mt-6">
-            {/* Name Fields */}
               {errors.root && (
     <div className="mb-4 text-center">
       <p className="text-sm text-red-500">
@@ -245,7 +237,6 @@ const onSubmit = async (data: SignUpFormData) => {
               </div>
             </div>
 
-            {/* Email */}
             <div className="mt-4">
               <label className="block text-label-md mb-2 text-gray-700">
                 Email Address
@@ -264,7 +255,6 @@ const onSubmit = async (data: SignUpFormData) => {
               )}
             </div>
 
-            {/* Password */}
             <div className="mt-4">
               <label className="block text-label-md mb-2 text-gray-700">
                 Password
@@ -289,7 +279,6 @@ const onSubmit = async (data: SignUpFormData) => {
               </div>
             </div>
 
-            {/* Confirm Password */}
             <div className="mt-4">
               <label className="block text-label-md mb-2 text-gray-700">
                 Confirm Password
@@ -308,10 +297,8 @@ const onSubmit = async (data: SignUpFormData) => {
               )}
             </div>
 
-            {/* Upload Avatar */}
             <FileUploader onUploadSuccess={setAvatarUrl} />
 
-            {/* Submit */}
             <button
               type="submit"
               disabled={isSubmitting}
@@ -326,7 +313,6 @@ const onSubmit = async (data: SignUpFormData) => {
               />
             </button>
 
-            {/* Login */}
             <p className="text-center text-sm text-gray-500 mt-5">
               Already have an account?{' '}
               <Link

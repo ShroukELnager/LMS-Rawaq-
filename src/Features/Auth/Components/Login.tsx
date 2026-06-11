@@ -66,7 +66,6 @@ await dispatch(fetchCurrentUser()).unwrap();
   };
   return (
     <div className="min-h-screen bg-surface flex">
-      {/* Left Banner - Desktop Only */}
       <div className="hidden lg:flex w-[45%] bg-primary text-white flex-col justify-between p-14 rounded-r-3xl">
         <div>
           <h1 className="text-5xl font-bold leading-tight">
@@ -84,7 +83,6 @@ await dispatch(fetchCurrentUser()).unwrap();
           </p>
         </div>
 
-        {/* Quote Card */}
         <div className="bg-[#0A7480] rounded-xl p-4 flex items-center gap-3 max-w-md">
           <Image
             src="/images/dr.png"
@@ -106,10 +104,8 @@ await dispatch(fetchCurrentUser()).unwrap();
         </div>
       </div>
 
-      {/* Form Section */}
       <div className="flex-1 flex justify-center items-center px-5 py-8">
         <div className="w-full max-w-md">
-          {/* Mobile Logo */}
           <div className="lg:hidden flex flex-col items-center mb-10">
             <div className="bg-primary w-16 h-16 rounded-xl flex items-center justify-center">
               <Image
@@ -127,7 +123,6 @@ await dispatch(fetchCurrentUser()).unwrap();
             </p>
           </div>
 
-          {/* Desktop Heading */}
           <div className="hidden lg:block mb-10">
             <h2 className="text-4xl font-bold text-primary">Welcome back</h2>
 
@@ -144,7 +139,6 @@ await dispatch(fetchCurrentUser()).unwrap();
                 </p>
               </div>
             )}
-            {/* Email */}
             <div>
               <label className="block text-sm mb-2 text-gray-700">Email</label>
 
@@ -170,7 +164,6 @@ await dispatch(fetchCurrentUser()).unwrap();
               </div>
             </div>
 
-            {/* Password */}
             <div>
               <div className="flex justify-between mb-2">
                 <label className="text-sm text-gray-700">Password</label>
@@ -206,7 +199,6 @@ await dispatch(fetchCurrentUser()).unwrap();
               </div>
             </div>
 
-            {/* Remember */}
             <label className="flex items-center gap-2 text-sm text-gray-600">
               <input type="checkbox" {...register('rememberMe')} />
               Remember me
@@ -227,7 +219,6 @@ await dispatch(fetchCurrentUser()).unwrap();
               />
             </button>
 
-            {/* Register */}
             <p className="text-center text-sm text-gray-500 pt-6">
               New to Rawaq?{' '}
               <Link href="/SignUp" className="text-primary font-semibold">

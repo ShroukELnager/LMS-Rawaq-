@@ -116,7 +116,6 @@ const ForgotPasswordPage = () => {
   return (
     <div className="min-h-screen bg-surface font-sans">
 
-      {/* HEADER (UNCHANGED) */}
       <header className="border-b border-gray-200 bg-white">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-8">
           <h1 className="text-2xl font-bold text-primary">Rawaq</h1>
@@ -136,12 +135,10 @@ const ForgotPasswordPage = () => {
         </div>
       </header>
 
-      {/* MAIN */}
       <main className="mx-auto flex min-h-[calc(100vh-64px)] max-w-7xl items-center justify-center px-4 py-8 md:px-8 md:py-12">
 
         <div className="grid w-full max-w-6xl items-center gap-10 lg:grid-cols-2">
 
-          {/* ================= LEFT SIDE (UI ADDED) ================= */}
           <div className="hidden lg:block">
 
             <div className="flex justify-center">
@@ -169,12 +166,10 @@ const ForgotPasswordPage = () => {
             </div>
           </div>
 
-          {/* ================= RIGHT SIDE ================= */}
           <div className="mx-auto w-full max-w-md">
 
             <div className="rounded-2xl bg-white p-5 shadow-sm md:border md:border-gray-200 md:p-8">
 
-              {/* ✅ UI ADDED: MOBILE IMAGE */}
               <div className="mb-6 flex justify-center lg:hidden">
                 <Image
                   src="/images/Illustration.png"
@@ -186,7 +181,6 @@ const ForgotPasswordPage = () => {
                 />
               </div>
 
-              {/* ✅ UI ADDED: ICON */}
               <div className="mb-6 flex justify-center lg:justify-start">
                 <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-surface-container">
                   <Image
@@ -198,7 +192,6 @@ const ForgotPasswordPage = () => {
                 </div>
               </div>
 
-              {/* TITLE */}
               <div className="text-center lg:text-left">
                 <h2 className="text-headline-md text-gray-900">
                   Forgot Password?
@@ -209,13 +202,11 @@ const ForgotPasswordPage = () => {
                 </p>
               </div>
 
-              {/* FORM (UNCHANGED LOGIC) */}
               <form
                 onSubmit={handleSubmit(onSubmit)}
                 className="mt-8 space-y-6"
               >
 
-                {/* EMAIL */}
                 <div>
                   <label className="mb-2 block text-label-md text-gray-700">
                     Email Address
@@ -245,14 +236,12 @@ const ForgotPasswordPage = () => {
                   )}
                 </div>
 
-                {/* ERROR */}
                 {errors.root && (
                   <p className="text-sm text-red-500">
                     {errors.root.message}
                   </p>
                 )}
 
-                {/* SUCCESS */}
                 {hasSubmitted && (
                   <div className="rounded-lg border border-green-200 bg-green-50 p-3">
                     <p className="text-sm text-green-700">
@@ -261,7 +250,6 @@ const ForgotPasswordPage = () => {
                   </div>
                 )}
 
-                {/* SUBMIT */}
                 <button
                   type="submit"
                   disabled={isSubmitting}
@@ -279,7 +267,6 @@ const ForgotPasswordPage = () => {
                   />
                 </button>
 
-                {/* RESEND UI (UNCHANGED LOGIC) */}
                 {(hasSubmitted || remainingTime > 0) && (
                   <div className="text-center">
                     <p className="text-sm text-gray-500">

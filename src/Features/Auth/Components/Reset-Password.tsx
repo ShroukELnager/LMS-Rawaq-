@@ -121,7 +121,6 @@ const ResetPasswordPage = () => {
 
   return (
     <div className="min-h-screen bg-surface font-sans">
-      {/* Header */}
       <header className="border-b border-gray-200 bg-white">
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 md:px-8">
           <h1 className="text-lg font-bold text-primary">Rawaq</h1>
@@ -138,12 +137,10 @@ const ResetPasswordPage = () => {
         </div>
       </header>
 
-      {/* MAIN */}
       <main className="flex min-h-[calc(100vh-56px)] items-center justify-center px-4 py-8">
         <div className="w-full max-w-md">
           <div className="rounded-2xl bg-white p-6 shadow-md md:p-8">
 
-            {/* ICON (UI ADDITION) */}
             <div className="mb-5 flex justify-center">
               <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-surface-container">
                 <Image
@@ -155,7 +152,6 @@ const ResetPasswordPage = () => {
               </div>
             </div>
 
-            {/* TITLE */}
             <div className="text-center">
               <h1 className="text-[28px] font-semibold text-gray-900">
                 Reset Password
@@ -166,10 +162,8 @@ const ResetPasswordPage = () => {
               </p>
             </div>
 
-            {/* FORM */}
             <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-5">
 
-              {/* PASSWORD */}
               <div>
                 <label className="mb-2 block text-sm text-gray-700">
                   New Password
@@ -199,7 +193,6 @@ const ResetPasswordPage = () => {
                 )}
               </div>
 
-              {/* CONFIRM PASSWORD */}
               <div>
                 <label className="mb-2 block text-sm text-gray-700">
                   Confirm Password
@@ -235,7 +228,6 @@ const ResetPasswordPage = () => {
                 )}
               </div>
 
-              {/* SUBMIT */}
               <button
                 type="submit"
                 disabled={isSubmitting}

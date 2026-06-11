@@ -1,10 +1,8 @@
 import Navbar from "@/Shared/Components/Navbar/Navbar";
-import DashboardUserLoader from "@/Shared/Components/DashboardUserLoader";
 import SidebarSwitcher from "@/Shared/Components/Sidebar/SidebarSwitcher";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
-    <DashboardUserLoader>
       <div className="flex h-screen flex-col overflow-hidden bg-surface">
         <Navbar />
 
@@ -16,6 +14,5 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           </main>
         </div>
       </div>
-    </DashboardUserLoader>
   );
 }

@@ -70,12 +70,10 @@ export default function CreateGroup() {
       <div className="mx-auto max-w-2xl">
         <div className="relative overflow-hidden rounded-2xl bg-white p-6 shadow-sm md:p-8">
 
-          {/* top progress */}
           <div className="absolute inset-x-0 top-0 h-[4px] bg-gray-200">
             <div className="h-full w-[30%] bg-secondary" />
           </div>
 
-          {/* decoration */}
           <div
             className="absolute bottom-0 right-0 h-28 w-28 bg-surface-container"
             style={{
@@ -85,7 +83,6 @@ export default function CreateGroup() {
 
           <div className="relative z-10">
 
-            {/* HEADER */}
             <div className="mb-8 text-center">
               <h1 className="text-headline-md text-primary">
                 Create New Group
@@ -97,7 +94,6 @@ export default function CreateGroup() {
               </p>
             </div>
 
-            {/* IMAGE */}
             <div className="mb-6 md:hidden">
               <div className="overflow-hidden rounded-xl">
                 <Image
@@ -111,10 +107,8 @@ export default function CreateGroup() {
               </div>
             </div>
 
-            {/* FORM */}
             <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
 
-              {/* Group Name */}
               <div>
                 <label className="mb-2 block text-label-md text-gray-700">
                   Group Name *
@@ -133,7 +127,6 @@ export default function CreateGroup() {
                 )}
               </div>
 
-              {/* Category */}
               <div>
                 <label className="mb-2 block text-label-md text-gray-700">
                   Category{" "}
@@ -150,7 +143,6 @@ export default function CreateGroup() {
                 />
               </div>
 
-              {/* Description */}
               <div>
                 <label className="mb-2 block text-label-md text-gray-700">
                   Description{" "}
@@ -167,10 +159,8 @@ export default function CreateGroup() {
                 />
               </div>
 
-              {/* Students + Duration */}
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
 
-                {/* Students */}
                 <div>
                   <label className="mb-2 block text-label-md text-gray-700">
                     Maximum Students *
@@ -202,7 +192,6 @@ export default function CreateGroup() {
                   </div>
                 </div>
 
-                {/* Duration */}
                 <div>
                   <label className="mb-2 block text-label-md text-gray-700">
                     Duration{" "}
@@ -231,7 +220,6 @@ export default function CreateGroup() {
                 </div>
               </div>
 
-              {/* Start Date */}
               <div>
                 <label className="mb-2 block text-label-md text-gray-700">
                   Start Date{" "}
@@ -252,7 +240,6 @@ export default function CreateGroup() {
                 )}
               </div>
 
-              {/* BUTTONS */}
               <div className="flex flex-col gap-3 pt-4 sm:flex-row">
 
                 <button

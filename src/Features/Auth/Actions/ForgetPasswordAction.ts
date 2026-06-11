@@ -4,14 +4,14 @@ import { cookies } from "next/headers";
 import { ActionResult } from "@/Shared/Types/action-result";
 import { ForgetPasswordRequest } from "../Types";
 
-const RESEND_TIME = 5 * 60 * 1000; // 5 minutes
+const RESEND_TIME = 5 * 60 * 1000; 
 const MAX_TRIALS = 10;
 
 export async function ForgetPasswordAction(
   data: ForgetPasswordRequest
 ): Promise<ActionResult> {
   try {
-    const cookieStore = await cookies(); // ✅ FIX HERE
+    const cookieStore = await cookies()
     const now = Date.now();
 
     const resendExpiresAt = cookieStore.get("resendExpiresAt")?.value;
@@ -20,7 +20,6 @@ export async function ForgetPasswordAction(
     const expiresAt = resendExpiresAt ? Number(resendExpiresAt) : 0;
     const trials = resendTrials ? Number(resendTrials) : 0;
 
-    // ⛔ cooldown active
     if (expiresAt && now < expiresAt) {
       return {
         ok: false,
@@ -29,7 +28,6 @@ export async function ForgetPasswordAction(
       };
     }
 
-    // ⛔ max trials reached
     if (trials >= MAX_TRIALS) {
       return {
         ok: false,
@@ -37,7 +35,6 @@ export async function ForgetPasswordAction(
       };
     }
 
-    // API CALL (always fire)
     await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}auth/v1/recover`,
       {

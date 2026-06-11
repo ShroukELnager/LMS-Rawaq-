@@ -7,14 +7,12 @@ import Image from "next/image";
 export default function DesktopNavbar() {
   return (
     <header className="hidden lg:flex h-16 items-center justify-between border-b border-gray-200 bg-white px-6">
-      {/* Logo */}
       <div>
         <h1 className="text-lg font-bold text-primary">
           Rawaq
         </h1>
       </div>
 
-      {/* Search */}
       <div className="relative w-full max-w-md">
         <Image
           src="/images/search.png"
@@ -31,7 +29,6 @@ export default function DesktopNavbar() {
         />
       </div>
 
-      {/* User */}
       <UserAvatar size={36} />
     </header>
   );
