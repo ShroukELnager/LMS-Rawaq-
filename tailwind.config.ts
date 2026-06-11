@@ -11,6 +11,9 @@ module.exports = {
         "surface-container": "#E7EEFF",
 
         error: "#BA1A1A",
+        // sidebar: "#E6E3D0",
+        // text: "#48473A",
+        // muted: "#48473A80",
       },
 
       fontFamily: {
