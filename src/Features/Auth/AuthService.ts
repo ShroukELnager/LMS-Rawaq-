@@ -1,13 +1,16 @@
 import { apiRequest } from './lib/api';
-import { LoginFormData, SignUpRequest } from './Types';
+import { ForgetPasswordRequest, LoginFormData, ResetPasswordFormData, SignUpRequest } from './Types';
 
 export const AuthService = {
+
+
+
   Login: async (data: LoginFormData) => {
     return apiRequest('/auth/v1/token?grant_type=password', {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
-        apiKey: process.env.SUPABASE_KEY!,
+        apiKey: process.env.NEXT_PUBLIC_SUPABASE_KEY!,
       },
     });
   },
@@ -27,7 +30,7 @@ export const AuthService = {
         },
       }),
       headers: {
-        apiKey: process.env.SUPABASE_KEY!,
+        apiKey: process.env.NEXT_PUBLIC_SUPABASE_KEY!,
       },
     });
   },
@@ -37,6 +40,38 @@ export const AuthService = {
       body: JSON.stringify({
         refresh_token: token,
       }),
+    });
+  },
+  uploadAvatar: async (file: File) => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const fileName = `${Date.now()}-${file.name}`;
+
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}storage/v1/object/uploads/users/${fileName}`,
+      {
+        method: "POST",
+        body: formData,
+        headers: {
+          apiKey: process.env.NEXT_PUBLIC_SUPABASE_KEY!,
+        },
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error("Upload failed");
+    }
+
+    return `${process.env.NEXT_PUBLIC_BASE_URL}storage/v1/object/public/uploads/users/${fileName}`;
+  },
+  ResetPassword: async (data: ForgetPasswordRequest) => {
+    return apiRequest('/auth/v1/user', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        apiKey: process.env.NEXT_PUBLIC_SUPABASE_KEY!,
+      },
     });
   },
   

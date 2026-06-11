@@ -1,5 +1,5 @@
-export async function apiRequest(url: string, options: RequestInit) {
-  const res = await fetch(`${process.env.BASE_URL}${url}`, {
+export async function apiRequest(url: string, options: RequestInit = {}) {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}${url}`, {
     ...options,
     headers: {
       "Content-Type": "application/json",
@@ -7,10 +7,11 @@ export async function apiRequest(url: string, options: RequestInit) {
     },
   });
 
+  const data = await res.json();
+
   if (!res.ok) {
-    const error = await res.json();
-    throw new Error(error.message);
+    throw new Error(data.msg || data.message || "Request failed");
   }
 
-  return res.json();
+  return data;
 }

@@ -8,9 +8,12 @@ import { LoginFormData } from '../Types';
 import { loginAction } from '../Actions/LoginAction';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
+import { fetchCurrentUser } from '@/redux/features/userThunks';
+import { useAppDispatch } from '@/redux/hooks';
 
 export default function LoginPage() {
   const router = useRouter();
+    const dispatch = useAppDispatch();
 
   const {
     register,
@@ -24,21 +27,27 @@ export default function LoginPage() {
   const onSubmit = async (data: LoginFormData) => {
     try {
       const result = await loginAction(data);
+      console.log(result);
+   if (!result.ok) {
+  const rawError = result.error;
 
-      if (!result.ok) {
-        const errorMessage = result.error || 'Failed to login';
+  const errorMessage =
+    rawError === "Invalid login credentials"
+      ? "Email or password is incorrect."
+      : rawError || "Email or password is incorrect.";
 
-        toast.error(errorMessage);
-        setError('root', {
-          type: 'server',
-          message: errorMessage,
-        });
+  toast.error(errorMessage);
 
-        return;
-      }
+  setError("root", {
+    type: "server",
+    message: errorMessage,
+  });
 
+  return;
+}
+await dispatch(fetchCurrentUser()).unwrap();
       toast.success('Logged in successfully!');
-      router.push('/dashboard');
+      router.push('/Dashboard');
     } catch (error) {
       const errorMessage =
         error instanceof Error
@@ -128,6 +137,13 @@ export default function LoginPage() {
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+            {errors.root && (
+              <div className="text-center">
+                <p className="text-sm text-red-500">
+                  {errors.root.message}
+                </p>
+              </div>
+            )}
             {/* Email */}
             <div>
               <label className="block text-sm mb-2 text-gray-700">Email</label>
@@ -159,12 +175,12 @@ export default function LoginPage() {
               <div className="flex justify-between mb-2">
                 <label className="text-sm text-gray-700">Password</label>
 
-                <button
-                  type="button"
+                <Link
+                  href="/Forget-Password"
                   className="text-xs text-primary font-medium"
                 >
                   Forgot password?
-                </button>
+                </Link>
               </div>
 
               <div className="relative">
@@ -196,7 +212,7 @@ export default function LoginPage() {
               Remember me
             </label>
 
-            {/* Login Button */}
+
             <button
               type="submit"
               disabled={isSubmitting}

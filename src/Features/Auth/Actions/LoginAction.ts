@@ -18,8 +18,11 @@ export async function loginAction(
 
     return {
       ok: true,
+       data: response,
     };
   } catch (error) {
+      console.log("LOGIN ERROR:", error);
+
     return {
       ok: false,
       error: error instanceof Error ? error.message : "Login failed",

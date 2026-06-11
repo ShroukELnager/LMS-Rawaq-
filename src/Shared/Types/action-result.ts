@@ -5,5 +5,7 @@ export type ActionResult<T = void> =
     }
   | {
       ok: false;
-      error: string;
+      error?: string;
+      cooldown?: boolean;
+      remainingTime?: number;
     };
