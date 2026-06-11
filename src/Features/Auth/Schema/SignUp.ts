@@ -15,7 +15,6 @@ export const SignupSchema = z
 
     email: z.string().email("Invalid email address"),
 
-    jobTitle: z.string().optional(),
 
     password: z
       .string()

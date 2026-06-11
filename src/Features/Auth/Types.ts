@@ -1,10 +1,12 @@
 import {z} from "zod";
 import { loginSchema } from "./Schema/Login";
 import { SignupSchema } from "./Schema/SignUp";
+import { ResetPasswordSchema } from "./Schema/ResetPassword";
 
 
   export  type LoginFormData  = z.infer<typeof loginSchema>;
   export  type SignUpFormData  = z.infer<typeof SignupSchema>;
+  export  type ResetPasswordFormData  = z.infer<typeof ResetPasswordSchema>;
 
   export type SignUpRequest = {
   firstName: string;
@@ -14,6 +16,9 @@ import { SignupSchema } from "./Schema/SignUp";
   jobTitle?: string;
   password: string;
   avatarUrl?: string;
+};
+  export type ForgetPasswordRequest = {
+  email: string;
 };
 
 export type AuthResponse = {

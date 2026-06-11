@@ -11,11 +11,13 @@ export async function signupAction(
 ): Promise<ActionResult> {
   try {
     const response = await AuthService.SignUp(data);
+     console.log(response);
 
     await setAuthCookies(response);
 
     return {
       ok: true,
+      data: response,
     };
   } catch (error) {
     return {

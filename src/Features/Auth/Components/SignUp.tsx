@@ -11,62 +11,77 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { useState } from 'react';
 import FileUploader from './FileUploader';
+import { useAppDispatch } from '@/redux/hooks';
+import { fetchCurrentUser } from '@/redux/features/userThunks';
 export default function RegisterPage() {
   const router = useRouter();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    setError,
-  } = useForm<SignUpFormData>({
-    resolver: zodResolver(SignupSchema),
-  });
+  const dispatch = useAppDispatch();
+const {
+  register,
+  handleSubmit,
+  formState: { errors, isSubmitting },
+  setError,
+} = useForm<SignUpFormData>({
+  resolver: zodResolver(SignupSchema),
+});
 
-  const [avatarUrl, setAvatarUrl] = useState<string>('');
-  const [accountType, setAccountType] = useState<'student' | 'teacher' | null>(
-    null
-  );
-  const onSubmit = async (data: SignUpFormData) => {
-    try {
-      const result = await signupAction({
-        firstName: data.firstName,
-        lastName: data.lastName,
-        email: data.email,
-        jobTitle: data.jobTitle,
-        password: data.password,
-        accountType: accountType || 'student',
-        avatarUrl,
-      });
+const [avatarUrl, setAvatarUrl] = useState<string>("");
+const [accountType, setAccountType] = useState<"student" | "teacher" | null>(
+  null
+);
 
-      if (!result.ok) {
-        const errorMessage = result.error || 'Failed to create account';
+const onSubmit = async (data: SignUpFormData) => {
+  try {
+    const result = await signupAction({
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      password: data.password,
+      accountType: accountType || "student",
+      avatarUrl,
+    });
 
-        toast.error(errorMessage);
+    if (!result.ok) {
+      const rawError = result.error;
 
-        setError('root', {
-          type: 'server',
-          message: errorMessage,
-        });
-
-        return;
-      }
-
-      toast.success('Account created successfully!');
-      router.push('/dashboard');
-    } catch (error) {
       const errorMessage =
-        error instanceof Error
-          ? error.message
-          : 'Something went wrong. Please try again.';
+        rawError === "User already registered"
+          ? "This email is already registered."
+          : rawError || "Failed to create account.";
 
       toast.error(errorMessage);
 
-      setError('root', {
-        type: 'server',
+      setError("root", {
+        type: "server",
         message: errorMessage,
       });
+
+      return;
     }
-  };
+
+    await dispatch(fetchCurrentUser()).unwrap();
+
+    toast.success("Account created successfully!");
+
+    router.push("/Dashboard");
+
+    console.log("Signup successful:", result.data);
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error
+        ? error.message
+        : "Something went wrong. Please try again.";
+
+    console.error(error);
+
+    toast.error(errorMessage);
+
+    setError("root", {
+      type: "server",
+      message: errorMessage,
+    });
+  }
+};
 
   return (
     <div className="min-h-screen bg-[#F8F8FB] flex">
@@ -185,6 +200,13 @@ export default function RegisterPage() {
           {/* Form */}
           <form onSubmit={handleSubmit(onSubmit)} className="mt-6">
             {/* Name Fields */}
+              {errors.root && (
+    <div className="mb-4 text-center">
+      <p className="text-sm text-red-500">
+        {errors.root.message}
+      </p>
+    </div>
+  )}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-label-md mb-2 text-gray-700">
