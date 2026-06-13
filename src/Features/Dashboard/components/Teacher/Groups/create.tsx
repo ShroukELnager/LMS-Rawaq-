@@ -32,7 +32,7 @@ export default function CreateGroup() {
       name: "",
       category: "",
       description: "",
-      no_of_students: 20,
+      no_of_students: 1,
       duration_in_days: undefined,
       start_date: undefined,
     },
