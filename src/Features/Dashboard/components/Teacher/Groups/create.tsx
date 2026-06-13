@@ -14,6 +14,7 @@ import {
   CreateGroupFormData,
   CreateGroupFormInput,
 } from "../../../Types";
+import { UnknownKeysParam } from "zod/v3";
 
 export default function CreateGroup() {
   const router = useRouter();
@@ -52,9 +53,13 @@ export default function CreateGroup() {
       router.push("/Dashboard");
     },
 
-    onError: (error: any) => {
-      toast.error(error.message);
-    },
+    onError: (error: unknown) => {
+  if (error instanceof Error) {
+    toast.error(error.message);
+  } else {
+    toast.error("Something went wrong");
+  }
+},
   });
 
   const onSubmit = async (data: CreateGroupFormData) => {
