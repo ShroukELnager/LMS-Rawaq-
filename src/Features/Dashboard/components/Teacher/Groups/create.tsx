@@ -19,7 +19,7 @@ export default function CreateGroup() {
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  const [students, setStudents] = useState<number>(20);
+  const [students, setStudents] = useState<number>(1);
 
   const {
     register,

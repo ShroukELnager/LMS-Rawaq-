@@ -1,5 +1,4 @@
 import { AuthService } from "@/Features/Auth/AuthService";
-import { isTokenExpired } from "@/Features/Auth/Utils/IsTokenExpired";
 import { removeAuthCookies } from "@/Features/Auth/Utils/removeAuthCookies";
 import { setAuthCookies } from "@/Features/Auth/Utils/setAuthCookies";
 import { NextRequest, NextResponse } from "next/server";
@@ -29,7 +28,7 @@ export default async function proxy(request: NextRequest) {
   // Protected routes
   // ─────────────────────────────
   if (isProtectedRoute) {
-    if (!accessToken || isTokenExpired(accessToken)) {
+    if (!accessToken ) {
       if (refreshToken) {
         try {
           const newTokens =
@@ -64,7 +63,7 @@ export default async function proxy(request: NextRequest) {
   // ─────────────────────────────
   // Auth routes
   // ─────────────────────────────
-  if (isAuthRoute && accessToken && !isTokenExpired(accessToken)) {
+  if (isAuthRoute && accessToken ) {
     return NextResponse.redirect(
       new URL("/dashboard", request.url)
     );
