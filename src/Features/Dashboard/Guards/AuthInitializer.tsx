@@ -27,24 +27,27 @@ export default function AuthProvider({
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
+      <div className="flex min-h-screen">
         <SidebarPlaceholder />
 
-        <p className="text-gray-500">Loading...</p>
+        <main className="flex flex-1 items-center justify-center">
+          <p className="text-gray-500">Loading...</p>
+        </main>
       </div>
     );
   }
 
   if (!user) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
+      <div className="flex min-h-screen">
         <SidebarPlaceholder />
 
-        <p className="text-gray-500">Unauthorized</p>
+        <main className="flex flex-1 items-center justify-center">
+          <p className="text-gray-500">Unauthorized</p>
+        </main>
       </div>
     );
   }
-
   return (
     <div className="flex min-h-screen">
       <SidebarPlaceholder />

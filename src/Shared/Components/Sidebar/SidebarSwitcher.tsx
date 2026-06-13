@@ -27,6 +27,6 @@ export default function SidebarSwitcher() {
     (accountType === "student") {
     return <StudentSidebar />;
   }
-  
+  return <SidebarPlaceholder />;
 
 }
