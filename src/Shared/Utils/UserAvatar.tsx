@@ -43,7 +43,7 @@ export default function UserAvatar({ size = 40 }: UserAvatarProps) {
           fontSize: size * 0.4,
         }}
       >
-        {initials || "US"}
+        {initials }
       </div>
     );
   }

@@ -23,6 +23,10 @@ export default function SidebarSwitcher() {
   if (accountType === "teacher") {
     return <TeacherSidebar />;
   }
+  else if
+    (accountType === "student") {
+    return <StudentSidebar />;
+  }
+  
 
-  return <StudentSidebar />;
 }

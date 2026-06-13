@@ -54,7 +54,6 @@ await dispatch(fetchCurrentUser()).unwrap();
           ? error.message
           : 'Something went wrong. Please try again.';
 
-      console.error(error);
 
       toast.error(errorMessage);
 
