@@ -123,7 +123,7 @@ export default function HomePage() {
                 <h3 className="text-headline-md text-primary">
                   10K+
                 </h3>
-                <p className="text-label-md text-gray-500">
+                <p className="text-label-md text-text">
                   Students
                 </p>
               </div>
@@ -132,7 +132,7 @@ export default function HomePage() {
                 <h3 className="text-headline-md text-primary">
                   500+
                 </h3>
-                <p className="text-label-md text-gray-500">
+                <p className="text-label-md text-text">
                   Courses
                 </p>
               </div>
@@ -141,7 +141,7 @@ export default function HomePage() {
                 <h3 className="text-headline-md text-primary">
                   120+
                 </h3>
-                <p className="text-label-md text-gray-500">
+                <p className="text-label-md text-text">
                   Instructors
                 </p>
               </div>
@@ -181,7 +181,7 @@ export default function HomePage() {
                   {category}
                 </h3>
 
-                <p className="mt-2 text-sm text-gray-500">
+                <p className="mt-2 text-sm text-text">
                   120 Courses
                 </p>
               </div>
@@ -214,7 +214,7 @@ export default function HomePage() {
                     {course.title}
                   </h3>
 
-                  <p className="mt-2 text-sm text-gray-500">
+                  <p className="mt-2 text-sm text-text">
                     {course.instructor}
                   </p>
 
@@ -223,7 +223,7 @@ export default function HomePage() {
                       ⭐ {course.rating}
                     </span>
 
-                    <span className="text-sm text-gray-500">
+                    <span className="text-sm text-text">
                       {course.students} Students
                     </span>
                   </div>
@@ -307,7 +307,7 @@ export default function HomePage() {
                   {instructor.name}
                 </h3>
 
-                <p className="text-gray-500">
+                <p className="text-text">
                   {instructor.specialty}
                 </p>
 
@@ -373,7 +373,7 @@ export default function HomePage() {
               Rawaq
             </h3>
 
-            <p className="mt-4 text-gray-500">
+            <p className="mt-4 text-text">
               Learn new skills and grow your career.
             </p>
           </div>
@@ -383,7 +383,7 @@ export default function HomePage() {
               Company
             </h4>
 
-            <ul className="mt-4 space-y-2 text-gray-500">
+            <ul className="mt-4 space-y-2 text-text">
               <li>About</li>
               <li>Careers</li>
               <li>Blog</li>
@@ -395,7 +395,7 @@ export default function HomePage() {
               Learning
             </h4>
 
-            <ul className="mt-4 space-y-2 text-gray-500">
+            <ul className="mt-4 space-y-2 text-text">
               <li>Courses</li>
               <li>Categories</li>
               <li>Certificates</li>
@@ -407,14 +407,14 @@ export default function HomePage() {
               Support
             </h4>
 
-            <ul className="mt-4 space-y-2 text-gray-500">
+            <ul className="mt-4 space-y-2 text-text">
               <li>Help Center</li>
               <li>Contact Us</li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-10 border-t border-gray-200 pt-6 text-center text-sm text-gray-500">
+        <div className="mt-10 border-t border-gray-200 pt-6 text-center text-sm text-text">
           © 2026 Rawaq. All rights reserved.
         </div>
       </footer>

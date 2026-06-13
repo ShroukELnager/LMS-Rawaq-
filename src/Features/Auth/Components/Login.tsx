@@ -118,7 +118,7 @@ await dispatch(fetchCurrentUser()).unwrap();
 
             <h1 className="mt-4 text-3xl font-bold text-primary">Rawaq</h1>
 
-            <p className="text-center text-gray-500 mt-3 max-w-xs">
+            <p className="text-center text-text mt-3 max-w-xs">
               Your structured learning space for deep knowledge and focus.
             </p>
           </div>
@@ -126,7 +126,7 @@ await dispatch(fetchCurrentUser()).unwrap();
           <div className="hidden lg:block mb-10">
             <h2 className="text-4xl font-bold text-primary">Welcome back</h2>
 
-            <p className="text-gray-500 mt-2">
+            <p className="text-text mt-2">
               Log in to continue your education.
             </p>
           </div>
@@ -169,7 +169,7 @@ await dispatch(fetchCurrentUser()).unwrap();
                 <label className="text-sm text-gray-700">Password</label>
 
                 <Link
-                  href="/Forget-Password"
+                  href="/forget-password"
                   className="text-xs text-primary font-medium"
                 >
                   Forgot password?
@@ -219,9 +219,9 @@ await dispatch(fetchCurrentUser()).unwrap();
               />
             </button>
 
-            <p className="text-center text-sm text-gray-500 pt-6">
+            <p className="text-center text-sm text-text pt-6">
               New to Rawaq?{' '}
-              <Link href="/SignUp" className="text-primary font-semibold">
+              <Link href="/signup" className="text-primary font-semibold">
                 Create Account
               </Link>
             </p>

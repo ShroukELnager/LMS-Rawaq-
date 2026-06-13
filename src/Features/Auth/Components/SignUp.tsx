@@ -143,7 +143,7 @@ const onSubmit = async (data: SignUpFormData) => {
 
           <h2 className="text-headline-md text-gray-900">Create Account</h2>
 
-          <p className="text-label-md text-gray-500 mt-1">
+          <p className="text-label-md text-text mt-1">
             Fill in the details below to get started.
           </p>
 
@@ -313,10 +313,10 @@ const onSubmit = async (data: SignUpFormData) => {
               />
             </button>
 
-            <p className="text-center text-sm text-gray-500 mt-5">
+            <p className="text-center text-sm text-text mt-5">
               Already have an account?{' '}
               <Link
-                href="/Login"
+                href="/login"
                 className="text-primary font-semibold hover:underline"
               >
                 Log in

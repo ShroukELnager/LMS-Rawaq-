@@ -2,24 +2,23 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { createGroupSchema } from "../../Schema/CreateGroup";
+import { createGroupSchema } from "../../../Schema/CreateGroup";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { createGroupService } from "../../lib/Services/groups.service";
+import { createGroupService } from "../../../lib/Services/groups/teacher/groups.service";
 import {
   CreateGroupFormData,
   CreateGroupFormInput,
-} from "../../Types";
+} from "../../../Types";
 
 export default function CreateGroup() {
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  // UI state فقط
   const [students, setStudents] = useState<number>(20);
 
   const {
@@ -88,7 +87,7 @@ export default function CreateGroup() {
                 Create New Group
               </h1>
 
-              <p className="mt-2 text-label-md text-gray-500">
+              <p className="mt-2 text-label-md text-text">
                 Set up a new learning space for your students and start
                 organizing your mentorship journey.
               </p>
@@ -130,7 +129,7 @@ export default function CreateGroup() {
               <div>
                 <label className="mb-2 block text-label-md text-gray-700">
                   Category{" "}
-                  <span className="text-[12px] text-gray-500">
+                  <span className="text-[12px] text-text">
                     (OPTIONAL)
                   </span>
                 </label>
@@ -146,7 +145,7 @@ export default function CreateGroup() {
               <div>
                 <label className="mb-2 block text-label-md text-gray-700">
                   Description{" "}
-                  <span className="text-[12px] text-gray-500">
+                  <span className="text-[12px] text-text">
                     (OPTIONAL)
                   </span>
                 </label>
@@ -195,7 +194,7 @@ export default function CreateGroup() {
                 <div>
                   <label className="mb-2 block text-label-md text-gray-700">
                     Duration{" "}
-                    <span className="text-[12px] text-gray-500">
+                    <span className="text-[12px] text-text">
                       (OPTIONAL)
                     </span>
                   </label>
@@ -208,7 +207,7 @@ export default function CreateGroup() {
                       className="w-full rounded-xl border border-gray-200 px-4 py-3 pr-16 outline-none focus:border-primary"
                     />
 
-                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-gray-500">
+                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-text">
                       days
                     </span>
                   </div>
@@ -223,7 +222,7 @@ export default function CreateGroup() {
               <div>
                 <label className="mb-2 block text-label-md text-gray-700">
                   Start Date{" "}
-                  <span className="text-[12px] text-gray-500">
+                  <span className="text-[12px] text-text">
                     (OPTIONAL)
                   </span>
                 </label>

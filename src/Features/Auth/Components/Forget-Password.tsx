@@ -197,7 +197,7 @@ const ForgotPasswordPage = () => {
                   Forgot Password?
                 </h2>
 
-                <p className="mt-2 text-label-md text-gray-500">
+                <p className="mt-2 text-label-md text-text">
                   Enter your email address to receive a secure link.
                 </p>
               </div>
@@ -269,7 +269,7 @@ const ForgotPasswordPage = () => {
 
                 {(hasSubmitted || remainingTime > 0) && (
                   <div className="text-center">
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-text">
                       Don't Receive An Email?
                     </p>
 
@@ -283,7 +283,7 @@ const ForgotPasswordPage = () => {
                     </button>
 
                     {remainingTime > 0 && (
-                      <p className="mt-2 text-xs text-gray-500">
+                      <p className="mt-2 text-xs text-text">
                         Available in {formatTime(remainingTime)}
                       </p>
                     )}

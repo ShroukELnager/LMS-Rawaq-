@@ -12,6 +12,7 @@
   --color-primary: #006d77;
   --color-secondary: #d4a373;
   --color-tertiary: #5e4700;
+  --color-text: #3E494A;
 
   --color-surface: #f9f9ff;
   --color-surface-container: #e7eeff;
@@ -41,4 +42,30 @@
   /* Border Radius */
   --radius-xl: 16px;
   --radius-2xl: 24px;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: #e5e7eb;
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.6),
+    transparent
+  );
+  animation: shimmer 1.5s infinite;
 }

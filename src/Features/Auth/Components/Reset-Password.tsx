@@ -111,7 +111,7 @@ const ResetPasswordPage = () => {
             Password updated successfully
           </h1>
 
-          <p className="text-gray-500 mt-2">
+          <p className="text-text mt-2">
             Redirecting to login...
           </p>
         </div>
@@ -157,7 +157,7 @@ const ResetPasswordPage = () => {
                 Reset Password
               </h1>
 
-              <p className="mt-2 text-sm text-gray-500">
+              <p className="mt-2 text-sm text-text">
                 Create a new strong password
               </p>
             </div>

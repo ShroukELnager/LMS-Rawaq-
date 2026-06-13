@@ -73,7 +73,7 @@ export default function FileUploader({ onUploadSuccess }: Props) {
           <p className="text-sm font-medium text-primary">
             Upload Avatar (Optional)
           </p>
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-text">
             JPG, PNG or WEBP. Max 500KB.
           </p>
         </div>
@@ -94,7 +94,7 @@ export default function FileUploader({ onUploadSuccess }: Props) {
       )}
 
       {status === "uploading" && (
-        <p className="mt-2 text-sm text-gray-500">
+        <p className="mt-2 text-sm text-text">
           Uploading...
         </p>
       )}
