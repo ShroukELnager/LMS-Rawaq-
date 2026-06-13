@@ -156,7 +156,7 @@ const onSubmit = async (data: SignUpFormData) => {
               <button
                 type="button"
                 onClick={() => setAccountType('student')}
-                className={`rounded-xl py-4 flex flex-col items-center justify-center gap-2 transition border-2 ${
+                className={`rounded-xl py-4 cursor-pointer flex flex-col items-center justify-center gap-2 transition border-2 ${
                   accountType === 'student'
                     ? 'border-primary bg-surface-container'
                     : 'border-gray-300'
@@ -174,7 +174,7 @@ const onSubmit = async (data: SignUpFormData) => {
               <button
                 type="button"
                 onClick={() => setAccountType('teacher')}
-                className={`rounded-xl py-4 flex flex-col items-center justify-center gap-2 transition border-2 ${
+                className={`rounded-xl py-4 cursor-pointer flex flex-col items-center justify-center gap-2 transition border-2 ${
                   accountType === 'teacher'
                     ? 'border-primary bg-surface-container'
                     : 'border-gray-300'
