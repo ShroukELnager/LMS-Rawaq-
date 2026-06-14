@@ -25,3 +25,8 @@ export interface ListGroupsResponse {
 
   status: 'member' | 'not_member' | 'pending'
 }
+
+
+export type JoinGroupRequest = {
+  group_id: string;
+};

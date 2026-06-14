@@ -9,12 +9,11 @@ import { toast } from "sonner";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { createGroupService } from "../../../lib/Services/groups/teacher/groups.service";
+import { createGroupService } from "../../../lib/Services/teacher/groups.service";
 import {
   CreateGroupFormData,
   CreateGroupFormInput,
 } from "../../../Types";
-import { UnknownKeysParam } from "zod/v3";
 
 export default function CreateGroup() {
   const router = useRouter();

@@ -1,7 +1,7 @@
-import { CreateGroupFormData } from "../../../../Types";
+import { CreateGroupFormData } from "../../../Types";
 
 export const createGroupService = async (data: CreateGroupFormData) => {
-  const res = await fetch("/api/groups/teacher", {
+  const res = await fetch("/api/teacher/groups", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

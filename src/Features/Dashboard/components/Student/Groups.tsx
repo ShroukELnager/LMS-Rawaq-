@@ -2,30 +2,36 @@
 
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
-import { ListGroupsService } from "../../lib/Services/groups/student/groups.service";
+import { ListGroupsService } from "../../lib/Services/student/groups.service";
 import { ListGroupsResponse } from "../../Types";
 import GroupSkeleton from "../../Skeleton/student/group";
 import ErrorState from "../../Errors/ErrorToLoadPage";
+import useRequestToJoin from "../../hooks/useRequestToJoin";
 
 export default function ListGroups() {
-    const { isPending, isError, data, error, refetch } = useQuery({
+    const groupsQuery = useQuery({
         queryKey: ["listGroups"],
         queryFn: ListGroupsService,
     });
 
-    if (isPending) {
+        const joinMutation = useRequestToJoin();
+
+
+
+    if (groupsQuery.isPending) {
         return (
             <GroupSkeleton />
         );
     }
-    if (isError) {
+    if (groupsQuery.isError) {
         return (
             <ErrorState
-                message={error.message}
-                onRetry={() => refetch()}
+                message={groupsQuery.error.message}
+                onRetry={() => groupsQuery.refetch()}
             />
         );
     };
+
 
 
     return (
@@ -57,7 +63,7 @@ export default function ListGroups() {
             </div>
 
             <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
-                {data?.map((group: ListGroupsResponse) => {
+                {groupsQuery.data?.map((group: ListGroupsResponse) => {
                     const percentage =
                         (group.current_students_count /
                             group.max_no_of_students) *
@@ -148,7 +154,12 @@ export default function ListGroups() {
                                 </span>
                             </div>
 
-                            <div className="mt-3 flex items-center gap-2 text-sm">
+                            <div className={`mt-3 flex items-center gap-2 text-sm  ${group.status === "member"
+                                    ? "text-primary"
+                                    : group.status === "pending"
+                                        ? "text-[#6E591A]"
+                                        : "text-text"
+                                    } `}>
                                 <Image
                                     src={
                                         group.status === "member"
@@ -172,13 +183,18 @@ export default function ListGroups() {
                             </div>
 
                             <button
+                                disabled={joinMutation.isPending}
+                                onClick={() =>
+                                    joinMutation.requestToJoin({
+                                        group_id: group.id,
+                                    })
+                                }
                                 className={`mt-5 w-full rounded-lg py-3 text-sm font-medium transition ${group.status === "member"
-                                        ? "border border-primary bg-white text-primary hover:bg-primary hover:text-white"
-                                        : group.status === "pending"
-                                            ? "cursor-not-allowed bg-gray-300 text-white"
-                                            : "bg-primary text-white hover:opacity-90"
+                                    ? "border border-primary bg-white text-primary hover:bg-primary hover:text-white"
+                                    : group.status === "pending"
+                                        ? "cursor-not-allowed bg-gray-300 text-white"
+                                        : "bg-primary text-white hover:opacity-90"
                                     }`}
-                                disabled={group.status === "pending"}
                             >
                                 {group.status === "member"
                                     ? "Open Group"

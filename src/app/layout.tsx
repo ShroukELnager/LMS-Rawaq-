@@ -4,6 +4,7 @@ import "./globals.css";
 import ReduxProvider from "@/redux/provider";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/Shared/lib/Provider";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,7 +34,10 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col"> 
                     <QueryClientProvider client={queryClient}>
 
-               <ReduxProvider>{children}</ReduxProvider>
+               <ReduxProvider>{children}
+                        <Toaster richColors position="top-right" />
+
+               </ReduxProvider>
                     </QueryClientProvider>
 </body>
     </html>

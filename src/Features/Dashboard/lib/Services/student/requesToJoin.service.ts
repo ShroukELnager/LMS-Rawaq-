@@ -1,10 +1,12 @@
+import {  JoinGroupRequest } from "../../../Types";
 
-export const ListGroupsService = async () => {
-  const res = await fetch("/api/groups/student", {
-    method: "GET",
+export const RequestToJoinGroup = async (data: JoinGroupRequest) => {
+  const res = await fetch("/api/student/requestToJoin", {
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
+    body: JSON.stringify(data),
   });
 
   if (!res.ok) {
