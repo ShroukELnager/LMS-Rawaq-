@@ -63,7 +63,7 @@ const onSubmit = async (data: SignUpFormData) => {
 
     toast.success("Account created successfully!");
 
-    router.push("/Dashboard");
+    router.push("/");
 
     console.log("Signup successful:", result.data);
   } catch (error) {

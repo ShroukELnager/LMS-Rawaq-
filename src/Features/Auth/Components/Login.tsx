@@ -47,7 +47,7 @@ export default function LoginPage() {
 }
 await dispatch(fetchCurrentUser()).unwrap();
       toast.success('Logged in successfully!');
-      router.push('/Dashboard');
+      router.push('/requests');
     } catch (error) {
       const errorMessage =
         error instanceof Error
