@@ -56,7 +56,7 @@ export default function useRequestToJoin() {
       });
     },
 
-    // ✅ نجاح
+    
     onSuccess: () => {
       toast.success("Your request has been sent successfully");
     },

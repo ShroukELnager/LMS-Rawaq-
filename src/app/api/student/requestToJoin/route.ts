@@ -16,7 +16,7 @@ export async function POST(request: Request) {
     }
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/rest/v1/group_join_request`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/rest/v1/group_join_requests`,
       {
         method: "POST",
         headers: {

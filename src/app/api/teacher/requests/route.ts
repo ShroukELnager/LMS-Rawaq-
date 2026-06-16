@@ -31,7 +31,7 @@ export async function GET() {
           message:
             data.message ||
             data.error ||
-            "Failed to get groups",
+            "Failed to view join requests groups",
         },
         { status: response.status }
       );

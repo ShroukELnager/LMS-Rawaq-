@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const menuItems = [
-  { name: "My Groups", href: "/Dashboard/group/create", icon: "/images/groups.png" },
+  { name: "My Groups", href: "/group/create", icon: "/images/groups.png" },
   { name: "Join Requests", href: "/requests", icon: "/images/requests.png" },
   { name: "Assignments", href: "/assignments", icon: "/images/assignments.png" },
   { name: "Students", href: "/students", icon: "/images/studentss.png" },
