@@ -1,0 +1,64 @@
+import { AcceptRequest } from "@/Features/Dashboard/Types";
+import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
+
+export async function POST(request: Request) {
+  try {
+    const body = (await request.json()) as AcceptRequest;
+
+    const token = (await cookies()).get("access_token")?.value;
+
+    if (!token) {
+      return NextResponse.json(
+        { message: "Unauthorized" },
+        { status: 401 }
+      );
+    }
+
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/rest/v1/rpc/accept_join_request`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          apikey: process.env.NEXT_PUBLIC_SUPABASE_KEY!,
+          Authorization: `Bearer ${token}`,
+          Prefer: "return=representation",
+        },
+        body: JSON.stringify(body),
+      }
+    );
+    console.log("API Route Body:", body);
+    if (response.status === 204) {
+      return NextResponse.json(
+        { success: true },
+        { status: 200 }
+      );
+    }
+    const data = await response.json();
+
+    if (!response.ok) {
+      return NextResponse.json(
+        {
+          message:
+            data.message ||
+            data.error ||
+            data.hint ||
+            "Unable to Accept this request. Please try again.",
+        },
+        { status: response.status }
+      );
+    }
+
+    return NextResponse.json(data, {
+      status: 200,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}

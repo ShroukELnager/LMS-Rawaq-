@@ -14,7 +14,7 @@ export default function ListGroups() {
         queryFn: ListGroupsService,
     });
 
-        const joinMutation = useRequestToJoin();
+    const joinMutation = useRequestToJoin();
 
 
 
@@ -155,11 +155,11 @@ export default function ListGroups() {
                             </div>
 
                             <div className={`mt-3 flex items-center gap-2 text-sm  ${group.status === "member"
-                                    ? "text-primary"
-                                    : group.status === "pending"
-                                        ? "text-[#6E591A]"
-                                        : "text-text"
-                                    } `}>
+                                ? "text-primary"
+                                : group.status === "pending"
+                                    ? "text-[#6E591A]"
+                                    : "text-text"
+                                } `}>
                                 <Image
                                     src={
                                         group.status === "member"
@@ -181,27 +181,29 @@ export default function ListGroups() {
                                             : "Enrollment Open"}
                                 </span>
                             </div>
-
-                            <button
-                                disabled={joinMutation.isPending}
-                                onClick={() =>
-                                    joinMutation.requestToJoin({
-                                        group_id: group.id,
-                                    })
-                                }
-                                className={`mt-5 w-full rounded-lg py-3 text-sm font-medium transition ${group.status === "member"
-                                    ? "border border-primary bg-white text-primary hover:bg-primary hover:text-white"
-                                    : group.status === "pending"
-                                        ? "cursor-not-allowed bg-gray-300 text-white"
-                                        : "bg-primary text-white hover:opacity-90"
-                                    }`}
-                            >
-                                {group.status === "member"
-                                    ? "Open Group"
-                                    : group.status === "pending"
-                                        ? "Pending Approval"
-                                        : "Request to Join"}
-                            </button>
+                            {group.current_students_count < group.max_no_of_students && (
+                                <button
+                                    disabled={joinMutation.isPending}
+                                    onClick={() =>
+                                        joinMutation.requestToJoin({
+                                            group_id: group.id,
+                                        })
+                                    }
+                                    className={`mt-5 w-full rounded-lg py-3 text-sm font-medium transition ${group.status === "member"
+                                            ? "border border-primary bg-white text-primary hover:bg-primary hover:text-white"
+                                            : group.status === "pending"
+                                                ? "cursor-not-allowed bg-gray-300 text-white"
+                                                : "bg-primary text-white hover:opacity-90"
+                                        }`}
+                                >
+                                    {group.status === "member"
+                                        ? "Open Group"
+                                        : group.status === "pending"
+                                            ? "Pending Approval"
+                                            : "Request to Join"}
+                                </button>
+                            )}
+                
                         </div>
                     );
                 })}

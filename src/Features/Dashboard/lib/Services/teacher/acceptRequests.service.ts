@@ -1,10 +1,12 @@
+import { AcceptRequest } from "../../../Types";
 
-export const viewGroupService = async () => {
-  const res = await fetch("/api/teacher/requests", {
-    method: "GET",
+export const AcceptRequestService = async (data: AcceptRequest) => {
+  const res = await fetch("/api/teacher/requests/acceptRequests", {
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
+    body: JSON.stringify(data),
   });
 
   if (!res.ok) {

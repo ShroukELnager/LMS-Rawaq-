@@ -1,5 +1,6 @@
-import { z } from "zod";
+import {z} from "zod";
 import { createGroupSchema } from "./Schema/CreateGroup";
+
 
 export type CreateGroupFormInput = z.input<typeof createGroupSchema>;
 export type CreateGroupFormData = z.infer<typeof createGroupSchema>;
@@ -44,6 +45,13 @@ export type JoinGroupRequest = {
   group_id: string;
 };
 
+export type AcceptRequest = {
+  p_request_id: string;
+};
+export type RejectRequest = {
+  p_request_id: string;
+};
+
 export type JoinRequestsProps = {
   requests: JoinGroupResponse[];
   isPending: boolean;
@@ -61,3 +69,19 @@ export type JoinRequestsDesktopProps =
 
 export type JoinRequestsMobileProps =
   JoinRequestsProps;
+  
+export interface StudentGroups{
+     id:string,
+        name: string,
+        created_at: string,
+        category: string,
+        start_date: string,
+        duration_in_days: number,
+        teacher: {
+            id: string,
+            last_name: string,
+            avatar_url: string,
+            first_name: string
+    }
+
+  }

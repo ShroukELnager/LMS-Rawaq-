@@ -1,4 +1,4 @@
-import ListGroups from '@/Features/Dashboard/components/Student/Groups'
+import ListGroups from '@/Features/Dashboard/components/Student/AllGroups'
 
 export default function ListGroupsPage() {
   return (

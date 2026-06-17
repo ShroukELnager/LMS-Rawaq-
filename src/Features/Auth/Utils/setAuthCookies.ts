@@ -34,4 +34,15 @@ maxAge: rememberMe
       ? 60 * 60 * 24 * 30 
       : 60 * 60 * 24 }
   );
+  
+
+  cookieStore.set(
+  "expires_at",
+  String(auth.expires_at),
+  {
+    httpOnly: true,
+    path: "/",
+    expires: accessTokenExpiresAt,
+  }
+);
 }

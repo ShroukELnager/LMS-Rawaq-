@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { viewGroupService } from "../lib/Services/teacher/requests.service";
+import { viewGroupService } from "../lib/Services/teacher/getAllRequests.service";
 
 export default function useJoinRequests() {
   const query = useQuery({
