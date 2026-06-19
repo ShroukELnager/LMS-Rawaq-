@@ -16,7 +16,7 @@ export default async function handler(
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}auth/v1/user`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/auth/v1/user`,
       {
         method: "GET",
         headers: {

@@ -14,10 +14,10 @@ export default function ErrorState({
   return (
     <div className="flex min-h-[60vh] flex-col items-center justify-center text-center">
       <Image
-        src="/images/error.png"
+        src="/images/error.svg"
         alt="error"
-        width={120}
-        height={120}
+        width={60}
+        height={60}
       />
 
       <h2 className="mt-4 text-xl font-semibold text-red-500">

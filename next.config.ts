@@ -1,4 +1,3 @@
-// next.config.ts
 
 import type { NextConfig } from "next";
 
@@ -9,6 +8,11 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "nyrnpjrhajarawlpyxdd.supabase.co",
         pathname: "/storage/v1/object/public/**",
+      },
+      {
+        protocol: "https",
+        hostname: "i.pravatar.cc",
+        pathname: "/**",
       },
     ],
   },

@@ -85,3 +85,11 @@ export interface StudentGroups{
     }
 
   }
+
+
+  export interface CreatePostRequest
+  {
+  group_id: string,
+  author_id:string,
+  content: string
+}
