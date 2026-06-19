@@ -3,6 +3,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const categories = [
   "Development",
@@ -55,6 +56,7 @@ const instructors = [
 ];
 
 export default function HomePage() {
+  const router=useRouter()
   return (
     <div className="min-h-screen bg-surface">
       {/* Navbar */}
@@ -79,11 +81,19 @@ export default function HomePage() {
           </div>
 
           <div className="flex gap-3">
-            <button className="rounded-xl border border-primary px-4 py-2 text-primary">
+            <button 
+            onClick={()=>{
+              router.push('/login')
+            }}
+            className="rounded-xl border border-primary px-4 py-2 text-primary">
               Login
             </button>
 
-            <button className="rounded-xl bg-primary px-4 py-2 text-white">
+            <button
+              onClick={()=>{
+              router.push('/signup')
+            }}
+             className="rounded-xl bg-primary px-4 py-2 text-white">
               Sign Up
             </button>
           </div>
