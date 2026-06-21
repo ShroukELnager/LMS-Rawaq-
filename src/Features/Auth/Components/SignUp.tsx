@@ -65,7 +65,6 @@ const onSubmit = async (data: SignUpFormData) => {
 
     router.push("/");
 
-    console.log("Signup successful:", result.data);
   } catch (error) {
     const errorMessage =
       error instanceof Error

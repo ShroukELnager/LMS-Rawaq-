@@ -28,7 +28,6 @@ export async function POST(request: Request) {
         body: JSON.stringify(body),
       }
     );
-    console.log("API Route Body:", body);
     if (response.status === 204) {
       return NextResponse.json(
         { success: true },

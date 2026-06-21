@@ -1,14 +1,14 @@
 import { toast } from "sonner";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { RequestToJoinGroup } from "../lib/Services/student/requesToJoin.service";
-import { JoinGroupRequest } from "../Types";
+import { CreatePostRequest } from "../Types";
+import { RequestToCreatePost } from "../lib/Services/student/createPost.service";
 
 export default function useCreatePosts() {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: (data: JoinGroupRequest) =>
-      RequestToJoinGroup(data),
+    mutationFn: (data: CreatePostRequest) =>
+      RequestToCreatePost(data),
 
     onSuccess: () => {
       toast.success("Your post has been created successfully");
@@ -16,8 +16,6 @@ export default function useCreatePosts() {
       queryClient.invalidateQueries({
         queryKey: ["posts"],
       });
-
-     
     },
 
     onError: () => {
@@ -26,9 +24,8 @@ export default function useCreatePosts() {
   });
 
   return {
-    posts: mutation.mutateAsync,
+    posts: mutation.mutate, 
+    postsAsync: mutation.mutateAsync,
     isPending: mutation.isPending,
-    isError: mutation.isError,
-    error: mutation.error,
   };
 }

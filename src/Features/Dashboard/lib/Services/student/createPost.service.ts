@@ -1,7 +1,7 @@
 import {  CreatePostRequest } from "../../../Types";
 
-export const RequestToJoinGroup = async (data: CreatePostRequest) => {
-  const res = await fetch("/api/student/createPost", {
+export const RequestToCreatePost = async (data: CreatePostRequest) => {
+  const res = await fetch("/api/student/createPosts", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

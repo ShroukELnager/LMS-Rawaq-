@@ -32,7 +32,6 @@ export default function UserAvatar({ size = 40 }: UserAvatarProps) {
       ? `${firstName[0]}${lastName[0]}`.toUpperCase()
       : firstName.slice(0, 2).toUpperCase();
 
-  // لو مفيش صورة أو فيها error → fallback
   if (!avatarUrl || imgError) {
     return (
       <div

@@ -1,7 +1,14 @@
-import GroupPage from '@/Features/Dashboard/components/Student/GroupDetails/GroupPage'
-import React from 'react'
+import GroupPage from "@/Features/Dashboard/components/Student/GroupDetails/GroupPage";
 
-export default function page() {
-  return (
-<GroupPage/>  )
+type PageProps = {
+  params: Promise<{
+    groupId: string;
+  }>;
+};
+
+export default async function Page({ params }: PageProps) {
+  const { groupId } = await params;
+
+
+  return <GroupPage groupId={groupId} />;
 }

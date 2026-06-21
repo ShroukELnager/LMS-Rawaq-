@@ -27,7 +27,6 @@ export default function LoginPage() {
   const onSubmit = async (data: LoginFormData) => {
     try {
       const result = await loginAction(data);
-      console.log(result);
    if (!result.ok) {
   const rawError = result.error;
 
