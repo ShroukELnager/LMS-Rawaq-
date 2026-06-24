@@ -1,118 +1,54 @@
 import Image from "next/image";
 import { Heart, MessageSquare } from "lucide-react";
-import { Post } from "@/Features/Dashboard/data";
+import { PostCardProps } from "@/Features/Dashboard/Types";
 
-type PostCardProps = {
-  post: Post;
-};
 
-export default function PostCard({ post }: PostCardProps) {
+
+export default function PostCard( post : PostCardProps) {
   return (
-    <div
-      style={{
-        borderRadius: "16px",
-        backgroundColor: "#fff",
-        padding: "20px",
-        boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          gap: "12px",
-          alignItems: "center",
-        }}
-      >
+    <div className="rounded-2xl bg-white p-5 shadow-sm">
+      <div className="flex items-center gap-3">
         <Image
-          src={post.authorAvatar}
-          alt={post.authorName}
+          src={post.author?.avatar_url || '/images/avatar.png'}
+          alt={post.author?.first_name || 'User'}
           width={45}
           height={45}
-          style={{
-            borderRadius: "50%",
-          }}
+          className="rounded-full"
         />
 
         <div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-            }}
-          >
-            <h3
-              style={{
-                fontWeight: 600,
-                color: "#101828",
-              }}
-            >
-              {post.authorName}
+          <div className="flex items-center gap-2">
+            <h3 className="font-semibold text-[#101828]">
+              {post.author?.first_name} {post.author?.last_name}
             </h3>
 
-            <span
-              style={{
-                fontSize: "12px",
-                color: "#98A2B3",
-              }}
-            >
-              {new Date(post.createdAt).toLocaleDateString()}
+            <span className="text-xs text-[#98A2B3]">
+              {new Date(post.created_at).toLocaleDateString()}
             </span>
           </div>
 
-          <span
-            style={{
-              fontSize: "12px",
-              color: "#0F766E",
-            }}
-          >
-            Instructor
-          </span>
+          <span className="text-xs text-teal-700">Instructor</span>
         </div>
       </div>
 
-      <p
-        style={{
-          marginTop: "16px",
-          fontSize: "14px",
-          lineHeight: "28px",
-          color: "#475467",
-        }}
-      >
+      <p className="mt-4 text-sm leading-7 text-[#475467] line-clamp-3">
         {post.content}
       </p>
 
-      <div
-        style={{
-          display: "flex",
-          gap: "24px",
-          marginTop: "16px",
-        }}
-      >
+      <div className="mt-4 flex gap-6">
         <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-            fontSize: "14px",
-            color: "#667085",
-          }}
+          className={`flex items-center gap-2 text-sm ${
+            post.is_liked ? 'text-red-500' : 'text-[#667085]'
+          }`}
         >
-          <Heart size={15} />
-          {post.likesCount} likes
+          <Heart size={15} className={post.is_liked ? 'fill-red-500' : ''} />
+
+          <span>{post.likes_count} likes</span>
         </div>
 
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-            fontSize: "14px",
-            color: "#667085",
-          }}
-        >
+        <div className="flex items-center gap-2 text-sm text-[#667085]">
           <MessageSquare size={15} />
-          {post.commentsCount} comments
+          <span>{post.comments_count} comments</span>
         </div>
       </div>
     </div>

@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { ClipboardList, FileText, Users } from "lucide-react";
-import HeaderCard from "./HeaderCard";
-import SectionCard from "./SectionCard";
-import {
-  assignmentsMock,
-  latestPostsMock,
-} from "@/Features/Dashboard/data";
-import PostCard from "./PostCard";
-import AssignmentCard from "./AssignmentCard";
-import FloatingButton from "./FloatingButton";
-import { useState } from "react";
-import CreatePostModal from "../Posts/CreatePostModal";
-import SuccessModal from "../Posts/SuccessModal";
+import { ClipboardList, FileText, Users } from 'lucide-react';
+import SectionCard from './SectionCard';
+import { assignmentsMock } from '@/Features/Dashboard/data';
+import PostCard from './PostCard';
+import AssignmentCard from './AssignmentCard';
+import FloatingButton from './FloatingButton';
+import { useState } from 'react';
+import CreatePostModal from '../Posts/CreatePostModal';
+import SuccessModal from '../Posts/SuccessModal';
+import useGetPosts from '@/Features/Dashboard/hooks/useGetPosts';
+import { PostCardProps } from '@/Features/Dashboard/Types';
+import PostCardSkeleton from '@/Features/Dashboard/Skeleton/student/PostCardSkeleton';
+import { useRouter } from 'next/navigation';
 
 type GroupPageProps = {
   groupId: string;
@@ -22,18 +22,12 @@ export default function GroupPage({ groupId }: GroupPageProps) {
   const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
 
-  const group = {
-    id: groupId,
-    name: "Frontend Group 2", 
-  };
+  const { data: posts, isPending } = useGetPosts(groupId, 3);
+  const router=useRouter()
 
   return (
     <div className="min-h-screen bg-[#F5F7FA] p-5">
       <div className="mx-auto max-w-7xl">
-
-        {/* HEADER */}
-        {/* <HeaderCard group={group} /> */}
-
         {/* Top Cards */}
         <div className="mt-5 grid gap-4 md:grid-cols-3">
           <SectionCard
@@ -62,47 +56,41 @@ export default function GroupPage({ groupId }: GroupPageProps) {
         </div>
 
         {/* Content */}
-        <div
-          style={{
-            marginTop: "32px",
-            display: "grid",
-            gap: "24px",
-            gridTemplateColumns: "2fr 1fr",
-          }}
-        >
+        <div className="mt-8 grid gap-6 lg:grid-cols-[2fr_1fr]">
           {/* Posts */}
           <div>
-            <div
-              style={{
-                marginBottom: "20px",
-                display: "flex",
-                justifyContent: "space-between",
-              }}
-            >
-              <h2 style={{ fontSize: "24px", fontWeight: 700 }}>
+            <div className="mb-5 flex items-center justify-between">
+              <h2 className="text-2xl font-bold text-[#101828]">
                 Latest Posts
               </h2>
+
+              <button
+              onClick={()=>{
+                router.push('/posts')
+              }}
+              className="text-sm cursor-pointer font-medium text-teal-700 hover:text-teal-800">
+                View all posts
+              </button>
             </div>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-              {latestPostsMock.map((post) => (
-                <PostCard key={post.id} post={post} />
-              ))}
+            <div className="flex flex-col gap-4">
+              {isPending
+                ? Array.from({ length: 3 }).map((_, index) => (
+                    <PostCardSkeleton key={index} />
+                  ))
+                : posts?.map((post: PostCardProps) => (
+                    <PostCard key={post.id} {...post} />
+                  ))}
             </div>
           </div>
 
           {/* Assignments */}
           <div>
-            <h2 style={{ fontSize: "20px", fontWeight: 700 }}>
-              Assignments
-            </h2>
+            <h2 className="text-xl font-bold text-[#101828]">Assignments</h2>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            <div className="mt-5 flex flex-col gap-4">
               {assignmentsMock.map((assignment) => (
-                <AssignmentCard
-                  key={assignment.id}
-                  assignment={assignment}
-                />
+                <AssignmentCard key={assignment.id} assignment={assignment} />
               ))}
             </div>
           </div>
@@ -117,16 +105,13 @@ export default function GroupPage({ groupId }: GroupPageProps) {
               setIsCreatePostOpen(false);
               setIsSuccessModalOpen(true);
             }}
-            groupId={groupId} 
+            groupId={groupId}
           />
         )}
 
         {isSuccessModalOpen && (
-          <SuccessModal
-            onClose={() => setIsSuccessModalOpen(false)}
-          />
+          <SuccessModal onClose={() => setIsSuccessModalOpen(false)} />
         )}
-
       </div>
     </div>
   );

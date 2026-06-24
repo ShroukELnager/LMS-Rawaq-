@@ -93,3 +93,20 @@ export interface StudentGroups{
   author_id:string,
   content: string
 }
+
+export interface PostCardProps{
+        id: string,
+        group_id: string,
+        content: string,
+        created_at:string,
+        author_id: string,
+        author: {
+            id: string,
+            last_name: string,
+            avatar_url: string,
+            first_name: string
+        },
+        comments_count: number,
+        likes_count: number,
+        is_liked: boolean
+    }
