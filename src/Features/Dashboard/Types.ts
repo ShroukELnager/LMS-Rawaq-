@@ -110,3 +110,7 @@ export interface PostCardProps{
         likes_count: number,
         is_liked: boolean
     }
+
+    export type LikePostRequest={
+  post_id:string
+}

@@ -1,5 +1,6 @@
 "use client";
 
+import { fixSupabaseUrl } from "@/Features/Dashboard/lib/FixSupabaseUrl";
 import { useAppSelector } from "@/redux/hooks";
 import Image from "next/image";
 import { useState } from "react";
@@ -8,14 +9,7 @@ interface UserAvatarProps {
   size?: number;
 }
 
-function fixSupabaseUrl(url?: string) {
-  if (!url) return "";
 
-  return url.replace(
-    "https://nyrnpjrhajarawlpyxdd.supabase.co//",
-    "https://nyrnpjrhajarawlpyxdd.supabase.co/"
-  );
-}
 
 export default function UserAvatar({ size = 40 }: UserAvatarProps) {
   const user = useAppSelector((state) => state.user.user);

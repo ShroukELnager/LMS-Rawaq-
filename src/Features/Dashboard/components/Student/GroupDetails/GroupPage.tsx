@@ -13,6 +13,7 @@ import useGetPosts from '@/Features/Dashboard/hooks/useGetPosts';
 import { PostCardProps } from '@/Features/Dashboard/Types';
 import PostCardSkeleton from '@/Features/Dashboard/Skeleton/student/PostCardSkeleton';
 import { useRouter } from 'next/navigation';
+import ErrorState from '@/Features/Dashboard/Errors/ErrorToLoadPage';
 
 type GroupPageProps = {
   groupId: string;
@@ -22,8 +23,15 @@ export default function GroupPage({ groupId }: GroupPageProps) {
   const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
 
-  const { data: posts, isPending } = useGetPosts(groupId, 3);
-  const router=useRouter()
+  const {
+    data: posts,
+    isPending,
+    isError,
+    error,
+    refetch,
+  } = useGetPosts(groupId, 3);
+
+  const router = useRouter();
 
   return (
     <div className="min-h-screen bg-[#F5F7FA] p-5">
@@ -65,22 +73,38 @@ export default function GroupPage({ groupId }: GroupPageProps) {
               </h2>
 
               <button
-              onClick={()=>{
-                router.push('/posts')
-              }}
-              className="text-sm cursor-pointer font-medium text-teal-700 hover:text-teal-800">
+                onClick={() => router.push(`/group/posts?groupId=${groupId}`)}
+                className="cursor-pointer text-sm font-medium text-teal-700 hover:text-teal-800"
+              >
                 View all posts
               </button>
             </div>
 
             <div className="flex flex-col gap-4">
-              {isPending
-                ? Array.from({ length: 3 }).map((_, index) => (
-                    <PostCardSkeleton key={index} />
-                  ))
-                : posts?.map((post: PostCardProps) => (
-                    <PostCard key={post.id} {...post} />
-                  ))}
+              {isPending ? (
+                Array.from({ length: 3 }).map((_, index) => (
+                  <PostCardSkeleton key={index} />
+                ))
+              ) : isError ? (
+                <ErrorState
+                  message={error?.message || 'Failed to load posts'}
+                  onRetry={() => refetch()}
+                />
+              ) : !posts || posts.length === 0 ? (
+                <div className="rounded-2xl bg-white p-8 text-center shadow-sm">
+                  <h3 className="text-lg font-semibold text-[#101828]">
+                    No posts yet
+                  </h3>
+
+                  <p className="mt-2 text-sm text-[#667085]">
+                    Posts shared by the teacher will appear here.
+                  </p>
+                </div>
+              ) : (
+                posts.map((post: PostCardProps) => (
+                  <PostCard key={post.id} {...post} />
+                ))
+              )}
             </div>
           </div>
 
