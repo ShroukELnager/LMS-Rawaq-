@@ -87,6 +87,11 @@ export interface StudentGroups{
   }
 
 
+  export interface CreateCommentRequest
+  {
+  post_id: string,
+  content: string
+}
   export interface CreatePostRequest
   {
   group_id: string,

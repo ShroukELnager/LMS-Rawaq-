@@ -48,7 +48,7 @@ export default function AssignmentInformationCard({ assignment }: Props) {
 
           <DatePicker
             selected={deadline}
-            onChange={(date) => setDeadline(date)}
+            onChange={(date:any) => setDeadline(date)}
             dateFormat="MMM dd, yyyy"
             className="h-11 w-full rounded-lg border border-[#D9E2F2] bg-white px-4"
           />
