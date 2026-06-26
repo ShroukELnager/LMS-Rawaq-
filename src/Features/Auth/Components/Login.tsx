@@ -15,14 +15,17 @@ export default function LoginPage() {
   const router = useRouter();
     const dispatch = useAppDispatch();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    setError,
-  } = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema),
-  });
+const {
+  register,
+  handleSubmit,
+  formState: { errors, isSubmitting },
+  setError,
+} = useForm<LoginFormData>({
+  resolver: zodResolver(loginSchema),
+  defaultValues: {
+    rememberMe: false,
+  },
+});
 
   const onSubmit = async (data: LoginFormData) => {
     try {

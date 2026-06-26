@@ -45,4 +45,17 @@ maxAge: rememberMe
     expires: accessTokenExpiresAt,
   }
 );
+  cookieStore.set(
+    "remember_me",
+    String(rememberMe),
+    {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: rememberMe
+        ? 60 * 60 * 24 * 30
+        : 60 * 60 * 24,
+    }
+  );
 }
