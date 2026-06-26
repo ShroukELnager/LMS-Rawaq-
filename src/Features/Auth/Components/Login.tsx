@@ -62,26 +62,65 @@ await dispatch(fetchCurrentUser()).unwrap();
       });
     }
   };
-  return (
-    <div className="min-h-screen bg-surface flex">
-      <div className="hidden lg:flex w-[45%] bg-primary text-white flex-col justify-between p-14 rounded-r-3xl">
-        <div>
-          <h1 className="text-5xl font-bold leading-tight">
-            Welcome to Rawaq
-            <br />
-            — your structured
-            <br />
-            learning space
-          </h1>
+return (
+  <div className="min-h-screen bg-surface">
+    <div className="flex min-h-screen w-full">
+      {/* Left Section */}
+      <div
+        className="
+    hidden
+    lg:flex
+    w-[45%]
+    min-h-screen
+    bg-primary
+    text-white
+    flex-col
+    p-10
+    xl:p-14
+    rounded-r-3xl
+    shrink-0
+  "
+      >
+        {/* Center Content */}
+        <div
+          className="
+      flex-1
+      flex
+      items-center
+      justify-center
+    "
+        >
+          <div className="max-w-lg text-center">
+            <h1 className="text-4xl xl:text-5xl font-bold leading-tight">
+              Welcome to Rawaq
+              <br />
+              — your structured
+              <br />
+              learning space
+            </h1>
 
-          <p className="mt-8 text-white/80 text-base leading-8 max-w-md">
-            Step back into your journey of knowledge. Access your curated
-            lessons, connect with mentors, and track your progress along the
-            golden path of academic excellence.
-          </p>
+            <p className="mt-8 text-white/80 text-base leading-8">
+              Step back into your journey of knowledge. Access your curated
+              lessons, connect with mentors, and track your progress along the
+              golden path of academic excellence.
+            </p>
+          </div>
         </div>
 
-        <div className="bg-[#0A7480] rounded-xl p-4 flex items-center gap-3 max-w-md">
+        {/* Bottom Quote */}
+        <div
+          className="
+      bg-[#0A7480]
+      rounded-xl
+      p-4
+      flex
+      items-center
+      gap-3
+      w-full
+      max-w-md
+      mx-auto
+    "
+        >
           <Image
             src="/images/dr.png"
             alt="Mentor"
@@ -92,7 +131,7 @@ await dispatch(fetchCurrentUser()).unwrap();
 
           <div>
             <p className="text-sm">
-              &quot;Knowledge is a garden that must be tended.&quot;{' '}
+              &quot;Knowledge is a garden that must be tended.&quot;
             </p>
 
             <p className="text-xs text-white/70">
@@ -102,10 +141,47 @@ await dispatch(fetchCurrentUser()).unwrap();
         </div>
       </div>
 
-      <div className="flex-1 flex justify-center items-center px-5 py-8">
-        <div className="w-full max-w-md">
-          <div className="lg:hidden flex flex-col items-center mb-10">
-            <div className="bg-primary w-16 h-16 rounded-xl flex items-center justify-center">
+      {/* Form Section */}
+      <div
+        className="
+          flex-1
+          flex
+          justify-center
+          items-center
+          px-5
+          sm:px-8
+          lg:px-12
+          py-8
+        "
+      >
+        <div
+          className="
+            w-full
+            max-w-md
+            lg:max-w-lg
+          "
+        >
+          {/* Mobile Logo */}
+          <div
+            className="
+              lg:hidden
+              flex
+              flex-col
+              items-center
+              mb-10
+            "
+          >
+            <div
+              className="
+                bg-primary
+                w-16
+                h-16
+                rounded-xl
+                flex
+                items-center
+                justify-center
+              "
+            >
               <Image
                 src="/images/logo.png"
                 alt="Rawaq"
@@ -121,22 +197,20 @@ await dispatch(fetchCurrentUser()).unwrap();
             </p>
           </div>
 
+          {/* Desktop Header */}
           <div className="hidden lg:block mb-10">
             <h2 className="text-4xl font-bold text-primary">Welcome back</h2>
 
-            <p className="text-text mt-2">
-              Log in to continue your education.
-            </p>
+            <p className="text-text mt-2">Log in to continue your education.</p>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             {errors.root && (
               <div className="text-center">
-                <p className="text-sm text-red-500">
-                  {errors.root.message}
-                </p>
+                <p className="text-sm text-red-500">{errors.root.message}</p>
               </div>
             )}
+
             <div>
               <label className="block text-sm mb-2 text-gray-700">Email</label>
 
@@ -145,13 +219,27 @@ await dispatch(fetchCurrentUser()).unwrap();
                   {...register('email')}
                   type="email"
                   placeholder="name@example.com"
-                  className="w-full bg-white border border-gray-300 rounded-lg py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="
+                    w-full
+                    bg-white
+                    border
+                    border-gray-300
+                    rounded-lg
+                    py-3
+                    pl-10
+                    pr-4
+                    focus:outline-none
+                    focus:ring-2
+                    focus:ring-primary
+                  "
                 />
+
                 {errors.email && (
                   <p className="text-sm text-red-500 mt-1">
                     {errors.email.message}
                   </p>
                 )}
+
                 <Image
                   src="/images/email.png"
                   alt="Email"
@@ -179,8 +267,21 @@ await dispatch(fetchCurrentUser()).unwrap();
                   {...register('password')}
                   type="password"
                   placeholder="••••••••"
-                  className="w-full bg-white border border-gray-300 rounded-lg py-3 pl-10 pr-10 focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="
+                    w-full
+                    bg-white
+                    border
+                    border-gray-300
+                    rounded-lg
+                    py-3
+                    pl-10
+                    pr-10
+                    focus:outline-none
+                    focus:ring-2
+                    focus:ring-primary
+                  "
                 />
+
                 {errors.password && (
                   <p className="text-sm text-red-500 mt-1">
                     {errors.password.message}
@@ -202,13 +303,26 @@ await dispatch(fetchCurrentUser()).unwrap();
               Remember me
             </label>
 
-
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-primary text-white py-3 rounded-lg font-medium flex items-center justify-center gap-2 hover:opacity-90 transition"
+              className="
+                w-full
+                bg-primary
+                text-white
+                py-3
+                rounded-lg
+                font-medium
+                flex
+                items-center
+                justify-center
+                gap-2
+                hover:opacity-90
+                transition
+              "
             >
               {isSubmitting ? 'Logging in...' : 'Log In'}
+
               <Image
                 src="/images/rightArrow.png"
                 alt="Arrow"
@@ -227,5 +341,6 @@ await dispatch(fetchCurrentUser()).unwrap();
         </div>
       </div>
     </div>
-  );
+  </div>
+);
 }
