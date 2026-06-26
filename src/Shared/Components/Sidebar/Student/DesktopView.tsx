@@ -26,7 +26,19 @@ export default function DesktopSidebar() {
   const isDashboardActive = pathname === '/dashboard';
 
   return (
-    <aside className="hidden lg:flex flex-col w-72 h-screen p-5 bg-[#E6E3D0]">
+    <aside
+      className="
+        hidden
+        lg:flex
+        flex-col
+        w-72
+        h-full
+        shrink-0
+        bg-[#E6E3D0]
+        p-5
+      "
+    >
+      {/* Logo */}
       <div className="mb-8 flex items-center gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary">
           <Image
@@ -38,11 +50,11 @@ export default function DesktopSidebar() {
         </div>
 
         <div className="leading-tight">
-          <h2 className="font-sans text-sm font-bold leading-5 tracking-[0.14px] text-primary">
+          <h2 className="text-sm font-bold leading-5 tracking-[0.14px] text-primary">
             Student Portal
           </h2>
 
-          <p className="text-[10px] leading-[15px] tracking-[0.5px] uppercase font-normal text-[#48473A]">
+          <p className="text-[10px] uppercase leading-[15px] tracking-[0.5px] text-[#48473A]">
             Academic Excellence
           </p>
         </div>
@@ -51,7 +63,18 @@ export default function DesktopSidebar() {
       {/* Dashboard */}
       <Link
         href="/dashboard"
-        className={`mb-5 flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm transition
+        className={`
+          mb-5
+          flex
+          w-full
+          items-center
+          gap-3
+          rounded-xl
+          px-4
+          py-3
+          text-sm
+          transition
+
           ${
             isDashboardActive
               ? 'bg-primary text-white'
@@ -69,7 +92,8 @@ export default function DesktopSidebar() {
         <span className="font-medium">Dashboard</span>
       </Link>
 
-      <nav className="flex flex-col gap-2 flex-1">
+      {/* Main Menu */}
+      <nav className="flex flex-1 flex-col gap-2">
         {menuItems.map((item) => {
           const isActive = pathname === item.href;
 
@@ -77,7 +101,16 @@ export default function DesktopSidebar() {
             <Link
               key={item.name}
               href={item.href}
-              className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm transition
+              className={`
+                flex
+                items-center
+                gap-3
+                rounded-xl
+                px-4
+                py-3
+                text-sm
+                transition
+
                 ${
                   isActive
                     ? 'bg-primary text-white'
@@ -93,9 +126,11 @@ export default function DesktopSidebar() {
         })}
       </nav>
 
+      {/* Divider */}
       <div className="my-5 border-t border-text/10" />
 
-      <div className="flex flex-col gap-3 mb-6">
+      {/* Bottom Menu */}
+      <div className="flex flex-col gap-3">
         {Items.map((item) => {
           const isActive = pathname === item.href;
 
@@ -103,7 +138,16 @@ export default function DesktopSidebar() {
             <Link
               key={item.name}
               href={item.href}
-              className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm transition
+              className={`
+                flex
+                items-center
+                gap-3
+                rounded-xl
+                px-4
+                py-3
+                text-sm
+                transition
+
                 ${
                   isActive
                     ? 'bg-primary text-white'
