@@ -119,3 +119,23 @@ export interface PostCardProps{
     export type LikePostRequest={
   post_id:string
 }
+
+
+export interface Comment {
+  id: string;
+
+  post_id: string;
+
+  content: string;
+
+  created_at: string;
+
+  author_id: string;
+
+  author: {
+    id: string;
+    first_name: string;
+    last_name: string;
+    avatar_url: string;
+  };
+}
