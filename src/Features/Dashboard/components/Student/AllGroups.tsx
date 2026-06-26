@@ -7,8 +7,10 @@ import { ListGroupsResponse } from '../../Types';
 import GroupSkeleton from '../../Skeleton/Student/group';
 import ErrorState from '../../Errors/ErrorToLoadPage';
 import useRequestToJoin from '../../Hooks/useRequestToJoin';
+import { useRouter } from 'next/navigation';
 
 export default function ListGroups() {
+  const router=useRouter()
   const groupsQuery = useQuery({
     queryKey: ['listGroups'],
     queryFn: ListGroupsService,
@@ -175,13 +177,19 @@ export default function ListGroups() {
                   disabled={
                     joinMutation.isPending || group.status === 'pending'
                   }
-                  onClick={() =>
-                    group.status !== 'pending' &&
-                    joinMutation.requestToJoin({
-                      group_id: group.id,
-                    })
-                  }
-                  className={`mt-5 w-full rounded-lg py-3 text-sm font-medium transition ${
+                  onClick={() => {
+                    if (group.status === 'member') {
+                      router.push(`/group/${group.id}`);
+                      return;
+                    }
+
+                    if (group.status !== 'pending') {
+                      joinMutation.requestToJoin({
+                        group_id: group.id,
+                      });
+                    }
+                  }}
+                  className={`mt-5 w-full cursor-pointer rounded-lg py-3 text-sm font-medium transition ${
                     group.status === 'member'
                       ? 'border border-primary bg-white text-primary hover:bg-primary hover:text-white'
                       : group.status === 'pending'
