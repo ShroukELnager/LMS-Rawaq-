@@ -67,9 +67,11 @@ export default function ListGroups() {
               className="rounded-xl border border-gray-300 bg-white p-4 shadow-sm transition hover:shadow-md"
             >
               <div className="flex items-start justify-between">
-                <span className="rounded-md bg-[#E5EEEF] px-3 py-1 text-xs font-medium text-primary">
-                  {group.category}
-                </span>
+                {group.category && (
+                  <span className="rounded-md bg-[#E5EEEF] px-3 py-1 text-xs font-medium text-primary">
+                    {group.category}
+                  </span>
+                )}
 
                 <div className="flex items-center gap-1 text-xs text-gray-500">
                   <Image
@@ -114,7 +116,7 @@ export default function ListGroups() {
 
                 <div className="h-2 overflow-hidden rounded-full bg-gray-200">
                   <div
-                    className="h-full rounded-full bg-primary transition-all"
+                    className="h-full rounded-full bg-[#D4AF37] transition-all"
                     style={{
                       width: `${percentage}%`,
                     }}
@@ -168,10 +170,13 @@ export default function ListGroups() {
                       : 'Enrollment Open'}
                 </span>
               </div>
-              {group.current_students_count < group.max_no_of_students && (
+              {group.current_students_count < group.max_no_of_students ? (
                 <button
-                  disabled={joinMutation.isPending}
+                  disabled={
+                    joinMutation.isPending || group.status === 'pending'
+                  }
                   onClick={() =>
+                    group.status !== 'pending' &&
                     joinMutation.requestToJoin({
                       group_id: group.id,
                     })
@@ -190,6 +195,21 @@ export default function ListGroups() {
                       ? 'Pending Approval'
                       : 'Request to Join'}
                 </button>
+              ) : (
+                <div
+                  className="
+      mt-5
+      rounded-lg
+      bg-[#F2F4F7]
+      py-3
+      text-center
+      text-sm
+      font-medium
+      text-[#667085]
+    "
+                >
+                  🎓 This group is currently full. Stay tuned for new spots!
+                </div>
               )}
             </div>
           );
