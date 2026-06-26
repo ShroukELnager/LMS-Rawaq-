@@ -13,6 +13,7 @@ import { useState } from 'react';
 import FileUploader from './FileUploader';
 import { useAppDispatch } from '@/redux/hooks';
 import { fetchCurrentUser } from '@/redux/features/userThunks';
+import { AuthService } from '../AuthService';
 export default function RegisterPage() {
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -25,19 +26,25 @@ const {
   resolver: zodResolver(SignupSchema),
 });
 
-const [avatarUrl, setAvatarUrl] = useState<string>("");
+const [avatarFile, setAvatarFile] = useState<File | null>(null);
 const [accountType, setAccountType] = useState<"student" | "teacher" | null>(
   null
 );
 
 const onSubmit = async (data: SignUpFormData) => {
   try {
+    let avatarUrl = '';
+
+    if (avatarFile) {
+      avatarUrl = await AuthService.uploadAvatar(avatarFile);
+    }
+
     const result = await signupAction({
       firstName: data.firstName,
       lastName: data.lastName,
       email: data.email,
       password: data.password,
-      accountType: accountType || "student",
+      accountType: accountType || 'student',
       avatarUrl,
     });
 
@@ -45,14 +52,14 @@ const onSubmit = async (data: SignUpFormData) => {
       const rawError = result.error;
 
       const errorMessage =
-        rawError === "User already registered"
-          ? "This email is already registered."
-          : rawError || "Failed to create account.";
+        rawError === 'User already registered'
+          ? 'This email is already registered.'
+          : rawError || 'Failed to create account.';
 
       toast.error(errorMessage);
 
-      setError("root", {
-        type: "server",
+      setError('root', {
+        type: 'server',
         message: errorMessage,
       });
 
@@ -61,22 +68,21 @@ const onSubmit = async (data: SignUpFormData) => {
 
     await dispatch(fetchCurrentUser()).unwrap();
 
-    toast.success("Account created successfully!");
+    toast.success('Account created successfully!');
 
-      router.push('/dashboard');
-
+    router.push('/dashboard');
   } catch (error) {
     const errorMessage =
       error instanceof Error
         ? error.message
-        : "Something went wrong. Please try again.";
+        : 'Something went wrong. Please try again.';
 
     console.error(error);
 
     toast.error(errorMessage);
 
-    setError("root", {
-      type: "server",
+    setError('root', {
+      type: 'server',
       message: errorMessage,
     });
   }
@@ -191,13 +197,11 @@ const onSubmit = async (data: SignUpFormData) => {
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="mt-6">
-              {errors.root && (
-    <div className="mb-4 text-center">
-      <p className="text-sm text-red-500">
-        {errors.root.message}
-      </p>
-    </div>
-  )}
+            {errors.root && (
+              <div className="mb-4 text-center">
+                <p className="text-sm text-red-500">{errors.root.message}</p>
+              </div>
+            )}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-label-md mb-2 text-gray-700">
@@ -296,8 +300,7 @@ const onSubmit = async (data: SignUpFormData) => {
               )}
             </div>
 
-            <FileUploader onUploadSuccess={setAvatarUrl} />
-
+            <FileUploader onFileSelect={setAvatarFile} />
             <button
               type="submit"
               disabled={isSubmitting}
