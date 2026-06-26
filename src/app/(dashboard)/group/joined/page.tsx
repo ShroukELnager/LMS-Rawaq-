@@ -1,6 +1,5 @@
-import JoinedGroup from '@/Features/Dashboard/components/Student/JoinedGroup'
+import JoinedGroup from '@/Features/Dashboard/Components/Student/JoinedGroup';
 
 export default function page() {
-  return (
-<JoinedGroup/>  )
+  return <JoinedGroup />;
 }

@@ -5,8 +5,8 @@ import UserAvatar from '@/Shared/Utils/UserAvatar';
 import { formatRequestTime } from '@/Features/Dashboard/lib/FormatRequestTime';
 import { JoinRequestsMobileProps } from '@/Features/Dashboard/Types';
 
-import useAcceptRequest from '@/Features/Dashboard/hooks/useAcceptRequest';
-import useRejectRequest from '@/Features/Dashboard/hooks/useRejectRequest';
+import useAcceptRequest from '@/Features/Dashboard/Hooks/useAcceptRequest';
+import useRejectRequest from '@/Features/Dashboard/Hooks/useRejectRequest';
 
 import ScrollableTabs from '@/Features/Dashboard/lib/ScrollableTabs';
 import JoinRequestsHeader from './JoinRequestsDesktopHeader';

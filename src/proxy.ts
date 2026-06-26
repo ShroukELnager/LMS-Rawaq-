@@ -1,6 +1,6 @@
 import { AuthService } from '@/Features/Auth/AuthService';
-import { removeAuthCookies } from '@/Features/Auth/Utils/removeAuthCookies';
-import { setAuthCookies } from '@/Features/Auth/Utils/setAuthCookies';
+import { removeAuthCookies } from '@/Features/Auth/Utils/RemoveAuthCookies';
+import { setAuthCookies } from '@/Features/Auth/Utils/SetAuthCookies';
 import { NextRequest, NextResponse } from 'next/server';
 
 const protectedRoutes = ['/dashboard'];

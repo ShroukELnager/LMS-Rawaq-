@@ -1,9 +1,8 @@
-"use client";
+'use client';
 
-import useJoinRequests from "@/Features/Dashboard/hooks/useJoinRequests";
-import JoinRequestsDesktop from "./JoinRequestsDesktop";
-import JoinRequestsMobile from "./JoinRequestsMobile";
-
+import useJoinRequests from '@/Features/Dashboard/Hooks/useJoinRequests';
+import JoinRequestsDesktop from './JoinRequestsDesktop';
+import JoinRequestsMobile from './JoinRequestsMobile';
 
 export default function JoinRequests() {
   const joinRequestsQuery = useJoinRequests();
@@ -11,15 +10,11 @@ export default function JoinRequests() {
   return (
     <>
       <div className="hidden lg:block">
-        <JoinRequestsDesktop
-          {...joinRequestsQuery}
-        />
+        <JoinRequestsDesktop {...joinRequestsQuery} />
       </div>
 
       <div className="block lg:hidden">
-        <JoinRequestsMobile
-          {...joinRequestsQuery}
-        />
+        <JoinRequestsMobile {...joinRequestsQuery} />
       </div>
     </>
   );

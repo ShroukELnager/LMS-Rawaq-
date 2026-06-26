@@ -3,12 +3,12 @@
 import { useState } from 'react';
 import { useAppSelector } from '@/redux/hooks';
 import UserAvatar from '@/Shared/Utils/UserAvatar';
-import useCreatePosts from '@/Features/Dashboard/hooks/useCreatePost';
-import useGetPosts from '@/Features/Dashboard/hooks/useGetPosts';
-import PostCardSkeleton from '@/Features/Dashboard/Skeleton/student/PostCardSkeleton';
+import useCreatePosts from '@/Features/Dashboard/Hooks/useCreatePost';
+import useGetPosts from '@/Features/Dashboard/Hooks/useGetPosts';
+import PostCardSkeleton from '@/Features/Dashboard/Skeleton/Student/PostCardSkeleton';
 import { PostCardProps } from '@/Features/Dashboard/Types';
 import ErrorState from '@/Features/Dashboard/Errors/ErrorToLoadPage';
-import PostCard from '@/Features/Dashboard/components/Student/GroupDetails/PostCard';
+import PostCard from '@/Features/Dashboard/Components/Student/GroupDetails/PostCard';
 import { useSearchParams } from 'next/navigation';
 
 export default function PostsPage() {

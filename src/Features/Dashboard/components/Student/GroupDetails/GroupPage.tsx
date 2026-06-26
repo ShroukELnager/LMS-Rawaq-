@@ -9,9 +9,9 @@ import FloatingButton from './FloatingButton';
 import { useState } from 'react';
 import CreatePostModal from '../Posts/CreatePostModal';
 import SuccessModal from '../Posts/SuccessModal';
-import useGetPosts from '@/Features/Dashboard/hooks/useGetPosts';
+import useGetPosts from '@/Features/Dashboard/Hooks/useGetPosts';
 import { PostCardProps } from '@/Features/Dashboard/Types';
-import PostCardSkeleton from '@/Features/Dashboard/Skeleton/student/PostCardSkeleton';
+import PostCardSkeleton from '@/Features/Dashboard/Skeleton/Student/PostCardSkeleton';
 import { useRouter } from 'next/navigation';
 import ErrorState from '@/Features/Dashboard/Errors/ErrorToLoadPage';
 

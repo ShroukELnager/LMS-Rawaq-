@@ -10,10 +10,10 @@ import { useAppSelector } from '@/redux/hooks';
 
 import { formatRequestTime } from '@/Features/Dashboard/lib/FormatRequestTime';
 
-import useLikePosts from '@/Features/Dashboard/hooks/useLikePosts';
-import useUnlikePost from '@/Features/Dashboard/hooks/useUnLikePosts';
-import useCreateComments from '@/Features/Dashboard/hooks/useCreateComment';
-import useGetComments from '@/Features/Dashboard/hooks/useGetComments';
+import useLikePosts from '@/Features/Dashboard/Hooks/useLikePosts';
+import useUnlikePost from '@/Features/Dashboard/Hooks/useUnLikePosts';
+import useCreateComments from '@/Features/Dashboard/Hooks/useCreateComment';
+import useGetComments from '@/Features/Dashboard/Hooks/useGetComments';
 
 export default function PostCard(post: PostCardProps) {
   const avatarUrl = fixSupabaseUrl(post.author?.avatar_url);

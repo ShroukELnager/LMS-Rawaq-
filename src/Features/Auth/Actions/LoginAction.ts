@@ -3,7 +3,7 @@
 import { ActionResult } from "@/Shared/Types/action-result";
 import { LoginFormData } from "../Types";
 import { AuthService } from "../AuthService";
-import { setAuthCookies } from "../Utils/setAuthCookies";
+import { setAuthCookies } from "../Utils/SetAuthCookies";
 
 
 

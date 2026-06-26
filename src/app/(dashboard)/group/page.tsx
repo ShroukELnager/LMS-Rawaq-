@@ -1,6 +1,5 @@
-import ListGroups from '@/Features/Dashboard/components/Student/AllGroups'
+import ListGroups from '@/Features/Dashboard/Components/Student/AllGroups';
 
 export default function ListGroupsPage() {
-  return (
-<ListGroups/>  )
+  return <ListGroups />;
 }

@@ -1,7 +1,5 @@
-import CreateGroup from "@/Features/Dashboard/components/Teacher/Groups/create";
+import CreateGroup from '@/Features/Dashboard/Components/Teacher/Groups/Create';
 
 export default function CreateGroupPage() {
-  return (
-    <CreateGroup/>
-  )
+  return <CreateGroup />;
 }

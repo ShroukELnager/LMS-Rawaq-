@@ -1,8 +1,9 @@
 
 import { assignmentMock } from '@/Features/Dashboard/MockAssignmentsData';
 import AssignmentInformationCard from './AssignmentInformationCard';
-import AssignmentSummary from './AssignmentSummary';
 import QuestionsSection from './QuestionsSection';
+import AssignmentSummary from './AssignmentSummary';
+
 
 export default function CreateAssignment() {
   return (
@@ -19,13 +20,15 @@ export default function CreateAssignment() {
         </div>
 
         <div className="grid gap-6 lg:grid-cols-[1fr_280px]">
-          <div className="space-y-6">
+          <div className="order-2 space-y-6 lg:order-1">
             <AssignmentInformationCard assignment={assignmentMock} />
 
             <QuestionsSection questions={assignmentMock.questions} />
           </div>
 
-          <AssignmentSummary assignment={assignmentMock} />
+          <div className="order-1 lg:order-2">
+            <AssignmentSummary assignment={assignmentMock} />
+          </div>
         </div>
       </div>
     </div>
