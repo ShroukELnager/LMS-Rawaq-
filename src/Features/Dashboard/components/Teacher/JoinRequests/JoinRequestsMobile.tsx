@@ -1,31 +1,83 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import UserAvatar from "@/Shared/Utils/UserAvatar";
-import { formatRequestTime } from "@/Features/Dashboard/lib/FormatRequestTime";
-import { JoinRequestsMobileProps } from "@/Features/Dashboard/Types";
-import JoinRequestsHeader from "./JoinRequestsDesktopHeader";
+import Image from 'next/image';
+import UserAvatar from '@/Shared/Utils/UserAvatar';
+import { formatRequestTime } from '@/Features/Dashboard/lib/FormatRequestTime';
+import { JoinRequestsMobileProps } from '@/Features/Dashboard/Types';
 
-import useAcceptRequest from "@/Features/Dashboard/hooks/useAcceptRequest";
-import useRejectRequest from "@/Features/Dashboard/hooks/useRejectRequest";
+import useAcceptRequest from '@/Features/Dashboard/hooks/useAcceptRequest';
+import useRejectRequest from '@/Features/Dashboard/hooks/useRejectRequest';
+
+import ScrollableTabs from '@/Features/Dashboard/lib/ScrollableTabs';
+import JoinRequestsHeader from './JoinRequestsDesktopHeader';
 
 export default function JoinRequestsMobile({
   requests,
 }: JoinRequestsMobileProps) {
   const acceptRequest = useAcceptRequest();
+
   const rejectRequest = useRejectRequest();
+
+  const tabs = [
+    {
+      value: 'all',
+      label: 'All Posts',
+    },
+    {
+      value: 'frontend',
+      label: 'Frontend Development',
+    },
+    {
+      value: 'backend',
+      label: 'Backend Development',
+    },
+    {
+      value: 'react',
+      label: 'React Basics',
+    },
+    {
+      value: 'javascript',
+      label: 'JavaScript Fundamentals',
+    },
+    {
+      value: 'typescript',
+      label: 'TypeScript Advanced',
+    },
+    {
+      value: 'nextjs',
+      label: 'Next.js Course',
+    },
+    {
+      value: 'ui-ux',
+      label: 'UI / UX Design',
+    },
+    {
+      value: 'database',
+      label: 'Database Concepts',
+    },
+  ];
 
   return (
     <>
       <JoinRequestsHeader count={requests?.length ?? 0} />
 
+      <div className="mb-4 px-4 pt-4 md:hidden">
+        <ScrollableTabs items={tabs} activeValue="all" onChange={() => {}} />
+      </div>
+
       <div className="space-y-4 px-4 pb-6">
         {requests?.map((request) => (
           <div
             key={request.id}
-            className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm"
+            className="
+              rounded-2xl
+              border
+              border-gray-100
+              bg-white
+              p-4
+              shadow-sm
+            "
           >
-            {/* Header */}
             <div className="flex items-start gap-3">
               <UserAvatar size={48} />
 
@@ -46,7 +98,6 @@ export default function JoinRequestsMobile({
                   </span>
                 </div>
 
-                {/* Group */}
                 <div className="mt-2 flex items-center gap-2">
                   <Image
                     src="/images/group.png"
@@ -62,7 +113,6 @@ export default function JoinRequestsMobile({
               </div>
             </div>
 
-            {/* Buttons */}
             <div className="mt-5 space-y-3">
               <button
                 onClick={() =>
@@ -70,7 +120,15 @@ export default function JoinRequestsMobile({
                     p_request_id: request.id,
                   })
                 }
-                className="h-11 w-full rounded-xl bg-[#005F67] text-sm font-medium text-white"
+                className="
+                  h-11
+                  w-full
+                  rounded-xl
+                  bg-[#005F67]
+                  text-sm
+                  font-medium
+                  text-white
+                "
               >
                 Accept
               </button>
@@ -81,7 +139,16 @@ export default function JoinRequestsMobile({
                     p_request_id: request.id,
                   })
                 }
-                className="h-11 w-full rounded-xl border border-gray-300 bg-white text-sm text-gray-600"
+                className="
+                  h-11
+                  w-full
+                  rounded-xl
+                  border
+                  border-gray-300
+                  bg-white
+                  text-sm
+                  text-gray-600
+                "
               >
                 Reject
               </button>
