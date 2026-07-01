@@ -1,11 +1,32 @@
-'use server';
+import { NextResponse } from 'next/server';
 
-import { cookies } from 'next/headers';
+export function removeAuthCookies(response: NextResponse) {
+  // Delete cookies
+  response.cookies.delete('access_token');
+  response.cookies.delete('refresh_token');
+  response.cookies.delete('expires_at');
+  response.cookies.delete('remember_me');
 
-export async function removeAuthCookies() {
-  const cookieStore = await cookies();
+  // Expire cookies
+  response.cookies.set('access_token', '', {
+    path: '/',
+    maxAge: 0,
+  });
 
-  cookieStore.delete('access_token');
-  cookieStore.delete('refresh_token');
-  cookieStore.delete('remember_me');
+  response.cookies.set('refresh_token', '', {
+    path: '/',
+    maxAge: 0,
+  });
+
+  response.cookies.set('expires_at', '', {
+    path: '/',
+    maxAge: 0,
+  });
+
+  response.cookies.set('remember_me', '', {
+    path: '/',
+    maxAge: 0,
+  });
+
+  return response;
 }

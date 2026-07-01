@@ -1,20 +1,21 @@
 'use server';
 
-import { AuthService } from "../AuthService";
-
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+import { AuthService } from '../AuthService';
 
 export async function logoutAction() {
-  try {
-    const response = await AuthService.Logout();
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get('access_token')?.value;
 
-    return {
-      success: true,
-      data: response,
-    };
-  } catch (error) {
-    return {
-      success: false,
-      error,
-    };
+  if (accessToken) {
+    await AuthService.Logout(accessToken);
   }
+
+  cookieStore.delete('access_token');
+  cookieStore.delete('refresh_token');
+  cookieStore.delete('expires_at');
+  cookieStore.delete('remember_me');
+
+  redirect('/login');
 }

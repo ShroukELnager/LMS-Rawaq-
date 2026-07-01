@@ -59,16 +59,15 @@ export const AuthService = {
       },
     });
   },
-
-  Logout: async () => {
+  Logout: async (accessToken: string) => {
     return apiRequest('/auth/v1/logout', {
       method: 'POST',
       headers: {
         apiKey: process.env.SUPABASE_KEY!,
+        Authorization: `Bearer ${accessToken}`,
       },
     });
   },
-
   uploadAvatar: async (file: File) => {
     const formData = new FormData();
     formData.append('file', file);

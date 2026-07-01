@@ -7,6 +7,10 @@ export async function apiRequest(url: string, options: RequestInit = {}) {
     },
   });
 
+  if (res.status === 204) {
+    return null;
+  }
+
   const data = await res.json();
 
   if (!res.ok) {

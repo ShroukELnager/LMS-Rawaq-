@@ -129,6 +129,7 @@ export default function DesktopSidebar() {
 
       {/* Divider */}
       <div className="my-5 border-t border-text/10" />
+      <LogoutButton />
 
       {/* Bottom Menu */}
       <div className="flex flex-col gap-3">

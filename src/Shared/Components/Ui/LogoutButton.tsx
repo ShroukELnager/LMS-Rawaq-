@@ -23,6 +23,7 @@ export default function LogoutButton() {
         text-[#48473A]
         transition
         hover:bg-white/40
+        cursor-pointer
       "
     >
       <LogOut className="h-5 w-5" />
