@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import LogoutButton from '../../Ui/LogoutButton';
 
 const menuItems = [
   { name: 'My Groups', href: '/group/create', icon: '/images/groups.png' },
@@ -156,6 +157,7 @@ export default function DesktopSidebar() {
             </Link>
           );
         })}
+        <LogoutButton />
       </div>
 
       {/* Create Button */}
