@@ -16,6 +16,7 @@ export const AuthService = {
       },
     });
   },
+
   SignUp: async (data: SignUpRequest) => {
     return apiRequest('/auth/v1/signup', {
       method: 'POST',
@@ -36,6 +37,7 @@ export const AuthService = {
       },
     });
   },
+
   refreshToken: async (token: string) => {
     return apiRequest('auth/v1/token?grant_type=refresh_token', {
       method: 'POST',
@@ -47,6 +49,26 @@ export const AuthService = {
       },
     });
   },
+
+  ResetPassword: async (data: ForgetPasswordRequest) => {
+    return apiRequest('/auth/v1/user', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        apiKey: process.env.SUPABASE_KEY!,
+      },
+    });
+  },
+
+  Logout: async () => {
+    return apiRequest('/auth/v1/logout', {
+      method: 'POST',
+      headers: {
+        apiKey: process.env.SUPABASE_KEY!,
+      },
+    });
+  },
+
   uploadAvatar: async (file: File) => {
     const formData = new FormData();
     formData.append('file', file);
@@ -69,14 +91,5 @@ export const AuthService = {
     }
 
     return `${process.env.BASE_URL}storage/v1/object/public/uploads/users/${fileName}`;
-  },
-  ResetPassword: async (data: ForgetPasswordRequest) => {
-    return apiRequest('/auth/v1/user', {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: {
-        apiKey: process.env.SUPABASE_KEY!,
-      },
-    });
   },
 };

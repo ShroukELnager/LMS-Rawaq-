@@ -1,9 +1,11 @@
-import { NextResponse } from "next/server";
+'use server';
 
-export function removeAuthCookies(response: NextResponse) {
-  response.cookies.set("access_token", "", { maxAge: 0 });
-  response.cookies.set("refresh_token", "", { maxAge: 0 });
-  response.cookies.set("remember_me", "", { maxAge: 0 });
+import { cookies } from 'next/headers';
 
-  return response;
+export async function removeAuthCookies() {
+  const cookieStore = await cookies();
+
+  cookieStore.delete('access_token');
+  cookieStore.delete('refresh_token');
+  cookieStore.delete('remember_me');
 }
