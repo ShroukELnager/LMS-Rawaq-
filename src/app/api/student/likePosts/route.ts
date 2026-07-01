@@ -1,34 +1,27 @@
-import {  CreatePostRequest, LikePostRequest } from "@/Features/Dashboard/Types";
-import { cookies } from "next/headers";
-import { NextResponse } from "next/server";
+import { CreatePostRequest, LikePostRequest } from '@/Features/Dashboard/Types';
+import { cookies } from 'next/headers';
+import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
-  
   try {
     const body = (await request.json()) as LikePostRequest;
 
-    const token = (await cookies()).get("access_token")?.value;
+    const token = (await cookies()).get('access_token')?.value;
 
     if (!token) {
-      return NextResponse.json(
-        { message: "Unauthorized" },
-        { status: 401 }
-      );
+      return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
     }
 
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/rest/v1/post_likes`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          apikey: process.env.NEXT_PUBLIC_SUPABASE_KEY!,
-          Authorization: `Bearer ${token}`,
-          Prefer: "return=representation",
-        },
-        body: JSON.stringify(body),
-      }
-    );
+    const response = await fetch(`${process.env.BASE_URL}/rest/v1/post_likes`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        apikey: process.env.SUPABASE_KEY!,
+        Authorization: `Bearer ${token}`,
+        Prefer: 'return=representation',
+      },
+      body: JSON.stringify(body),
+    });
 
     const data = await response.json();
 
@@ -39,7 +32,7 @@ export async function POST(request: Request) {
             data.message ||
             data.error ||
             data.hint ||
-            "Unable to  like post. Please try again.",
+            'Unable to  like post. Please try again.',
         },
         { status: response.status }
       );
@@ -52,7 +45,7 @@ export async function POST(request: Request) {
     console.error(error);
 
     return NextResponse.json(
-      { message: "Internal Server Error" },
+      { message: 'Internal Server Error' },
       { status: 500 }
     );
   }

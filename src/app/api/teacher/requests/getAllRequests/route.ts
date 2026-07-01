@@ -1,23 +1,20 @@
-import { cookies } from "next/headers";
-import { NextResponse } from "next/server";
+import { cookies } from 'next/headers';
+import { NextResponse } from 'next/server';
 
 export async function GET() {
   try {
-    const token = (await cookies()).get("access_token")?.value;
+    const token = (await cookies()).get('access_token')?.value;
 
     if (!token) {
-      return NextResponse.json(
-        { message: "Unauthorized" },
-        { status: 401 }
-      );
+      return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
     }
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/rest/v1/get_group_join_requests`,
+      `${process.env.BASE_URL}/rest/v1/get_group_join_requests`,
       {
-        method: "GET",
+        method: 'GET',
         headers: {
-          apikey: process.env.NEXT_PUBLIC_SUPABASE_KEY!,
+          apikey: process.env.SUPABASE_KEY!,
           Authorization: `Bearer ${token}`,
         },
       }
@@ -29,9 +26,7 @@ export async function GET() {
       return NextResponse.json(
         {
           message:
-            data.message ||
-            data.error ||
-            "Failed to view join requests groups",
+            data.message || data.error || 'Failed to view join requests groups',
         },
         { status: response.status }
       );
@@ -42,7 +37,7 @@ export async function GET() {
     console.error(error);
 
     return NextResponse.json(
-      { message: "Internal Server Error" },
+      { message: 'Internal Server Error' },
       { status: 500 }
     );
   }

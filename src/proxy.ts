@@ -2,9 +2,35 @@ import { AuthService } from '@/Features/Auth/AuthService';
 import { removeAuthCookies } from '@/Features/Auth/Utils/RemoveAuthCookies';
 import { setAuthCookies } from '@/Features/Auth/Utils/SetAuthCookies';
 import { NextRequest, NextResponse } from 'next/server';
+import { GetAccountType } from './Features/Auth/Utils/GetAccountType';
 
-const protectedRoutes = ['/dashboard'];
+const protectedRoutes = [
+  '/dashboard',
+  '/assignments',
+  '/requests',
+  '/posts',
+  '/group',
+];
 const authRoutes = ['/login', '/signup'];
+
+const routePermissions = [
+  {
+    route: '/assignments',
+    roles: ['teacher'],
+  },
+  {
+    route: '/requests',
+    roles: ['teacher'],
+  },
+  {
+    route: '/posts',
+    roles: ['student'],
+  },
+  {
+    route: '/group',
+    roles: ['teacher', 'student'],
+  },
+];
 
 export default async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
@@ -16,33 +42,16 @@ export default async function proxy(request: NextRequest) {
 
   const expiresAt = Number(expiresAtValue);
 
-  const isExpired = expiresAtValue ? Date.now() >= expiresAt * 1000 : false;
-
   const rememberMe = request.cookies.get('remember_me')?.value === 'true';
 
-  console.log('========== AUTH DEBUG ==========');
 
-  console.log('PATH:', pathname);
-
-  console.log('ACCESS TOKEN EXISTS:', Boolean(accessToken));
-
-  console.log('ACCESS TOKEN:', accessToken);
-
-  console.log('REFRESH TOKEN EXISTS:', Boolean(refreshToken));
-
-  console.log('EXPIRES_AT:', expiresAtValue);
 
   if (expiresAtValue) {
     console.log('EXPIRE DATE:', new Date(expiresAt * 1000));
   }
 
-  console.log('IS EXPIRED BY COOKIE:', isExpired);
 
 
-
-  console.log('REMEMBER ME:', rememberMe);
-
-  console.log('================================');
 
   const isProtectedRoute = protectedRoutes.some((route) =>
     pathname.startsWith(route)
@@ -55,35 +64,41 @@ export default async function proxy(request: NextRequest) {
   // =============================
 
   if (isProtectedRoute) {
-    const tokenExpired =
-      !accessToken ;
+    const tokenExpired = !accessToken;
 
-    console.log('PROTECTED ROUTE TOKEN INVALID:', tokenExpired);
+    const accountType = GetAccountType(accessToken);
+
+    const matchedRoute = routePermissions.find((item) =>
+      pathname.startsWith(item.route)
+    );
+
+    if (matchedRoute) {
+      const allowed = matchedRoute.roles.includes(accountType ?? '');
+
+      if (!allowed) {
+        return NextResponse.redirect(new URL('/dashboard', request.url));
+      }
+    }
 
     if (tokenExpired) {
       if (refreshToken) {
-        console.log('TRYING REFRESH TOKEN...');
 
         try {
           const newTokens = await AuthService.refreshToken(refreshToken);
 
-          console.log('REFRESH SUCCESS:', newTokens);
 
           const response = NextResponse.next();
 
           await setAuthCookies(newTokens, rememberMe);
 
-          console.log('NEW COOKIES SET');
 
           return response;
         } catch (error) {
-          console.log('REFRESH FAILED:', error);
 
           const response = NextResponse.redirect(
             new URL('/login', request.url)
           );
 
-          console.log('REMOVING AUTH COOKIES');
 
           await removeAuthCookies(response);
 
@@ -91,11 +106,9 @@ export default async function proxy(request: NextRequest) {
         }
       }
 
-      console.log('NO REFRESH TOKEN - LOGOUT');
 
       const response = NextResponse.redirect(new URL('/login', request.url));
 
-      console.log('REMOVING AUTH COOKIES');
 
       await removeAuthCookies(response);
 
@@ -107,17 +120,11 @@ export default async function proxy(request: NextRequest) {
   // Auth Routes
   // =============================
 
-  if (
-    isAuthRoute &&
-    accessToken 
-  
-  ) {
-    console.log('USER ALREADY AUTHENTICATED -> DASHBOARD');
+  if (isAuthRoute && accessToken) {
 
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 
-  console.log('NEXT RESPONSE');
 
   return NextResponse.next();
 }
@@ -126,7 +133,5 @@ export default async function proxy(request: NextRequest) {
 //   matcher: [    "/((?!api|_next/static|_next/image|favicon.ico).*)"],
 // };
 export const config = {
-  matcher: [
-    "/((?!_next/static|_next/image|favicon.ico).*)",
-  ],
+  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
 };
