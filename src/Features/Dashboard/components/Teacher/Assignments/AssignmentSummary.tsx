@@ -1,15 +1,28 @@
-import { Assignment } from '@/Features/Dashboard/MockAssignmentsData';
 import { ChevronUp, FileText, Eye, } from 'lucide-react';
 import Send from '@assets/icons/send.svg';
 import NewTap from '@assets/icons/NewTap.svg';
+import { useFormContext } from 'react-hook-form';
+import { AssignmentQuestion } from '@/Features/Dashboard/Types';
+import { useEffect } from 'react';
 interface Props {
-  assignment: Assignment;
   isPending: boolean;
 }
 
-export default function AssignmentSummary({ assignment , isPending }: Props) {
-  const totalGrade = assignment.questions.reduce((acc, q) => acc + q.grade, 0);
+export default function AssignmentSummary({ isPending }: Props) {
+ const { watch,setValue } = useFormContext();
+  const { register } = useFormContext();
 
+ const questions = watch('p_questions');
+ const deadline = watch('p_deadline');
+
+ const totalGrade = questions.reduce(
+   (sum: number, question: AssignmentQuestion) => sum + question.grade,
+   0
+ );
+
+ useEffect(() => {
+   setValue('p_total_grade', totalGrade);
+ }, [totalGrade, setValue]);
   return (
     <>
       {/* ================= Desktop ================= */}
@@ -28,7 +41,7 @@ export default function AssignmentSummary({ assignment , isPending }: Props) {
               <span className="text-slate-600">Total Questions</span>
 
               <span className="font-semibold text-teal-700">
-                {assignment.questions.length}
+                {questions.length}
               </span>
             </div>
 
@@ -42,7 +55,7 @@ export default function AssignmentSummary({ assignment , isPending }: Props) {
               <span className="text-slate-600">Deadline</span>
 
               <span className="font-semibold">
-                {assignment.deadline.toLocaleDateString('en-US', {
+                {deadline?.toLocaleDateString('en-US', {
                   month: 'short',
                   day: 'numeric',
                   year: 'numeric',
@@ -133,7 +146,7 @@ export default function AssignmentSummary({ assignment , isPending }: Props) {
             </p>
 
             <h2 className="mt-1 text-3xl font-bold text-[#005F63]">
-              {assignment.questions.length}
+              {questions.length}
             </h2>
           </div>
         </div>

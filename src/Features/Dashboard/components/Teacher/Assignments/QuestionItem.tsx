@@ -1,18 +1,29 @@
 import { AssignmentQuestion } from '@/Features/Dashboard/MockAssignmentsData';
 import { GripVertical, Trash2 } from 'lucide-react';
 import { useFormContext } from 'react-hook-form';
-
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import Trash from '@assets/icons/delete.svg';
 import Menu from '@assets/icons/menu.svg';
 type QuestionItemProps = {
+  id: string;
   index: number;
   remove: (index: number) => void;
 };
 
-export default function QuestionItem({ index, remove }: QuestionItemProps) {
+export default function QuestionItem({ id, index, remove }: QuestionItemProps) {
   const { register } = useFormContext();
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({
+      id,
+    });
   return (
     <div
+      ref={setNodeRef}
+      style={{
+        transform: CSS.Transform.toString(transform),
+        transition,
+      }}
       className="
       rounded-xl
       border
@@ -62,12 +73,12 @@ export default function QuestionItem({ index, remove }: QuestionItemProps) {
               </label>
 
               <input
-                {...register(`p_questions.${index}.points`, {
+                {...register(`p_questions.${index}.grade`, {
                   valueAsNumber: true,
                   required: 'Grade is required',
                   min: {
                     value: 1,
-                    message: 'Points must be greater than zero.',
+                    message: 'Grade must be greater than zero.',
                   },
                 })}
                 type="number"
@@ -97,7 +108,12 @@ export default function QuestionItem({ index, remove }: QuestionItemProps) {
               <Trash size={18} className="text-red-500" />
             </button>
 
-            <button type="button" className="cursor-pointer">
+            <button
+              type="button"
+              className="cursor-grab active:cursor-grabbing"
+              {...attributes}
+              {...listeners}
+            >
               <Menu size={20} className="text-slate-500" />
             </button>
           </div>

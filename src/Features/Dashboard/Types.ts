@@ -132,9 +132,9 @@ export interface Comment {
 }
 
 export interface AssignmentQuestion {
-  type: string;
+  question_type: string;
   question: string;
-  points: number;
+  grade: number;
   sort_order: number;
 }
 
@@ -142,6 +142,8 @@ export interface AssignmentRequestBody {
   p_group_id: string;
   p_title: string;
   p_description: string;
-  p_deadline: string;
+  p_deadline: Date | null;
+  p_total_grade: number;
   p_questions: AssignmentQuestion[];
 }
+

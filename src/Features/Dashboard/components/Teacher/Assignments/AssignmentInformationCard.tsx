@@ -1,17 +1,17 @@
 'use client';
 
-import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Info from '@assets/icons/info.svg';
-import { useFormContext } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
+import { AssignmentRequestBody } from '@/Features/Dashboard/Types';
 
 
 
 
 export default function AssignmentInformationCard() {
-  const { register } = useFormContext();
-  const [deadline, setDeadline] = useState<Date | null>(null);
+
+       const { control,register } = useFormContext<AssignmentRequestBody>();
 
   return (
     <div className="rounded-2xl border border-[#D9E2F2] bg-[#EEF4FF] p-5 lg:p-6">
@@ -47,13 +47,20 @@ export default function AssignmentInformationCard() {
         <div>
           <label className="mb-2 block text-xs font-medium">Deadline</label>
 
-          <DatePicker
-            {...register('p_deadline')}
-            selected={deadline}
-            onChange={(date: Date | null) => setDeadline(date)}
-            dateFormat="MMM dd, yyyy"
-            className="h-11 w-full rounded-lg border border-[#D9E2F2] bg-white px-4"
-          />
+
+
+<Controller
+  name="p_deadline"
+  control={control}
+  render={({ field }) => (
+    <DatePicker
+      selected={field.value}
+      onChange={(date:Date|null) => field.onChange(date)}
+      dateFormat="MMM dd, yyyy"
+      className="h-11 w-full rounded-lg border border-[#D9E2F2] bg-white px-4"
+    />
+  )}
+/>
         </div>
       </div>
     </div>
