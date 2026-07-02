@@ -2,30 +2,44 @@ import { Plus } from 'lucide-react';
 
 
 import QuestionItem from './QuestionItem';
-import { AssignmentQuestion } from '@/Features/Dashboard/MockAssignmentsData';
+import { useFieldArray, useFormContext } from 'react-hook-form';
+import Question from '@assets/icons/question.svg';
 
-interface Props {
-  questions: AssignmentQuestion[];
-}
+export default function QuestionsSection() {
+const { control, register } = useFormContext();
 
-export default function QuestionsSection({ questions }: Props) {
+const { fields, append, remove } = useFieldArray({
+  control,
+  name: 'p_questions',
+});
   return (
     <section>
       <div className="mb-4 flex items-center justify-between">
-        <h2 className="font-semibold text-slate-900">Questions</h2>
+        <div className="flex items-center gap-2">
+          <Question size={18} className="text-slate-700" />
 
+          <h2 className="font-semibold text-slate-900">Questions</h2>
+        </div>
         <span className="text-xs text-slate-500">
-          Total: {questions.length} Questions
+          Total: {fields.length} Questions
         </span>
       </div>
 
       <div className="space-y-4">
-        {questions.map((question) => (
-          <QuestionItem key={question.id} question={question} />
+        {fields.map((field, index) => (
+          <QuestionItem key={field.id} index={index} remove={remove} />
         ))}
       </div>
 
       <button
+        onClick={() =>
+          append({
+            type: 'text',
+            question: '',
+            points: 0,
+            sort_order: fields.length + 1,
+          })
+        }
         className="
         mt-4
         flex

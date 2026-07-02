@@ -1,12 +1,16 @@
 import { AssignmentQuestion } from '@/Features/Dashboard/MockAssignmentsData';
 import { GripVertical, Trash2 } from 'lucide-react';
+import { useFormContext } from 'react-hook-form';
 
+import Trash from '@assets/icons/delete.svg';
+import Menu from '@assets/icons/menu.svg';
+type QuestionItemProps = {
+  index: number;
+  remove: (index: number) => void;
+};
 
-interface Props {
-  question: AssignmentQuestion;
-}
-
-export default function QuestionItem({ question }: Props) {
+export default function QuestionItem({ index, remove }: QuestionItemProps) {
+  const { register } = useFormContext();
   return (
     <div
       className="
@@ -24,46 +28,78 @@ export default function QuestionItem({ question }: Props) {
       "
     >
       <div className="p-4">
-        <div className="flex gap-4">
-          <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-teal-700 text-xs font-semibold text-white">
-            {question.order}
+        <div className="flex items-center gap-4">
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-teal-700 text-sm font-semibold text-white">
+            {index + 1}
           </div>
 
-          <div className="flex-1">
-            <div className="flex flex-col gap-4 md:flex-row">
-              <div className="flex-1">
-                <h3 className="text-sm font-medium text-slate-800">
-                  {question.title}
-                </h3>
+          <div className="flex flex-1 items-center gap-6">
+            <textarea
+              rows={2}
+              {...register(`p_questions.${index}.question`, {
+                required: 'Question is required',
+              })}
+              placeholder="Enter question..."
+              className="
+          h-12
+          flex-1
+          resize-none
+          rounded-lg
+          border
+          border-[#D9E2F2]
+          bg-white
+          px-4
+          py-3
+          text-sm
+          text-slate-700
+          placeholder:text-slate-400
+        "
+            />
 
-                <textarea
-                  rows={2}
-                  defaultValue={question.instructions}
-                  className="mt-3 w-full rounded-lg border border-[#D9E2F2] bg-white p-3 text-sm"
-                />
-              </div>
+            <div className="mt-5 w-[130px]">
+              <label className="mb-2 block text-xs font-semibold text-slate-700">
+                Grade/Points
+              </label>
 
-              <div className="w-full md:w-[90px]">
-                <label className="mb-1 block text-xs text-slate-500">
-                  Grade
-                </label>
+              <input
+                {...register(`p_questions.${index}.points`, {
+                  valueAsNumber: true,
+                  required: 'Grade is required',
+                  min: {
+                    value: 1,
+                    message: 'Points must be greater than zero.',
+                  },
+                })}
+                type="number"
+                min={1}
+                className="
+            h-10
+            w-full
+            rounded-lg
+            border
+            border-[#D9E2F2]
+            bg-white
+            text-center
+            font-semibold
 
-                <input
-                  defaultValue={question.grade}
-                  className="h-10 w-full rounded-lg border border-[#D9E2F2] bg-white text-center"
-                />
-              </div>
+            text-slate-800
+          "
+              />
             </div>
+          </div>
 
-            <div className="mt-3 flex justify-end gap-2">
-              <button>
-                <Trash2 size={16} className="text-red-500" />
-              </button>
+          <div className="flex flex-col items-center  gap-4">
+            <button
+              type="button"
+              className="cursor-pointer"
+              onClick={() => remove(index)}
+            >
+              <Trash size={18} className="text-red-500" />
+            </button>
 
-              <button>
-                <GripVertical size={16} className="text-slate-400" />
-              </button>
-            </div>
+            <button type="button" className="cursor-pointer">
+              <Menu size={20} className="text-slate-500" />
+            </button>
           </div>
         </div>
       </div>

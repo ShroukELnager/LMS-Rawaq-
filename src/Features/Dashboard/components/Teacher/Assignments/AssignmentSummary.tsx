@@ -1,11 +1,13 @@
 import { Assignment } from '@/Features/Dashboard/MockAssignmentsData';
-import { ChevronUp, FileText, Eye } from 'lucide-react';
-
+import { ChevronUp, FileText, Eye, } from 'lucide-react';
+import Send from '@assets/icons/send.svg';
+import NewTap from '@assets/icons/NewTap.svg';
 interface Props {
   assignment: Assignment;
+  isPending: boolean;
 }
 
-export default function AssignmentSummary({ assignment }: Props) {
+export default function AssignmentSummary({ assignment , isPending }: Props) {
   const totalGrade = assignment.questions.reduce((acc, q) => acc + q.grade, 0);
 
   return (
@@ -49,26 +51,50 @@ export default function AssignmentSummary({ assignment }: Props) {
             </div>
           </div>
 
-          <button className="mt-8 h-12 w-full rounded-xl bg-[#005F63] font-medium text-white transition hover:bg-[#00494C]">
-            Publish Assignment
-          </button>
-
-          <button className="mt-3 h-12 w-full rounded-xl border border-slate-300 bg-white font-medium text-[#005F63]">
-            Save Draft
+          <button
+            type="submit"
+            disabled={isPending}
+            form="create-assignment-form"
+            className="
+    mt-8
+    flex
+    h-12
+    w-full
+    items-center
+    justify-center
+    gap-2
+    rounded-xl
+    bg-[#005F63]
+    font-medium
+    text-white
+    transition
+    hover:bg-[#00494C]
+  "
+          >
+            <Send size={18} className="text-white" />
+            <span>{isPending ? 'Publishing...' : 'Publish Assignment'}</span>
           </button>
         </div>
 
-        <div className="rounded-xl border border-slate-200 bg-white p-4">
-          <div className="flex gap-3">
-            <Eye size={18} className="text-slate-500" />
+        <div className="flex h-[90px] w-full items-center rounded-xl border border-slate-200 bg-[#EEF4FF] px-4">
+          {/* Eye Icon */}
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#DCE9F7]">
+            <Eye size={22} className="text-[#005F63]" />
+          </div>
 
+          {/* Text + NewTap */}
+          <div className="ml-4 flex flex-1 items-center justify-between">
             <div>
-              <h4 className="text-sm font-medium">Live Preview</h4>
+              <h4 className="text-sm font-semibold text-slate-900">
+                Live Preview
+              </h4>
 
-              <p className="mt-1 text-xs text-slate-500">
+              <p className="mt-1 max-w-[180px] text-xs leading-5 text-slate-600">
                 See how students will view this assignment.
               </p>
             </div>
+
+            <NewTap size={16} />
           </div>
         </div>
       </aside>

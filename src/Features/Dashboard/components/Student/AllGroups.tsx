@@ -29,7 +29,6 @@ export default function ListGroups() {
       />
     );
   }
-
   return (
     <div className="p-4 lg:p-6">
       <div>

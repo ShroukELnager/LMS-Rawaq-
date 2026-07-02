@@ -3,16 +3,15 @@
 import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { Info } from 'lucide-react';
+import Info from '@assets/icons/info.svg';
+import { useFormContext } from 'react-hook-form';
 
-import { Assignment } from '@/Features/Dashboard/MockAssignmentsData';
 
-interface Props {
-  assignment: Assignment;
-}
 
-export default function AssignmentInformationCard({ assignment }: Props) {
-  const [deadline, setDeadline] = useState<Date | null>(assignment.deadline);
+
+export default function AssignmentInformationCard() {
+  const { register } = useFormContext();
+  const [deadline, setDeadline] = useState<Date | null>(null);
 
   return (
     <div className="rounded-2xl border border-[#D9E2F2] bg-[#EEF4FF] p-5 lg:p-6">
@@ -28,7 +27,8 @@ export default function AssignmentInformationCard({ assignment }: Props) {
           </label>
 
           <input
-            defaultValue={assignment.title}
+            placeholder="e.g. Introduction to Islamic Philosophy"
+            {...register('p_title')}
             className="h-11 w-full rounded-lg border border-[#D9E2F2] bg-white px-4"
           />
         </div>
@@ -38,7 +38,8 @@ export default function AssignmentInformationCard({ assignment }: Props) {
 
           <textarea
             rows={4}
-            defaultValue={assignment.description}
+            placeholder="Briefly describe the learning objectives and instructions..."
+            {...register('p_description')}
             className="w-full rounded-lg border border-[#D9E2F2] bg-white p-4"
           />
         </div>
@@ -47,8 +48,9 @@ export default function AssignmentInformationCard({ assignment }: Props) {
           <label className="mb-2 block text-xs font-medium">Deadline</label>
 
           <DatePicker
+            {...register('p_deadline')}
             selected={deadline}
-            onChange={(date:any) => setDeadline(date)}
+            onChange={(date: Date | null) => setDeadline(date)}
             dateFormat="MMM dd, yyyy"
             className="h-11 w-full rounded-lg border border-[#D9E2F2] bg-white px-4"
           />
