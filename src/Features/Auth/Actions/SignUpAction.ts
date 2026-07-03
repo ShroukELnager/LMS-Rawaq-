@@ -3,7 +3,7 @@
 import { ActionResult } from '@/Shared/Types/action-result';
 import { AuthService } from '../AuthService';
 import { SignUpRequest } from '../Types';
-import { setAuthCookies } from '../Utils/SetAuth';
+import { setAuthCookies } from '../Utils/SetAuthCookies';
 
 export async function signupAction(data: SignUpRequest): Promise<ActionResult> {
   try {

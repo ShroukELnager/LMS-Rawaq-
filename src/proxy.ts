@@ -1,6 +1,6 @@
 import { AuthService } from '@/Features/Auth/AuthService';
-import { removeAuthCookies } from '@/Features/Auth/Utils/RemoveAuth';
-import { setAuthCookies } from '@/Features/Auth/Utils/SetAuth';
+import { removeAuthCookies } from '@/Features/Auth/Utils/RemoveAuthCookies';
+import { setAuthCookies } from '@/Features/Auth/Utils/SetAuthCookies';
 import { NextRequest, NextResponse } from 'next/server';
 import { GetAccountType } from './Features/Auth/Utils/GetAccountType';
 

@@ -3,7 +3,7 @@
 import { ActionResult } from '@/Shared/Types/action-result';
 import { LoginFormData } from '../Types';
 import { AuthService } from '../AuthService';
-import { setAuthCookies } from '../Utils/SetAuth';
+import { setAuthCookies } from '../Utils/SetAuthCookies';
 
 export async function loginAction(data: LoginFormData): Promise<ActionResult> {
   try {
