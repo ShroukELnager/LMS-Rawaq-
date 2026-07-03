@@ -1,77 +1,107 @@
+'use client';
 
-"use client";
+import { FormProvider, useForm } from 'react-hook-form';
+import { Send } from 'lucide-react';
+
 import AssignmentInformationCard from './AssignmentInformationCard';
 import QuestionsSection from './QuestionsSection';
 import AssignmentSummary from './AssignmentSummary';
-import { FormProvider, useForm } from 'react-hook-form';
+
 import { AssignmentRequestBody } from '@/Features/Dashboard/Types';
 import useCreateAssignment from '@/Features/Dashboard/Hooks/useCreateAssignment';
 
-
 export default function CreateAssignment() {
+  const methods = useForm<AssignmentRequestBody>({
+    defaultValues: {
+      p_group_id: '94ad87f0-6562-4284-8661-ab15ccacce4c',
+      p_title: '',
+      p_description: '',
+      p_deadline: null,
+      p_total_grade: 0,
 
-const methods = useForm<AssignmentRequestBody>({
-  defaultValues: {
-    p_group_id: '94ad87f0-6562-4284-8661-ab15ccacce4c',
-    p_title: '',
-    p_description: '',
-    p_deadline: null,
-    p_total_grade: 0,
+      p_questions: [
+        {
+          question_type: 'text',
+          question: '',
+          grade: 0,
+          sort_order: 1,
+          options: [],
+        },
+      ],
+    },
+  });
 
-    p_questions: [
-      {
-        question_type: 'text',
-        question: '',
-        grade: 0,
-        sort_order: 1,
+  const { mutate, isPending } = useCreateAssignment();
 
-        options: [],
-      },
-    ],
-  },
-});
-   const { mutate, isPending } = useCreateAssignment();
+  const onSubmit = (data: AssignmentRequestBody) => {
+    console.log(JSON.stringify(data, null, 2));
+    mutate(data);
+  };
 
-    const onSubmit = (data: AssignmentRequestBody) => {
-  console.log(JSON.stringify(data, null, 2));
-        mutate(data);
-    };
+  return (
+    <div className="min-h-screen bg-slate-50">
+      <div className="container mx-auto max-w-7xl px-4 py-6 lg:px-6">
+        <div className="mb-8">
+          <h1 className="text-[30px] font-bold text-slate-900">
+            Create Assignment
+          </h1>
 
- return (
-   <div className="min-h-screen bg-slate-50">
-     <div className="container mx-auto max-w-7xl px-4 py-6 lg:px-6">
-       <div className="mb-8">
-         <h1 className="text-[30px] font-bold text-slate-900">
-           Create Assignment
-         </h1>
+          <p className="mt-1 text-sm text-slate-500">
+            Create an assignment and define the questions students must answer.
+          </p>
+        </div>
 
-         <p className="mt-1 text-sm text-slate-500">
-           Create an assignment and define the questions students must answer.
-         </p>
-       </div>
+        <FormProvider {...methods}>
+          <div className="grid gap-6 lg:grid-cols-[1fr_280px]">
+            <div className="order-2 lg:order-1">
+              <form
+                id="create-assignment-form"
+                onSubmit={methods.handleSubmit(onSubmit)}
+                className="space-y-6"
+              >
+                <AssignmentInformationCard />
 
-       <FormProvider {...methods}>
-         <div className="grid gap-6 lg:grid-cols-[1fr_280px]">
-           <div className="order-2 lg:order-1">
-             <form
-               id="create-assignment-form"
-               onSubmit={methods.handleSubmit(onSubmit)}
-               className="space-y-6"
-             >
-               <AssignmentInformationCard />
+                <QuestionsSection />
 
-               <QuestionsSection />
-             </form>
-           </div>
+                <div className="block lg:hidden">
+                  <button
+                    type="submit"
+                    form="create-assignment-form"
+                    disabled={isPending}
+                    className="
+                      mt-8
+                      flex
+                      h-12
+                      w-full
+                      items-center
+                      justify-center
+                      gap-2
+                      rounded-xl
+                      bg-[#005F63]
+                      font-medium
+                      text-white
+                      transition
+                      hover:bg-[#00494C]
+                      disabled:cursor-not-allowed
+                      disabled:opacity-60
+                    "
+                  >
+                    <Send size={18} />
 
-           <div className="order-1 lg:order-2">
-             <AssignmentSummary
-               isPending={isPending}
-             />
-           </div>
-         </div>
-       </FormProvider>
-     </div>
-   </div>
- );
+                    <span>
+                      {isPending ? 'Publishing...' : 'Publish Assignment'}
+                    </span>
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <div className="order-1 lg:order-2">
+              <AssignmentSummary isPending={isPending} />
+            </div>
+          </div>
+        </FormProvider>
+      </div>
+    </div>
+  );
 }

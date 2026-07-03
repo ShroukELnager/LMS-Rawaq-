@@ -1,6 +1,6 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Trash2 } from 'lucide-react';
+import { X, Trash2 } from 'lucide-react';
 import { useFormContext } from 'react-hook-form';
 import Menu from '@assets/icons/menu.svg';
 
@@ -38,48 +38,71 @@ export default function OptionItem({
       <input
         type={type}
         {...register(
-          `p_questions.${questionIndex}.options.${optionIndex}.is_correct`,
+          `p_questions.${questionIndex}.options.${optionIndex}.is_correct`
         )}
-        className="h-5 w-5 cursor-pointer accent-teal-700"
+        className="h-5 w-5 shrink-0 cursor-pointer accent-teal-700"
       />
 
-      <input
-        {...register(
-          `p_questions.${questionIndex}.options.${optionIndex}.text`,
-          {
-            required: 'Option is required',
-          }
-        )}
-        placeholder={`Option ${optionIndex + 1}`}
-        className="
-          flex-1
-          rounded-lg
-          border
-          border-[#D9E2F2]
-          bg-[#EEF4FF]
-          px-4
-          py-3
-          text-sm
-        "
-      />
+      <div className="relative flex-1">
+        <input
+          {...register(
+            `p_questions.${questionIndex}.options.${optionIndex}.text`,
+            {
+              required: 'Option is required',
+            }
+          )}
+          placeholder={`Option ${optionIndex + 1}`}
+          className="
+    w-full
+    rounded-lg
+    border
+    border-[#D9E2F2]
+    bg-[#EEF4FF]
+    px-4
+    py-3
+    pr-10
+    text-sm
+  "
+        />
 
+        {/* Mobile Remove */}
+        <button
+          type="button"
+          onClick={() => remove(optionIndex)}
+          className="
+            absolute
+            right-3
+            top-1/2
+            -translate-y-1/2
+            text-slate-400
+            transition
+            hover:text-red-500
+            md:hidden
+          "
+        >
+          <X size={18} />
+        </button>
+      </div>
+
+      {/* Desktop Delete */}
       <button
         type="button"
         onClick={() => remove(optionIndex)}
-        className="text-red-500 cursor-pointer hover:text-red-600"
+        className="hidden cursor-pointer text-red-500 transition hover:text-red-600 md:block"
       >
         <Trash2 size={16} />
       </button>
 
+      {/* Desktop Drag */}
       <button
         type="button"
-        className="cursor-grab active:cursor-grabbing"
+        className="hidden cursor-grab active:cursor-grabbing md:block"
         {...attributes}
         {...listeners}
       >
         <Menu
           size={12}
-          className="text-slate-400 hover:text-slate-600 transition"
+          className="text-slate-400 transition hover:text-slate-600"
         />
       </button>
     </div>

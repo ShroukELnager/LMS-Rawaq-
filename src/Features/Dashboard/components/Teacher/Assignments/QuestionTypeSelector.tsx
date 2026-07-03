@@ -29,13 +29,19 @@ const Option = (props: any) => {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Icon
-            size={20}
-            className={props.isFocused ? 'text-white' : 'text-slate-600'}
+            size={18}
+            className={
+              props.isFocused || props.isSelected
+                ? 'text-white'
+                : 'text-primary'
+            }
           />
 
           <span
             className={`font-medium ${
-              props.isFocused ? 'text-white' : 'text-slate-700'
+              props.isFocused || props.isSelected
+                ? 'text-white'
+                : 'text-primary'
             }`}
           >
             {props.data.label}
@@ -45,7 +51,9 @@ const Option = (props: any) => {
         {short && (
           <span
             className={`text-xs font-semibold ${
-              props.isFocused ? 'text-white/70' : 'text-slate-400'
+              props.isFocused || props.isSelected
+                ? 'text-white/70'
+                : 'text-primary/70'
             }`}
           >
             {short}
@@ -67,9 +75,7 @@ export default function QuestionTypeSelector({ index }: { index: number }) {
         <Select
           {...field}
           options={options}
-          components={{
-            Option,
-          }}
+          components={{ Option }}
           value={options.find((o) => o.value === field.value)}
           onChange={(option) => field.onChange(option?.value)}
           menuPortalTarget={
@@ -88,31 +94,35 @@ export default function QuestionTypeSelector({ index }: { index: number }) {
               width: '100%',
             }),
 
-            control: (base, state) => ({
+            control: (base) => ({
               ...base,
               minHeight: 48,
               height: 48,
               borderRadius: 12,
-              borderColor: '#D9E2F2',
+              backgroundColor: '#E6E3D0',
+              border: 'none',
               boxShadow: 'none',
               cursor: 'pointer',
-              paddingLeft: 6,
-              backgroundColor: '#fff',
 
               '&:hover': {
-                borderColor: '#D9E2F2',
+                border: 'none',
               },
             }),
 
             valueContainer: (base) => ({
               ...base,
-              paddingLeft: 6,
+              paddingLeft: 10,
             }),
 
             singleValue: (base) => ({
               ...base,
-              color: '#0F172A',
+              color: 'var(--color-primary)',
               fontWeight: 600,
+            }),
+
+            placeholder: (base) => ({
+              ...base,
+              color: 'var(--color-primary)',
             }),
 
             indicatorSeparator: () => ({
@@ -121,10 +131,10 @@ export default function QuestionTypeSelector({ index }: { index: number }) {
 
             dropdownIndicator: (base) => ({
               ...base,
-              color: '#64748B',
+              color: 'var(--color-primary)',
 
               '&:hover': {
-                color: '#64748B',
+                color: 'var(--color-primary)',
               },
             }),
 
@@ -138,15 +148,21 @@ export default function QuestionTypeSelector({ index }: { index: number }) {
 
             menuList: (base) => ({
               ...base,
-              padding: 0,
+              padding: 4,
             }),
 
             option: (base, state) => ({
               ...base,
-              padding: '14px 16px',
+              padding: '12px 16px',
+              margin: '4px',
+              borderRadius: 8,
               cursor: 'pointer',
-              backgroundColor: state.isFocused ? '#0F7778' : '#fff',
-              color: state.isFocused ? '#fff' : '#334155',
+              backgroundColor:
+                state.isFocused || state.isSelected ? '#0F7778' : '#fff',
+              color:
+                state.isFocused || state.isSelected
+                  ? '#fff'
+                  : 'var(--color-primary)',
 
               ':active': {
                 backgroundColor: '#0F7778',
@@ -158,13 +174,13 @@ export default function QuestionTypeSelector({ index }: { index: number }) {
               return option.label;
             }
 
+            const Icon = option.icon;
+
             return (
               <div className="flex items-center gap-2">
-                <span className="text-sm font-medium text-slate-500">
-                  Type:
-                </span>
+                <Icon size={18} className="text-primary" />
 
-                <span className="font-semibold text-slate-800">
+                <span className="font-semibold text-primary">
                   {option.label}
                 </span>
               </div>
