@@ -15,7 +15,7 @@ const methods = useForm<AssignmentRequestBody>({
     p_group_id: '94ad87f0-6562-4284-8661-ab15ccacce4c',
     p_title: '',
     p_description: '',
-    p_deadline: new Date('2026-07-10T23:59:59Z'),
+    p_deadline: null,
     p_total_grade: 0,
 
     p_questions: [
@@ -24,10 +24,12 @@ const methods = useForm<AssignmentRequestBody>({
         question: '',
         grade: 0,
         sort_order: 1,
+
+        options: [],
       },
     ],
   },
-}); 
+});
    const { mutate, isPending } = useCreateAssignment();
 
     const onSubmit = (data: AssignmentRequestBody) => {

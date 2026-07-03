@@ -131,11 +131,19 @@ export interface Comment {
   };
 }
 
+export interface AssignmentOption {
+  text: string;
+  is_correct: boolean;
+  sort_order: number;
+}
+
 export interface AssignmentQuestion {
-  question_type: string;
   question: string;
+  question_type: 'text' | 'single_choice' | 'multiple_choice';
   grade: number;
   sort_order: number;
+
+  options?: AssignmentOption[];
 }
 
 export interface AssignmentRequestBody {
@@ -146,4 +154,3 @@ export interface AssignmentRequestBody {
   p_total_grade: number;
   p_questions: AssignmentQuestion[];
 }
-

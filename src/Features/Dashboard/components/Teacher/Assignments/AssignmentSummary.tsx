@@ -14,6 +14,7 @@ export default function AssignmentSummary({ isPending }: Props) {
 
  const questions = watch('p_questions');
  const deadline = watch('p_deadline');
+ const questionMap = questions.map((_, index: number) => index + 1);
 
  const totalGrade = questions.reduce(
    (sum: number, question: AssignmentQuestion) => sum + question.grade,
@@ -90,12 +91,10 @@ export default function AssignmentSummary({ isPending }: Props) {
         </div>
 
         <div className="flex h-[90px] w-full items-center rounded-xl border border-slate-200 bg-[#EEF4FF] px-4">
-          {/* Eye Icon */}
           <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#DCE9F7]">
             <Eye size={22} className="text-[#005F63]" />
           </div>
 
-          {/* Text + NewTap */}
           <div className="ml-4 flex flex-1 items-center justify-between">
             <div>
               <h4 className="text-sm font-semibold text-slate-900">
@@ -108,6 +107,56 @@ export default function AssignmentSummary({ isPending }: Props) {
             </div>
 
             <NewTap size={16} />
+          </div>
+        </div>
+
+
+        
+        <div className="mt-6 rounded-xl bg-[#EEF4FF] p-4">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-500">
+            Question Map
+          </p>
+
+          <div className="flex flex-wrap gap-2">
+            {questionMap.map((number: number) => (
+              <button
+                key={number}
+                type="button"
+                className="
+          flex
+          h-9
+          w-9
+          items-center
+          justify-center
+          rounded-lg
+          bg-[#005F63]
+          text-sm
+          font-semibold
+          text-white
+        "
+              >
+                {number}
+              </button>
+            ))}
+
+            <button
+              type="button"
+              form="create-assignment-form"
+              className="
+        flex
+        h-9
+        w-9
+        items-center
+        justify-center
+        rounded-lg
+        border
+        border-dashed
+        border-slate-300
+        text-slate-400
+      "
+            >
+              +
+            </button>
           </div>
         </div>
       </aside>
