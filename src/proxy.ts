@@ -1,6 +1,6 @@
 import { AuthService } from '@/Features/Auth/AuthService';
-import { removeAuthCookies } from '@/Features/Auth/Utils/RemoveAuthCookies';
-import { setAuthCookies } from '@/Features/Auth/Utils/SetAuthCookies';
+import { removeAuthCookies } from '@/Features/Auth/Utils/RemoveAuth';
+import { setAuthCookies } from '@/Features/Auth/Utils/SetAuth';
 import { NextRequest, NextResponse } from 'next/server';
 import { GetAccountType } from './Features/Auth/Utils/GetAccountType';
 
@@ -44,14 +44,9 @@ export default async function proxy(request: NextRequest) {
 
   const rememberMe = request.cookies.get('remember_me')?.value === 'true';
 
-
-
   if (expiresAtValue) {
     console.log('EXPIRE DATE:', new Date(expiresAt * 1000));
   }
-
-
-
 
   const isProtectedRoute = protectedRoutes.some((route) =>
     pathname.startsWith(route)
@@ -82,23 +77,18 @@ export default async function proxy(request: NextRequest) {
 
     if (tokenExpired) {
       if (refreshToken) {
-
         try {
           const newTokens = await AuthService.refreshToken(refreshToken);
-
 
           const response = NextResponse.next();
 
           await setAuthCookies(newTokens, rememberMe);
 
-
           return response;
         } catch (error) {
-
           const response = NextResponse.redirect(
             new URL('/login', request.url)
           );
-
 
           await removeAuthCookies(response);
 
@@ -106,9 +96,7 @@ export default async function proxy(request: NextRequest) {
         }
       }
 
-
       const response = NextResponse.redirect(new URL('/login', request.url));
-
 
       await removeAuthCookies(response);
 
@@ -121,10 +109,8 @@ export default async function proxy(request: NextRequest) {
   // =============================
 
   if (isAuthRoute && accessToken) {
-
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
-
 
   return NextResponse.next();
 }
