@@ -123,10 +123,8 @@ export default function DesktopSidebar() {
         })}
       </nav>
 
-      {/* Divider */}
       <div className="my-4 border-t border-text/10" />
 
-      {/* Bottom Items */}
       <div className="flex flex-col gap-1">
         {Items.map((item) => {
           const active = pathname === item.href;
@@ -160,7 +158,6 @@ export default function DesktopSidebar() {
         <LogoutButton />
       </div>
 
-      {/* Create Button */}
       <Link
         href="/group/create"
         className="

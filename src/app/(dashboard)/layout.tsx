@@ -8,31 +8,17 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="h-screen overflow-hidden bg-surface">
-      {/* Navbar */}
+    <div className="min-h-screen bg-surface">
       <div className="h-16">
         <Navbar />
       </div>
 
-      {/* Body */}
-      <div className="flex h-[calc(100vh-64px)]">
-        {/* Sidebar ثابت */}
-        <aside className="hidden lg:block h-full shrink-0">
+      <div className="flex">
+        <aside className="hidden lg:block shrink-0">
           <SidebarSwitcher />
         </aside>
 
-        {/* Content فقط هو اللي يعمل scroll */}
-        <main
-          className="
-            flex-1
-            overflow-y-auto
-            min-h-0
-            p-4
-            pb-24
-            lg:p-6
-            lg:pb-6
-          "
-        >
+        <main className="flex-1 p-4 pb-24 lg:p-6 lg:pb-6">
           <AuthProvider>{children}</AuthProvider>
         </main>
       </div>
