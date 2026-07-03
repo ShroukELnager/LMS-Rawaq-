@@ -16,7 +16,6 @@ export default function QuestionFooter({
   return (
     <div className="flex items-center justify-end bg-[#F0F3FF] pt-4">
       <div className="flex items-center gap-6 text-sm font-medium">
-        {/* Duplicate */}
         <button
           type="button"
           onClick={duplicate}
@@ -26,7 +25,6 @@ export default function QuestionFooter({
           <span>Duplicate</span>
         </button>
 
-        {/* Delete */}
         <button
           type="button"
           onClick={remove}
@@ -36,7 +34,6 @@ export default function QuestionFooter({
           <span>Delete</span>
         </button>
 
-        {/* Collapse */}
         <button
           type="button"
           onClick={() => setCollapsed(!collapsed)}

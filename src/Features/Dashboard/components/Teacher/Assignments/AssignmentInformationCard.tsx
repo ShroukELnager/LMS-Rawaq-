@@ -21,7 +21,6 @@ export default function AssignmentInformationCard() {
       </div>
 
       <div className="space-y-5">
-        {/* Title */}
         <div>
           <label className="mb-2 block text-xs font-medium">
             Assignment Title
@@ -49,7 +48,6 @@ export default function AssignmentInformationCard() {
           )}
         </div>
 
-        {/* Description */}
         <div>
           <label className="mb-2 block text-xs font-medium">Description</label>
 
@@ -76,7 +74,6 @@ export default function AssignmentInformationCard() {
           )}
         </div>
 
-        {/* Deadline */}
         <div>
           <label className="mb-2 block text-xs font-medium">Deadline</label>
 
