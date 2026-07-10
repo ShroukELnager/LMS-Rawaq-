@@ -6,7 +6,6 @@ import { GetAccountType } from './Features/Auth/Utils/GetAccountType';
 
 const protectedRoutes = [
   '/dashboard',
-  '/assignments',
   '/requests',
   '/posts',
   '/group',
@@ -14,10 +13,7 @@ const protectedRoutes = [
 const authRoutes = ['/login', '/signup'];
 
 const routePermissions = [
-  {
-    route: '/assignments',
-    roles: ['teacher'],
-  },
+
   {
     route: '/requests',
     roles: ['teacher'],

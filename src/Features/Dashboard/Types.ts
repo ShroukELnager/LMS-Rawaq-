@@ -190,3 +190,7 @@ export interface Assignment
     status: string;
     total_grade_awarded: number | null;
   }
+
+  export interface AssignmentDetailsRequestBody {
+    p_assignment_id:string;
+  }

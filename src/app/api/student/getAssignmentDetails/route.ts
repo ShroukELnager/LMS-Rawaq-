@@ -1,10 +1,10 @@
-import {  LikePostRequest } from '@/Features/Dashboard/Types';
+import { AssignmentDetailsRequestBody } from '@/Features/Dashboard/Types';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
   try {
-    const body = (await request.json()) as LikePostRequest;
+    const body = (await request.json()) as AssignmentDetailsRequestBody;
 
     const token = (await cookies()).get('access_token')?.value;
 
@@ -12,7 +12,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
     }
 
-    const response = await fetch(`${process.env.BASE_URL}/rest/v1/post_likes`, {
+    const response = await fetch(`${process.env.BASE_URL}/rest/v1/rpc/get_assignment_details`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ export async function POST(request: Request) {
             data.message ||
             data.error ||
             data.hint ||
-            'Unable to  like post. Please try again.',
+            'Unable to get assignment details. Please try again.',
         },
         { status: response.status }
       );

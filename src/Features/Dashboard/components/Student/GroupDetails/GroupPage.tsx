@@ -118,7 +118,6 @@ const {
           </div>
 
           {/* Assignments */}
-          {/* Assignments */}
           <div>
             <h2 className="text-xl font-bold text-[#101828]">Assignments</h2>
 
@@ -147,7 +146,11 @@ const {
                 </div>
               ) : (
                 assignments.map((assignment: Assignment) => (
-                  <AssignmentCard key={assignment.id} {...assignment} />
+                  <AssignmentCard
+                    key={assignment.id}
+                    {...assignment}
+                    groupId={groupId}
+                  />
                 ))
               )}
             </div>
