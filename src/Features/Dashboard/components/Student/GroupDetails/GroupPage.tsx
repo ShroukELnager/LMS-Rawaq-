@@ -2,7 +2,6 @@
 
 import { ClipboardList, FileText, Users } from 'lucide-react';
 import SectionCard from './SectionCard';
-import { assignmentsMock } from '@/Features/Dashboard/data';
 import PostCard from './PostCard';
 import AssignmentCard from './AssignmentCard';
 import FloatingButton from './FloatingButton';
@@ -10,10 +9,12 @@ import { useState } from 'react';
 import CreatePostModal from '../Posts/CreatePostModal';
 import SuccessModal from '../Posts/SuccessModal';
 import useGetPosts from '@/Features/Dashboard/Hooks/useGetPosts';
-import { PostCardProps } from '@/Features/Dashboard/Types';
+import { Assignment, PostCardProps } from '@/Features/Dashboard/Types';
 import PostCardSkeleton from '@/Features/Dashboard/Skeleton/Student/PostCardSkeleton';
 import { useRouter } from 'next/navigation';
 import ErrorState from '@/Features/Dashboard/Errors/ErrorToLoadPage';
+import useGetAssignments from '@/Features/Dashboard/Hooks/useGetAssignments';
+import AssignmentCardSkeleton from '@/Features/Dashboard/Skeleton/Student/AssignmentsCart';
 
 type GroupPageProps = {
   groupId: string;
@@ -31,6 +32,14 @@ export default function GroupPage({ groupId }: GroupPageProps) {
     refetch,
   } = useGetPosts(groupId, 3);
 
+
+const {
+  data: assignments,
+  isLoading: isAssignmentsLoading,
+  isError: isAssignmentsError,
+  error: assignmentsError,
+  refetch: refetchAssignments,
+} = useGetAssignments(groupId);console.log("assignments", assignments);
   const router = useRouter();
 
   return (
@@ -109,13 +118,38 @@ export default function GroupPage({ groupId }: GroupPageProps) {
           </div>
 
           {/* Assignments */}
+          {/* Assignments */}
           <div>
             <h2 className="text-xl font-bold text-[#101828]">Assignments</h2>
 
             <div className="mt-5 flex flex-col gap-4">
-              {assignmentsMock.map((assignment) => (
-                <AssignmentCard key={assignment.id} assignment={assignment} />
-              ))}
+              {isAssignmentsLoading ? (
+                Array.from({ length: 3 }).map((_, index) => (
+                  <AssignmentCardSkeleton key={index} />
+                ))
+              ) : isAssignmentsError ? (
+                <ErrorState
+                  message={
+                    assignmentsError?.message || 'Failed to load assignments'
+                  }
+                  onRetry={() => refetchAssignments()}
+                />
+              ) : !assignments || assignments.length === 0 ? (
+                <div className="rounded-2xl bg-white p-8 text-center shadow-sm">
+                  <h3 className="text-lg font-semibold text-[#101828]">
+                    No assignments yet
+                  </h3>
+
+                  <p className="mt-2 text-sm text-[#667085]">
+                    Your teacher hasn't published any assignments for this group
+                    yet.
+                  </p>
+                </div>
+              ) : (
+                assignments.map((assignment: Assignment) => (
+                  <AssignmentCard key={assignment.id} {...assignment} />
+                ))
+              )}
             </div>
           </div>
         </div>

@@ -165,3 +165,28 @@ export interface TeacherGroup {
   assignments_count: number;
   posts_count: number;
 }
+
+export interface Assignment 
+  {
+    id: string;
+    group_id: string;
+    title: string;
+    description: string;
+    deadline: string;
+    total_grade: number;
+
+    created_by: {
+      id: string;
+      first_name: string;
+      last_name: string;
+      avatar_url: string;
+    },
+
+    submitted: boolean;
+    reviewed: boolean;
+
+    submission_id: string;
+    submitted_at: string;
+    status: string;
+    total_grade_awarded: number | null;
+  }
