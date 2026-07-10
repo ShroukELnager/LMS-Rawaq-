@@ -1,4 +1,4 @@
-import { ChevronUp, FileText, Eye, } from 'lucide-react';
+import { ChevronUp, FileText, Eye } from 'lucide-react';
 import Send from '@assets/icons/send.svg';
 import NewTap from '@assets/icons/NewTap.svg';
 import { useFormContext } from 'react-hook-form';
@@ -9,21 +9,20 @@ interface Props {
 }
 
 export default function AssignmentSummary({ isPending }: Props) {
- const { watch,setValue } = useFormContext();
-  const { register } = useFormContext();
+  const { watch, setValue } = useFormContext();
 
- const questions = watch('p_questions');
- const deadline = watch('p_deadline');
- const questionMap = questions.map((_, index: number) => index + 1);
+  const questions = watch('p_questions');
+  const deadline = watch('p_deadline');
+  const questionMap = questions.map((_, index: number) => index + 1);
 
- const totalGrade = questions.reduce(
-   (sum: number, question: AssignmentQuestion) => sum + question.grade,
-   0
- );
+  const totalGrade = questions.reduce(
+    (sum: number, question: AssignmentQuestion) => sum + question.grade,
+    0
+  );
 
- useEffect(() => {
-   setValue('p_total_grade', totalGrade);
- }, [totalGrade, setValue]);
+  useEffect(() => {
+    setValue('p_total_grade', totalGrade);
+  }, [totalGrade, setValue]);
   return (
     <>
       {/* ================= Desktop ================= */}
@@ -110,8 +109,6 @@ export default function AssignmentSummary({ isPending }: Props) {
           </div>
         </div>
 
-
-        
         <div className="mt-6 rounded-xl bg-[#EEF4FF] p-4">
           <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-500">
             Question Map

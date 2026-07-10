@@ -12,7 +12,7 @@ const navItems = [
   },
   {
     name: "Groups",
-    href: "/",
+    href: "/group",
     icon: "/images/groups.png",
   },
   {

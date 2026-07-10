@@ -1,6 +1,5 @@
 import { CirclePlus, Trash2 } from 'lucide-react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import Menu from '@assets/icons/menu.svg';
 import { DndContext } from '@dnd-kit/core';
 import {
   SortableContext,

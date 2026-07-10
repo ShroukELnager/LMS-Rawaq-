@@ -154,3 +154,14 @@ export interface AssignmentRequestBody {
   p_total_grade: number;
   p_questions: AssignmentQuestion[];
 }
+
+export interface TeacherGroup {
+  id:string;
+  name: string;
+  description: string;
+  invite_code: null;
+  created_at: string;
+  members_count: number;
+  assignments_count: number;
+  posts_count: number;
+}

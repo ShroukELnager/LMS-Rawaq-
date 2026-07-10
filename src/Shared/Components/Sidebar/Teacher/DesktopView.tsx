@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import LogoutButton from '../../Ui/LogoutButton';
 
 const menuItems = [
-  { name: 'My Groups', href: '/group/create', icon: '/images/groups.png' },
+  { name: 'My Groups', href: '/group', icon: '/images/groups.png' },
   { name: 'Join Requests', href: '/requests', icon: '/images/requests.png' },
   {
     name: 'Assignments',

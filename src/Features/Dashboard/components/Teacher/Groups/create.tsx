@@ -9,7 +9,7 @@ import { toast } from "sonner";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { createGroupService } from "../../../lib/Services/teacher/groups.service";
+import { createGroupService } from "../../../lib/Services/teacher/creatGroups.service";
 import {
   CreateGroupFormData,
   CreateGroupFormInput,
