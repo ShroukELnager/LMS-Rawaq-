@@ -45,6 +45,7 @@ export default function NavigationButtons({
           disabled:text-gray-400
           disabled:hover:bg-transparent
           disabled:hover:text-gray-400
+          cursor-pointer
         "
       >
         <ArrowLeft size={18} />
@@ -69,6 +70,7 @@ export default function NavigationButtons({
             text-white
             transition
             hover:bg-[#00545c]
+            cursor-pointer
           "
         >
           <Send size={18} />

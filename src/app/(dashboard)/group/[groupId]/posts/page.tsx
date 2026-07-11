@@ -9,12 +9,12 @@ import PostCardSkeleton from '@/Features/Dashboard/Skeleton/Student/PostCardSkel
 import { PostCardProps } from '@/Features/Dashboard/Types';
 import ErrorState from '@/Features/Dashboard/Errors/ErrorToLoadPage';
 import PostCard from '@/Features/Dashboard/Components/Student/GroupDetails/PostCard';
-import { useSearchParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
+import PostHeader from '@/Features/Dashboard/Components/Student/GroupDetails/PostHeader';
 
 export default function PostsPage() {
-  const searchParams = useSearchParams();
-
-  const groupId = searchParams?.get('groupId');
+  const params = useParams();
+  const groupId = params?.groupId as string;
 
   const user = useAppSelector((state) => state.user.user);
 
@@ -46,22 +46,16 @@ export default function PostsPage() {
   };
 
   return (
-    <div className="min-h-screen p-5 bg-[#F5F7FA]">
-      <div className="mx-auto max-w-3xl">
-        {/* Create Post Card */}
+    <div className="min-h-screen bg-[#F5F7FA] py-8">
+      <div className="mx-auto max-w-3xl px-5">
+        {/* Header */}
+        <div className="mb-10">
+          <PostHeader groupId={groupId} />
+        </div>
 
-        <div
-          className="
-          mb-5
-          rounded-xl
-          border
-          border-[#EAECF0]
-          bg-white
-          p-5
-          shadow-md
-          "
-        >
-          <div className="flex items-center gap-4">
+        {/* Create Post */}
+        <div className="mb-8 rounded-2xl border border-[#EAECF0] bg-white p-6 shadow-sm">
+          <div className="flex items-start gap-4">
             <UserAvatar size={45} />
 
             <textarea
@@ -69,15 +63,15 @@ export default function PostsPage() {
               onChange={(e) => setContent(e.target.value)}
               placeholder="Share an update with the group..."
               className="
-              h-20
-              flex-1
-              resize-none
-              border-0
-              text-sm
-              text-[#344054]
-              outline-none
-              placeholder:text-[#98A2B3]
-              "
+            h-20
+            flex-1
+            resize-none
+            border-0
+            text-sm
+            text-[#344054]
+            outline-none
+            placeholder:text-[#98A2B3]
+          "
             />
           </div>
 
@@ -88,15 +82,18 @@ export default function PostsPage() {
               onClick={handlePublish}
               disabled={isCreating}
               className="
-              rounded-lg
-              bg-[#006D77]
-              px-6
-              py-2
-              text-sm
-              font-medium
-              text-white
-              disabled:opacity-60
-              "
+            cursor-pointer
+            rounded-lg
+            bg-[#006D77]
+            px-6
+            py-2
+            text-sm
+            font-medium
+            text-white
+            transition
+            hover:bg-[#005761]
+            disabled:opacity-60
+          "
             >
               {isCreating ? 'Posting...' : 'Post'}
             </button>
@@ -104,8 +101,7 @@ export default function PostsPage() {
         </div>
 
         {/* Posts */}
-
-        <div className="flex flex-col gap-4">
+        <div className="space-y-5">
           {isPending ? (
             Array.from({ length: 3 }).map((_, i) => (
               <PostCardSkeleton key={i} />
@@ -116,15 +112,7 @@ export default function PostsPage() {
               onRetry={() => refetch()}
             />
           ) : !data || data.length === 0 ? (
-            <div
-              className="
-              rounded-xl
-              bg-white
-              p-8
-              text-center
-              shadow-md
-              "
-            >
+            <div className="rounded-2xl bg-white p-10 text-center shadow-sm">
               <h3 className="text-lg font-semibold text-[#101828]">
                 No posts yet
               </h3>

@@ -26,7 +26,7 @@ export function GroupCard({ group }: { group: TeacherGroup }) {
         </p>
 
         <button
-          onClick={() => router.push(`/groups/${group.id}`)}
+          onClick={() => router.push(`/group/${group.id}`)}
           className="mt-5 h-11 w-full cursor-pointer rounded-lg bg-primary text-sm font-medium text-white transition hover:bg-[#014950]"
         >
           Open Group

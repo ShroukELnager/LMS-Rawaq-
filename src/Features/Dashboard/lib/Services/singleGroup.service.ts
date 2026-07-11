@@ -1,19 +1,14 @@
 
-export const PostsService = async (
-  groupId: string,
-  limit: number = 3
-) => {
-  const res = await fetch(`/api/student/getPosts?groupId=${groupId}&limit=${limit}`
-
-, {
-    method: "GET",
+export const GetSingleGroupService = async (groupId: string) => {
+  const res = await fetch(`/api/singleGroup?groupId=${groupId}`, {
+    method: 'GET',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   });
 
   if (!res.ok) {
-    let message = "Something went wrong";
+    let message = 'Something went wrong';
 
     try {
       const error = await res.json();

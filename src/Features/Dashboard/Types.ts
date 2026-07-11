@@ -194,3 +194,22 @@ export interface Assignment
   export interface AssignmentDetailsRequestBody {
     p_assignment_id:string;
   }
+
+  export interface AssignmentDetailsResponse {
+    id: string;
+    name: string;
+    created_at: string;
+    invite_code: null;
+    max_no_of_students: number;
+    category: string;
+    start_date: string;
+    duration_in_days: number;
+    current_students_count: number;
+    created_by: {
+      id: string;
+      last_name: string;
+      avatar_url: string;
+      first_name: string;
+    };
+    status: 'member' | 'not_member' | 'pending';
+  }

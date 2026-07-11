@@ -82,7 +82,7 @@ const {
               </h2>
 
               <button
-                onClick={() => router.push(`/group/posts?groupId=${groupId}`)}
+                onClick={() => router.push(`/group/groupId=${groupId}/posts`)}
                 className="cursor-pointer text-sm font-medium text-teal-700 hover:text-teal-800"
               >
                 View all posts

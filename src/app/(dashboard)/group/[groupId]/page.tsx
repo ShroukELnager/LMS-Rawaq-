@@ -1,4 +1,4 @@
-import GroupPage from '@/Features/Dashboard/Components/Student/GroupDetails/GroupPage';
+import GroupPageWrapper from "@/Shared/Components/GroupPageWrapper";
 
 type PageProps = {
   params: Promise<{
@@ -9,5 +9,5 @@ type PageProps = {
 export default async function Page({ params }: PageProps) {
   const { groupId } = await params;
 
-  return <GroupPage groupId={groupId} />;
+  return <GroupPageWrapper groupId={groupId} />;
 }

@@ -85,7 +85,10 @@ export default function PostCard(post: PostCardProps) {
               {post.author?.first_name} {post.author?.last_name}
             </h3>
 
-            {user?.user_metadata?.account_type === 'teacher' && (
+            {!(
+              user?.user_metadata?.account_type === 'teacher' &&
+              user?.id === post.author.id
+            ) && (
               <span className="rounded bg-primary px-2 py-0.5 text-xs text-white">
                 Instructor
               </span>
