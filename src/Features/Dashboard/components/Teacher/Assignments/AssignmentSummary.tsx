@@ -1,9 +1,10 @@
-import { ChevronUp, FileText, Eye } from 'lucide-react';
+import { ChevronUp, Eye, FileText } from 'lucide-react';
 import Send from '@assets/icons/send.svg';
 import NewTap from '@assets/icons/NewTap.svg';
 import { useFormContext } from 'react-hook-form';
 import { AssignmentQuestion } from '@/Features/Dashboard/Types';
 import { useEffect } from 'react';
+
 interface Props {
   isPending: boolean;
 }
@@ -11,22 +12,27 @@ interface Props {
 export default function AssignmentSummary({ isPending }: Props) {
   const { watch, setValue } = useFormContext();
 
-  const questions = watch('p_questions');
+  const questions: AssignmentQuestion[] = watch('p_questions') || [];
   const deadline = watch('p_deadline');
-  const questionMap = questions.map((_, index: number) => index + 1);
+
+  const deadlineDate =
+    deadline instanceof Date ? deadline : deadline ? new Date(deadline) : null;
+
+  const questionMap = questions.map((_, index) => index + 1);
 
   const totalGrade = questions.reduce(
-    (sum: number, question: AssignmentQuestion) => sum + question.grade,
+    (sum, question) => sum + Number(question.grade || 0),
     0
   );
 
   useEffect(() => {
     setValue('p_total_grade', totalGrade);
   }, [totalGrade, setValue]);
+
   return (
     <>
       {/* ================= Desktop ================= */}
-      <aside className="hidden lg:block space-y-4">
+      <aside className="hidden space-y-4 lg:block">
         <div className="rounded-2xl border border-[#D8E1F1] bg-[#EEF4FF] p-5">
           <div className="mb-6 flex items-center gap-2">
             <FileText size={15} className="text-slate-600" />
@@ -54,12 +60,17 @@ export default function AssignmentSummary({ isPending }: Props) {
             <div className="flex items-center justify-between">
               <span className="text-slate-600">Deadline</span>
 
-              <span className="font-semibold">
-                {deadline?.toLocaleDateString('en-US', {
-                  month: 'short',
-                  day: 'numeric',
-                  year: 'numeric',
-                })}
+              <span className="font-semibold text-right">
+                {deadlineDate
+                  ? deadlineDate.toLocaleString('en-US', {
+                      month: 'short',
+                      day: 'numeric',
+                      year: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit',
+                      hour12: true,
+                    })
+                  : '--'}
               </span>
             </div>
           </div>
@@ -68,21 +79,7 @@ export default function AssignmentSummary({ isPending }: Props) {
             type="submit"
             disabled={isPending}
             form="create-assignment-form"
-            className="
-    mt-8
-    flex
-    h-12
-    w-full
-    items-center
-    justify-center
-    gap-2
-    rounded-xl
-    bg-[#005F63]
-    font-medium
-    text-white
-    transition
-    hover:bg-[#00494C]
-  "
+            className="mt-8 flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#005F63] font-medium text-white transition hover:bg-[#00494C] disabled:cursor-not-allowed disabled:opacity-60"
           >
             <Send size={18} className="text-white" />
             <span>{isPending ? 'Publishing...' : 'Publish Assignment'}</span>
@@ -115,22 +112,11 @@ export default function AssignmentSummary({ isPending }: Props) {
           </p>
 
           <div className="flex flex-wrap gap-2">
-            {questionMap.map((number: number) => (
+            {questionMap.map((number) => (
               <button
                 key={number}
                 type="button"
-                className="
-          flex
-          h-9
-          w-9
-          items-center
-          justify-center
-          rounded-lg
-          bg-[#005F63]
-          text-sm
-          font-semibold
-          text-white
-        "
+                className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#005F63] text-sm font-semibold text-white"
               >
                 {number}
               </button>
@@ -139,18 +125,7 @@ export default function AssignmentSummary({ isPending }: Props) {
             <button
               type="button"
               form="create-assignment-form"
-              className="
-        flex
-        h-9
-        w-9
-        items-center
-        justify-center
-        rounded-lg
-        border
-        border-dashed
-        border-slate-300
-        text-slate-400
-      "
+              className="flex h-9 w-9 items-center justify-center rounded-lg border border-dashed border-slate-300 text-slate-400"
             >
               +
             </button>
@@ -194,6 +169,25 @@ export default function AssignmentSummary({ isPending }: Props) {
             <h2 className="mt-1 text-3xl font-bold text-[#005F63]">
               {questions.length}
             </h2>
+          </div>
+
+          <div className="col-span-2 rounded-xl bg-white p-3">
+            <p className="text-[10px] font-semibold uppercase tracking-wide text-slate-500">
+              Deadline
+            </p>
+
+            <p className="mt-1 text-sm font-semibold text-[#005F63]">
+              {deadlineDate
+                ? deadlineDate.toLocaleString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true,
+                  })
+                : '--'}
+            </p>
           </div>
         </div>
       </div>

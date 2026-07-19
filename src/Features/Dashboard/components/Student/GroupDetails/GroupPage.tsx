@@ -15,6 +15,7 @@ import { useRouter } from 'next/navigation';
 import ErrorState from '@/Features/Dashboard/Errors/ErrorToLoadPage';
 import useGetAssignments from '@/Features/Dashboard/Hooks/useGetAssignments';
 import AssignmentCardSkeleton from '@/Features/Dashboard/Skeleton/Student/AssignmentsCart';
+import HeaderCard from './HeaderCard';
 
 type GroupPageProps = {
   groupId: string;
@@ -44,6 +45,7 @@ const {
 
   return (
     <div className="min-h-screen bg-[#F5F7FA] p-5">
+      {/* <HeaderCard groupId={groupId} /> */}
       <div className="mx-auto max-w-7xl">
         {/* Top Cards */}
         <div className="mt-5 grid gap-4 md:grid-cols-3">

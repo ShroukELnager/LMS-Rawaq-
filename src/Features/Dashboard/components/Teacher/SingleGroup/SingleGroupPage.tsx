@@ -43,14 +43,10 @@ const {
   return (
     <div className="min-h-screen bg-[#F5F7FA] p-5">
       <div className="mx-auto max-w-7xl space-y-8">
-        {/* Header */}
         <AssignmentHeader groupId={groupId} />
 
-        {/* Posts + Sidebar */}
         <div className="grid gap-6 lg:grid-cols-[2fr_340px]">
-          {/* Left */}
           <div className="space-y-12">
-            {/* Latest Posts */}
             <section>
               <div className="mb-5 flex items-center justify-between">
                 <h2 className="text-2xl font-bold text-[#101828]">
@@ -93,7 +89,6 @@ const {
               </div>
             </section>
 
-            {/* Assignments */}
             <section>
               <div className="mb-5 flex items-center justify-between">
                 <h2 className="text-2xl font-bold text-[#101828]">
@@ -127,7 +122,6 @@ const {
             </section>
           </div>
 
-          {/* Right */}
           <div className="space-y-6">
             <GroupMembers />
             <GroupSettings />

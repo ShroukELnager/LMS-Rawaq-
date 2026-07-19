@@ -10,10 +10,10 @@ import AssignmentSummary from './AssignmentSummary';
 import { AssignmentRequestBody } from '@/Features/Dashboard/Types';
 import useCreateAssignment from '@/Features/Dashboard/Hooks/useCreateAssignment';
 
-export default function CreateAssignment() {
+export default function CreateAssignment({ groupId }: { groupId: string }) {
   const methods = useForm<AssignmentRequestBody>({
     defaultValues: {
-      p_group_id: '94ad87f0-6562-4284-8661-ab15ccacce4c',
+      p_group_id: groupId,
       p_title: '',
       p_description: '',
       p_deadline: null,
@@ -34,7 +34,7 @@ export default function CreateAssignment() {
   const { mutate, isPending } = useCreateAssignment();
 
   const onSubmit = (data: AssignmentRequestBody) => {
-    console.log(JSON.stringify(data, null, 2));
+    // console.log(JSON.stringify(data, null, 2));
     mutate(data);
   };
 

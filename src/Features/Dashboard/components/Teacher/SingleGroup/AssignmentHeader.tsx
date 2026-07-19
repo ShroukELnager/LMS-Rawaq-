@@ -10,7 +10,6 @@ type AssignmentHeaderProps = {
 };
 
 export default function AssignmentHeader({ groupId }: AssignmentHeaderProps) {
-  console.log("groupId", groupId);
   const { data, isPending } = useGetSingleGroup(groupId);
   const group=data?.[0]
 
@@ -33,7 +32,6 @@ const router = useRouter();
 
   return (
     <div className="rounded-3xl bg-white p-8 shadow-sm">
-      {/* Top Row */}
       <div className="flex items-center gap-3">
         <span className="rounded-full bg-[#006D77] px-3 py-1 text-xs font-semibold text-white">
           Active
@@ -49,15 +47,12 @@ const router = useRouter();
         </span>
       </div>
 
-      {/* Title */}
       <h1 className="mt-5 text-5xl font-bold text-[#045D6C]">{group.name}</h1>
 
-      {/* Description */}
       <p className="mt-4 max-w-3xl text-lg leading-8 text-gray-600">
         {group.description}
       </p>
 
-      {/* Actions */}
       <div className="mt-8 flex flex-wrap gap-4">
         <button
           onClick={() => {
@@ -71,7 +66,7 @@ const router = useRouter();
 
         <button
           onClick={() => {
-            router.push(`/group/${groupId}/assignments/`);
+            router.push(`/group/${groupId}/assignments/create`);
           }}
           className="flex items-center cursor-pointer gap-2 rounded-xl border border-[#006D77] px-6 py-3 font-medium text-[#006D77] transition hover:bg-[#006D77] hover:text-white"
         >

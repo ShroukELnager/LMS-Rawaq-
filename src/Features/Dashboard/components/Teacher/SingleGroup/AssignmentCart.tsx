@@ -13,11 +13,11 @@ export default function AssignmentCard({ groupId }: AssignmentCardProps) {
 
   if (isPending) {
     return (
-      <div className="space-y-5">
+      <div className="grid gap-5 lg:grid-cols-2">
         {Array.from({ length: 4 }).map((_, index) => (
           <div
             key={index}
-            className="h-44 animate-pulse rounded-2xl bg-gray-100"
+            className="h-[220px] animate-pulse rounded-2xl bg-gray-100"
           />
         ))}
       </div>
@@ -26,17 +26,17 @@ export default function AssignmentCard({ groupId }: AssignmentCardProps) {
 
   if (!assignments?.length) {
     return (
-      <div className="flex min-h-[320px] items-center justify-center rounded-3xl border border-dashed border-gray-300 bg-white">
+      <div className="flex min-h-[280px] items-center justify-center rounded-3xl border border-dashed border-gray-300 bg-white">
         <div className="flex max-w-sm flex-col items-center text-center">
-          <div className="mb-5 rounded-full bg-[#EEF8FA] p-5">
-            <ClipboardList className="size-10 text-[#006D77]" />
+          <div className="mb-4 rounded-full bg-[#EEF8FA] p-4">
+            <ClipboardList className="size-8 text-[#006D77]" />
           </div>
 
-          <h3 className="text-xl font-semibold text-[#101828]">
+          <h3 className="text-lg font-semibold text-[#101828]">
             No Assignments Yet
           </h3>
 
-          <p className="mt-2 text-sm leading-6 text-[#667085]">
+          <p className="mt-2 text-sm text-[#667085]">
             There are no assignments available for this group yet.
           </p>
         </div>
@@ -45,8 +45,8 @@ export default function AssignmentCard({ groupId }: AssignmentCardProps) {
   }
 
   return (
-    <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-    {assignments.map((assignment) => {
+    <div className="grid gap-5 lg:grid-cols-2">
+      {assignments.map((assignment) => {
         const progress = assignment.reviewed
           ? 100
           : assignment.submitted
@@ -54,69 +54,113 @@ export default function AssignmentCard({ groupId }: AssignmentCardProps) {
             : 0;
 
         const status = assignment.reviewed
-          ? 'Reviewed'
+          ? 'REVIEWED'
           : assignment.submitted
-            ? 'Submitted'
-            : 'Not Submitted';
+            ? 'SUBMITTED'
+            : 'ACTIVE';
 
         return (
           <div
             key={assignment.id}
-            className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:shadow-md"
+            className="
+              w-full
+              rounded-2xl
+              border
+              border-[#D0D5DD]
+              bg-[#FCFCFF]
+              p-6
+              transition
+              hover:shadow-md
+            "
           >
             {/* Header */}
-            <div className="flex items-start justify-between">
-              <span className="rounded-full bg-[#006D77] px-3 py-1 text-xs font-semibold text-white">
+            <div className="flex items-center justify-between">
+              <span
+                className="
+                  rounded-md
+                  bg-[#007C83]
+                  px-3
+                  py-1.5
+                  text-xs
+                  font-semibold
+                  tracking-wide
+                  text-[#D9F8FF]
+                "
+              >
                 {status}
               </span>
 
-              <FileText className="text-gray-400" size={20} />
+              <FileText size={24} strokeWidth={2} className="text-[#475467]" />
             </div>
 
             {/* Title */}
-            <h3 className="mt-4 text-xl font-semibold text-[#101828]">
+            <h2
+              className="
+                mt-5
+                break-words
+                text-xl
+                font-semibold
+                leading-7
+                text-[#101828]
+              "
+            >
               {assignment.title}
-            </h3>
-
-            {/* Description */}
-            <p className="mt-2 line-clamp-2 text-sm text-[#667085]">
-              {assignment.description}
-            </p>
+            </h2>
 
             {/* Deadline */}
-            <div className="mt-5 flex items-center justify-between text-sm">
-              <span className="text-[#667085]">Deadline</span>
-
-              <span className="font-medium text-[#101828]">
-                {new Date(assignment.deadline).toLocaleDateString('en-US', {
-                  month: 'short',
-                  day: 'numeric',
-                  year: 'numeric',
-                })}
-              </span>
-            </div>
-
-            {/* Grade */}
-            <div className="mt-3 flex items-center justify-between text-sm">
-              <span className="text-[#667085]">Total Grade</span>
-
-              <span className="font-semibold text-[#006D77]">
-                {assignment.total_grade} pts
-              </span>
-            </div>
+            <p
+              className="
+                mt-3
+                text-sm
+                font-medium
+                text-[#475467]
+              "
+            >
+              <span className="font-semibold">Due:</span>{' '}
+              {new Date(assignment.deadline).toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric',
+              })}
+            </p>
 
             {/* Progress */}
             <div className="mt-6">
-              <div className="mb-2 flex items-center justify-between text-sm">
-                <span className="text-[#667085]">Progress</span>
+              <div className="mb-2 flex items-center justify-between gap-4">
+                <span
+                  className="
+                    text-sm
+                    font-medium
+                    text-[#475467]
+                  "
+                >
+                  Submission Progress
+                </span>
 
-                <span className="font-medium text-[#101828]">{progress}%</span>
+                <span
+                  className="
+                    whitespace-nowrap
+                    text-base
+                    font-bold
+                    text-[#006D77]
+                  "
+                >
+                  {progress}/{assignment.total_grade}
+                </span>
               </div>
 
-              <div className="h-2 overflow-hidden rounded-full bg-[#E5E7EB]">
+              <div className="h-2.5 w-full overflow-hidden rounded-full bg-[#E9E4D2]">
                 <div
-                  className="h-full rounded-full bg-[#E3BE54] transition-all duration-300"
-                  style={{ width: `${progress}%` }}
+                  className="
+                    h-full
+                    rounded-full
+                    bg-[#E3BE54]
+                    transition-all
+                    duration-300
+                  "
+                  style={{
+                    width: `${progress}%`,
+                  }}
                 />
               </div>
             </div>

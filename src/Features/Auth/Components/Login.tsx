@@ -322,6 +322,7 @@ return (
                 gap-2
                 hover:opacity-90
                 transition
+                cursor-pointer
               "
             >
               {isSubmitting ? 'Logging in...' : 'Log In'}

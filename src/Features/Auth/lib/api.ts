@@ -1,5 +1,5 @@
 export async function apiRequest(url: string, options: RequestInit = {}) {
-  const res = await fetch(`${process.env.BASE_URL}${url}`, {
+  const res = await fetch(`${process.env.BASE_URL}/${url.replace(/^\//, '')}`, {
     ...options,
     headers: {
       'Content-Type': 'application/json',

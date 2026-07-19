@@ -35,9 +35,10 @@ export default function JoinedGroup() {
                 className="rounded-xl border border-gray-300 bg-white p-4 shadow-sm transition hover:shadow-md"
               >
                 <div className="flex items-start justify-between">
-                  <span className="rounded-[75px] bg-primary px-3 py-1 text-sm font-medium text-white">
+                  {group.category &&(<span className="rounded-[75px] bg-primary px-3 py-1 text-sm font-medium text-white">
                     {group.category}
-                  </span>
+                  </span>)}
+                  
                 </div>
 
                 <h2 className="mt-4 text-xl font-semibold text-gray-900">

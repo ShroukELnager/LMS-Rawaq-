@@ -1,9 +1,10 @@
 'use client';
 
 import Image from 'next/image';
-import { Heart, MessageSquare, SendHorizontal } from 'lucide-react';
+import {  SendHorizontal } from 'lucide-react';
 import { useState } from 'react';
-
+import Like from "@/assets/icons/like.svg"
+import Comment from "@/assets/icons/comment.svg"
 import { PostCardProps } from '@/Features/Dashboard/Types';
 import { fixSupabaseUrl } from '@/Features/Dashboard/lib/FixSupabaseUrl';
 import { useAppSelector } from '@/redux/hooks';
@@ -112,16 +113,16 @@ export default function PostCard(post: PostCardProps) {
           onClick={handleLike}
           className={`
             flex items-center gap-2 text-sm
-            ${post.is_liked ? 'text-red-500' : 'text-[#667085]'}
+            ${post.is_liked ? 'text-primary' : 'text-[#667085]'}
           `}
         >
-          <Heart size={18} className={post.is_liked ? 'fill-red-500' : ''} />
+          <Like size={18} className={post.is_liked ? 'fill-primary' : ''} />
 
           <span>{post.likes_count}</span>
         </button>
 
         <div className="flex items-center gap-2 text-sm text-[#667085]">
-          <MessageSquare size={18} />
+          <Comment size={18} />
 
           <span>{post.comments_count}</span>
         </div>
@@ -147,7 +148,7 @@ export default function PostCard(post: PostCardProps) {
         text-center
       "
           >
-            <MessageSquare size={32} className="mb-3 text-[#98A2B3]" />
+            <Comment size={32} className="mb-3 text-[#98A2B3]" />
 
             <p
               className="
@@ -202,7 +203,7 @@ export default function PostCard(post: PostCardProps) {
             px-4
             py-2.5
             transition
-            hover:bg-[#E8EAED]
+            
           "
               >
                 <h4

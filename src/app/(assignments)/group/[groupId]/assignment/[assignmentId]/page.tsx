@@ -50,8 +50,8 @@ export default function AssignmentQuestionsPage() {
       {/* Desktop */}
       <div className="hidden lg:block">
         <AssignmentQuestions
+          assignmentId={assignmentId}
           questions={questions}
-          assignmentTitle={assignmentDetails.title}
         />
       </div>
 

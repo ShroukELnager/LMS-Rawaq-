@@ -2,10 +2,9 @@
 
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import Info from '@assets/icons/info.svg';
 import { Controller, useFormContext } from 'react-hook-form';
 import { AssignmentRequestBody } from '@/Features/Dashboard/Types';
-
+import Info from '@/assets/icons/info.svg'
 export default function AssignmentInformationCard() {
   const {
     control,
@@ -85,29 +84,34 @@ export default function AssignmentInformationCard() {
             }}
             render={({ field }) => (
               <DatePicker
-                selected={field.value}
-                onChange={(date: Date | null) => field.onChange(date)}
+                selected={field.value ? new Date(field.value) : null}
+                onChange={(date: Date | null) =>
+                  field.onChange(date ? date.toISOString() : null)
+                }
                 placeholderText="mm/dd/yyyy, --:-- --"
-                dateFormat="MMM dd, yyyy"
+                dateFormat="MMM dd, yyyy h:mm aa"
+                showTimeSelect
+                timeFormat="HH:mm"
+                timeIntervals={15}
                 minDate={new Date()}
                 showPopperArrow={false}
                 calendarClassName="assignment-calendar"
                 className={`
-                  h-11
-                  w-full
-                  rounded-lg
-                  border
-                  bg-white
-                  px-4
-                  text-sm
-                  outline-none
-                  transition
-                  ${
-                    errors.p_deadline
-                      ? 'border-red-500'
-                      : 'border-[#D9E2F2] focus:border-primary focus:ring-2 focus:ring-primary/20'
-                  }
-                `}
+        h-11
+        w-full
+        rounded-lg
+        border
+        bg-white
+        px-4
+        text-sm
+        outline-none
+        transition
+        ${
+          errors.p_deadline
+            ? 'border-red-500'
+            : 'border-[#D9E2F2] focus:border-primary focus:ring-2 focus:ring-primary/20'
+        }
+      `}
               />
             )}
           />
