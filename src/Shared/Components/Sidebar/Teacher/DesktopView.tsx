@@ -26,18 +26,20 @@ export default function DesktopSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside
-      className="
-        hidden
-        lg:flex
-        flex-col
-        w-72
-        h-full
-        shrink-0
-        bg-[#E6E3D0]
-        p-4
-      "
-    >
+
+      <aside
+  className="
+    hidden
+    lg:block
+    w-72
+    h-[calc(100vh-4rem)]
+    overflow-y-auto
+    bg-[#E6E3D0]
+    p-5
+    shrink-0
+  "
+>
+
       {/* Logo */}
       <div className="mb-5 flex items-center gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary">
