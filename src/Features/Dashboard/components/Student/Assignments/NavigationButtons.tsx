@@ -1,13 +1,12 @@
 'use client';
 
-import { ArrowLeft, ArrowRight, Send } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 type NavigationButtonsProps = {
   currentQuestion: number;
   totalQuestions: number;
   onPrevious: () => void;
   onNext: () => void;
-  onSubmit: () => void;
 };
 
 export default function NavigationButtons({
@@ -15,19 +14,19 @@ export default function NavigationButtons({
   totalQuestions,
   onPrevious,
   onNext,
-  onSubmit,
 }: NavigationButtonsProps) {
   const isFirstQuestion = currentQuestion === 0;
   const isLastQuestion = currentQuestion === totalQuestions - 1;
 
   return (
-    <div className="mt-12 flex items-center justify-between border-t pt-6">
+    <div className="mt-12 flex items-center justify-between border-t border-[#EAECF0] pt-6">
       <button
         type="button"
         onClick={onPrevious}
         disabled={isFirstQuestion}
         className="
           flex
+          cursor-pointer
           items-center
           gap-2
           rounded-xl
@@ -41,63 +40,41 @@ export default function NavigationButtons({
           hover:bg-[#006D77]
           hover:text-white
           disabled:cursor-not-allowed
-          disabled:border-gray-300
-          disabled:text-gray-400
+          disabled:border-[#D0D5DD]
+          disabled:text-[#98A2B3]
           disabled:hover:bg-transparent
-          disabled:hover:text-gray-400
-          cursor-pointer
+          disabled:hover:text-[#98A2B3]
         "
       >
         <ArrowLeft size={18} />
         Previous
       </button>
 
-    
-
-      {isLastQuestion ? (
-        <button
-          type="button"
-          onClick={onSubmit}
-          className="
-            flex
-            items-center
-            gap-2
-            rounded-xl
-            bg-[#006D77]
-            px-6
-            py-3
-            font-medium
-            text-white
-            transition
-            hover:bg-[#00545c]
-            cursor-pointer
-          "
-        >
-          <Send size={18} />
-          Submit Assignment
-        </button>
-      ) : (
-        <button
-          type="button"
-          onClick={onNext}
-          className="
-            flex
-            items-center
-            gap-2
-            rounded-xl
-            bg-[#006D77]
-            px-6
-            py-3
-            font-medium
-            text-white
-            transition
-            hover:bg-[#00545c]
-          "
-        >
-          Next
-          <ArrowRight size={18} />
-        </button>
-      )}
+      <button
+        type="button"
+        onClick={onNext}
+        disabled={isLastQuestion}
+        className="
+          flex
+          cursor-pointer
+          items-center
+          gap-2
+          rounded-xl
+          bg-[#006D77]
+          px-6
+          py-3
+          font-medium
+          text-white
+          transition
+          hover:bg-[#00545C]
+          disabled:cursor-not-allowed
+          disabled:bg-[#D0D5DD]
+          disabled:text-[#98A2B3]
+        "
+      >
+        Next Question
+        <ArrowRight size={18} />
+      </button>
     </div>
   );
 }

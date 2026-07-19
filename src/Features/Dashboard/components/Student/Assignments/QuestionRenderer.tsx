@@ -1,5 +1,7 @@
 'use client';
 
+import { Controller, useFormContext } from 'react-hook-form';
+
 type Option = {
   id: string;
   option_text: string;
@@ -16,122 +18,148 @@ type Question = {
 
 type QuestionRendererProps = {
   question: Question;
-  value?: string | string[];
-  onChange: (value: string | string[]) => void;
+  questionIndex: number;
 };
 
 export default function QuestionRenderer({
   question,
-  value,
-  onChange,
+  questionIndex,
 }: QuestionRendererProps) {
+  const { control } = useFormContext();
+
   if (question.question_type === 'single_choice') {
     return (
-      <div className="space-y-4">
-        {question.options.map((option) => (
-          <label
-            key={option.id}
-            className={`
-              flex
-              cursor-pointer
-              items-center
-              gap-4
-              rounded-2xl
-              border
-              p-5
-              transition
-              hover:border-[#006D77]
-              ${
-                value === option.id
-                  ? 'border-[#006D77] bg-[#EEF8FA]'
-                  : 'border-gray-200'
-              }
-            `}
-          >
-            <input
-              type="radio"
-              name={question.id}
-              checked={value === option.id}
-              onChange={() => onChange(option.id)}
-              className="h-5 w-5 accent-[#006D77]"
-            />
+      <Controller
+        control={control}
+        name={`p_answers.${questionIndex}.selected_option_ids`}
+        render={({ field }) => (
+          <div className="space-y-4">
+            {question.options.map((option) => {
+              const checked = field.value?.[0] === option.id;
 
-            <span className="text-base text-[#344054]">
-              {option.option_text}
-            </span>
-          </label>
-        ))}
-      </div>
+              return (
+                <label
+                  key={option.id}
+                  className={`
+                    flex
+                    cursor-pointer
+                    items-center
+                    gap-4
+                    rounded-2xl
+                    border
+                    p-5
+                    transition
+                    hover:border-[#006D77]
+                    ${
+                      checked
+                        ? 'border-[#006D77] bg-[#EEF8FA]'
+                        : 'border-gray-200'
+                    }
+                  `}
+                >
+                  <input
+                    type="radio"
+                    checked={checked}
+                    onChange={() => field.onChange([option.id])}
+                    className="h-5 w-5 accent-[#006D77]"
+                  />
+
+                  <span className="text-base text-[#344054]">
+                    {option.option_text}
+                  </span>
+                </label>
+              );
+            })}
+          </div>
+        )}
+      />
     );
   }
 
   if (question.question_type === 'multiple_choice') {
-    const selected = Array.isArray(value) ? value : [];
-
-    const toggleOption = (optionId: string) => {
-      if (selected.includes(optionId)) {
-        onChange(selected.filter((id) => id !== optionId));
-      } else {
-        onChange([...selected, optionId]);
-      }
-    };
-
     return (
-      <div className="space-y-4">
-        {question.options.map((option) => {
-          const checked = selected.includes(option.id);
+      <Controller
+        control={control}
+        name={`p_answers.${questionIndex}.selected_option_ids`}
+        render={({ field }) => {
+          const values: string[] = field.value || [];
 
           return (
-            <label
-              key={option.id}
-              className={`
-                flex
-                cursor-pointer
-                items-center
-                gap-4
-                rounded-2xl
-                border
-                p-5
-                transition
-                hover:border-[#006D77]
-                ${checked ? 'border-[#006D77] bg-[#EEF8FA]' : 'border-gray-200'}
-              `}
-            >
-              <input
-                type="checkbox"
-                checked={checked}
-                onChange={() => toggleOption(option.id)}
-                className="h-5 w-5 accent-[#006D77]"
-              />
+            <div className="space-y-4">
+              {question.options.map((option) => {
+                const checked = values.includes(option.id);
 
-              <span className="text-base text-[#344054]">
-                {option.option_text}
-              </span>
-            </label>
+                return (
+                  <label
+                    key={option.id}
+                    className={`
+                      flex
+                      cursor-pointer
+                      items-center
+                      gap-4
+                      rounded-2xl
+                      border
+                      p-5
+                      transition
+                      hover:border-[#006D77]
+                      ${
+                        checked
+                          ? 'border-[#006D77] bg-[#EEF8FA]'
+                          : 'border-gray-200'
+                      }
+                    `}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={checked}
+                      onChange={() => {
+                        if (checked) {
+                          field.onChange(
+                            values.filter((id) => id !== option.id)
+                          );
+                        } else {
+                          field.onChange([...values, option.id]);
+                        }
+                      }}
+                      className="h-5 w-5 accent-[#006D77]"
+                    />
+
+                    <span className="text-base text-[#344054]">
+                      {option.option_text}
+                    </span>
+                  </label>
+                );
+              })}
+            </div>
           );
-        })}
-      </div>
+        }}
+      />
     );
   }
 
   return (
-    <textarea
-      rows={8}
-      value={typeof value === 'string' ? value : ''}
-      onChange={(e) => onChange(e.target.value)}
-      placeholder="Write your answer here..."
-      className="
-        w-full
-        rounded-2xl
-        border
-        border-gray-300
-        p-5
-        outline-none
-        transition
-        focus:border-[#006D77]
-        focus:ring-2
-        focus:ring-[#006D77]/20
-      "
+    <Controller
+      control={control}
+      name={`p_answers.${questionIndex}.text_answer`}
+      render={({ field }) => (
+        <textarea
+          {...field}
+          rows={8}
+          placeholder="Write your answer here..."
+          className="
+            w-full
+            rounded-2xl
+            border
+            border-gray-300
+            p-5
+            outline-none
+            transition
+            focus:border-[#006D77]
+            focus:ring-2
+            focus:ring-[#006D77]/20
+          "
+        />
+      )}
     />
   );
 }
