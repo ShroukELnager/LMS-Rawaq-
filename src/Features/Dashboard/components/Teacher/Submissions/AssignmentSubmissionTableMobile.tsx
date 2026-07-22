@@ -3,6 +3,7 @@ import { AssignmentSubmissionsResponse } from '@/Features/Dashboard/Types';
 import StudentAvatar from '@/Shared/Components/StudentAvatar';
 import { UseQueryResult } from '@tanstack/react-query';
 import { Search } from "lucide-react";
+import { useRouter } from 'next/navigation';
 import { useMemo, useState } from "react";
 type Props = {
   AssignmentSubmissionsData: UseQueryResult<
@@ -13,6 +14,8 @@ type Props = {
   search: string;
   onStatusChange: (status: string | null) => void;
   onSearchChange: (search: string) => void;
+  groupId: string;
+  assignmentId:string
 };
 export default function AssignmentSubmissionTableMobile({
   AssignmentSubmissionsData,
@@ -20,9 +23,12 @@ export default function AssignmentSubmissionTableMobile({
   search,
   onStatusChange,
   onSearchChange,
+  groupId,
+  assignmentId,
 }: Props) {
   const students = AssignmentSubmissionsData.data?.students ?? [];
   const assignment = AssignmentSubmissionsData.data?.assignment;
+  const router = useRouter();
 
   const tabs = [
     {
@@ -121,7 +127,14 @@ export default function AssignmentSubmissionTableMobile({
               </div>
 
               {student.status === 'submitted' && (
-                <button className="rounded-md bg-primary px-6 py-2 text-sm text-white">
+                <button
+                  onClick={() =>
+                    router.push(
+                      `/group/${groupId}/assignments/${assignmentId}/submissions/${student.user_id}`
+                    )
+                  }
+                  className="rounded-md bg-primary px-6 py-2 text-sm text-white"
+                >
                   Review
                 </button>
               )}

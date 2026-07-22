@@ -5,19 +5,20 @@ import { useState } from "react";
 
 export default function AssignmentSubmissionsPage({
   assignmentId,
+  groupId,
 }: {
+  groupId:string
   assignmentId: string;
 }) {
-
   const [status, setStatus] = useState<string | null>(null);
   const [search, setSearch] = useState('');
 
-const AssignmentSubmissionsData = useGetAssignmentSubmissions({
-  assignmentId,
-  status,
-  search,
-});
-console.log('AssignmentSubmissionsData', AssignmentSubmissionsData.data);
+  const AssignmentSubmissionsData = useGetAssignmentSubmissions({
+    assignmentId,
+    status,
+    search,
+  });
+  console.log('AssignmentSubmissionsData', AssignmentSubmissionsData.data);
   return (
     <section className="mx-auto w-full  space-y-6 px-4  sm:px-6 lg:px-8">
       <AssignmentSubmissionHeader
@@ -30,6 +31,8 @@ console.log('AssignmentSubmissionsData', AssignmentSubmissionsData.data);
         search={search}
         onStatusChange={setStatus}
         onSearchChange={setSearch}
+        groupId={groupId}
+        assignmentId={assignmentId}
       />
     </section>
   );

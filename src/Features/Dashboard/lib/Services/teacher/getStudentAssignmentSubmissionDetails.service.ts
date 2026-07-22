@@ -1,11 +1,12 @@
 import {
   AssignmentSubmissionsResponse,
-  StudentAssignmentSuubmissionsDetailsRequest,
+  SubmissionReviewRequest,
+  SubmissionReviewResponse,
 } from '../../../Types';
 
-export const getStudentAssignmentSubmissionDetailsService = async (
-  data: StudentAssignmentSuubmissionsDetailsRequest
-): Promise<> => {
+export const SubmissionReviewDetailsService = async (
+  data: SubmissionReviewRequest
+): Promise<SubmissionReviewResponse> => {
   const res = await fetch(
     '/api/teacher/getStudentAssignmentSubmissionDetails',
     {
@@ -30,5 +31,5 @@ export const getStudentAssignmentSubmissionDetailsService = async (
     throw new Error(message);
   }
 
-  return res.json() as Promise<AssignmentSubmissionsResponse>;
+  return res.json() as Promise<SubmissionReviewResponse>;
 };

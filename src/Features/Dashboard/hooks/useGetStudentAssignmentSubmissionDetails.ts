@@ -1,13 +1,19 @@
 import { useQuery } from '@tanstack/react-query';
-import { getStudentAssignmentSubmissionDetailsService } from '../lib/Services/teacher/getStudentAssignmentSubmissionDetails.service';
+import { SubmissionReviewDetailsService } from '../lib/Services/teacher/getStudentAssignmentSubmissionDetails.service';
 
-export default function useGetAssignmentSubmissions({p_assignment_id,p_student_id}:{p_assignment_id:string,p_student_id:string}) {
+export default function useGetStudentSubmissionDetails({
+  assignmentId,
+  studentId,
+}: {
+  assignmentId: string;
+  studentId: string;
+}) {
   return useQuery({
-    queryKey: ['assignmentsStudentSubmissions', p_assignment_id, p_student_id],
+    queryKey: ['assignmentsStudentSubmissions', assignmentId, studentId],
     queryFn: () =>
-      getStudentAssignmentSubmissionDetailsService({
-        p_assignment_id: p_assignment_id,
-        p_student_id: p_student_id,
+      SubmissionReviewDetailsService({
+        p_assignment_id: assignmentId,
+        p_student_id: studentId,
       }),
   });
 }

@@ -1,11 +1,10 @@
-import { StudentAssignmentSuubmissionsDetailsRequest } from '@/Features/Dashboard/Types';
+import { SubmissionReviewRequest } from '@/Features/Dashboard/Types';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
   try {
-    const body =
-      (await request.json()) as StudentAssignmentSuubmissionsDetailsRequest;
+    const body = (await request.json()) as SubmissionReviewRequest;
 
     const token = (await cookies()).get('access_token')?.value;
 

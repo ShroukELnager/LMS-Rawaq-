@@ -12,6 +12,8 @@ type Props = {
   search: string;
   onStatusChange: (status: string | null) => void;
   onSearchChange: (search: string) => void;
+  groupId: string;
+  assignmentId:string
 };
 
 export default function AssignmentSubmissionTable({
@@ -20,6 +22,8 @@ export default function AssignmentSubmissionTable({
   search,
   onStatusChange,
   onSearchChange,
+  groupId,
+  assignmentId,
 }: Props) {
   return (
     <>
@@ -30,6 +34,8 @@ export default function AssignmentSubmissionTable({
           search={search}
           onStatusChange={onStatusChange}
           onSearchChange={onSearchChange}
+          groupId={groupId}
+          assignmentId={assignmentId}
         />
       </div>
 
@@ -40,6 +46,8 @@ export default function AssignmentSubmissionTable({
           search={search}
           onStatusChange={onStatusChange}
           onSearchChange={onSearchChange}
+          groupId={groupId}
+          assignmentId={assignmentId}
         />
       </div>
     </>
