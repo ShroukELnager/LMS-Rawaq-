@@ -1,24 +1,27 @@
 @import "tailwindcss";
 
-
 @import "@fontsource/inter/400.css";
 @import "@fontsource/inter/500.css";
 @import "@fontsource/inter/600.css";
 @import "@fontsource/inter/700.css";
-
 
 @theme {
   /* Colors */
   --color-primary: #006d77;
   --color-secondary: #d4a373;
   --color-tertiary: #5e4700;
-  --color-text: #3E494A;
+  --color-text: #3e494a;
 
   --color-surface: #f9f9ff;
   --color-surface-container: #e7eeff;
 
   --color-error: #ba1a1a;
-
+  --color-light-blue: #e7eeff;
+  --color-dark-slate: #3e494a;
+    --color-dark: #111c2c;
+    --color-muted: #bec8ca;
+    --color-success: #22c55e;
+    --color-error: #ba1a1a;
   /* Fonts */
   --font-sans: "Inter", sans-serif;
 
@@ -61,12 +64,10 @@
   position: absolute;
   inset: 0;
   transform: translateX(-100%);
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255,255,255,.6),
-    transparent
-  );
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.6),
+      transparent);
   animation: shimmer 1.5s infinite;
 }
 
@@ -77,13 +78,6 @@
 .react-datepicker__input-container input {
   width: 100%;
 }
-
-
-
-
-
-
-
 
 .assignment-calendar {
   border: none !important;
@@ -140,7 +134,6 @@
 .assignment-calendar .react-datepicker__triangle {
   display: none;
 }
-
 
 .hide-scrollbar::-webkit-scrollbar {
   width: 0;

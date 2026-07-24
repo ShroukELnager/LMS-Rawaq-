@@ -310,13 +310,14 @@ export type SubmissionReviewResponse = {
   questions: QuestionDetails[];
 
   total_grade: number;
-  submitted_at: string;
+  submitted_at: Date;
   submission_id: string;
   total_grade_awarded: number | null;
 };
 
 export type QuestionDetails = {
   id: string;
+  answer_id: string;
   grade: number;
   options: QuestionOption[] | null;
   question: string;
@@ -336,3 +337,14 @@ export type QuestionOption = {
   selected: boolean;
   is_correct: boolean;
 };
+
+ export interface AnswerGrade {
+  answer_id: string;
+  grade_awarded: number;
+  teacher_feedback: string;
+}
+
+export interface GradeSubmissionRequest {
+  p_submission_id: string;
+  p_answers: AnswerGrade[];
+}

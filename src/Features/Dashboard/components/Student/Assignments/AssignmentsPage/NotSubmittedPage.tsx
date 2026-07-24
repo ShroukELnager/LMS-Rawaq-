@@ -119,7 +119,7 @@ console.log('deadline', assignmentDetails.deadline);
             <div className="mt-8 flex gap-4  pt-6">
               <button
                 onClick={() =>
-                  router.push(`/group/${groupId}/assignments/${assignmentId}`)
+                  router.push(`/group/${groupId}/assignment/${assignmentId}`)
                 }
                 className="flex w-fit cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#006D77] px-8 py-3 font-medium text-white transition hover:bg-[#00545c]"
               >

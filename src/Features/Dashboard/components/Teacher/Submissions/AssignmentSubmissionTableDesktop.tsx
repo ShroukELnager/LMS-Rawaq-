@@ -219,7 +219,7 @@ console.log('students', students);
                       <button
                         onClick={() =>
                           router.push(
-                            `/group/${groupId}/assignments/${assignmentId}/submissions/${student.user_id}`
+                            `/group/${groupId}/assignment/${assignmentId}/submission/${student.user_id}`
                           )
                         }
                         className=" cursor-pointer rounded-lg bg-[#0B5D66] px-5 py-2 text-sm font-medium text-white transition hover:bg-[#094B53]"

@@ -1,26 +1,23 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import { CalendarDays, CircleAlert, FileText, Star } from 'lucide-react';
-import Send from '@assets/icons/send.svg';
+import { useEffect } from 'react';
+import { useParams } from 'next/navigation';
+import { CircleAlert } from 'lucide-react';
 
 import useGetAssignmentDetails from '@/Features/Dashboard/Hooks/useGetAssignmentDetails.service';
-import StatCard from '@/Features/Dashboard/Components/Student/StatAssignmentCart';
 import NotSubmittedPage from '@/Features/Dashboard/Components/Student/Assignments/AssignmentsPage/NotSubmittedPage';
 import LateSubmissionPage from '@/Features/Dashboard/Components/Student/Assignments/AssignmentsPage/LateSubmissionPage';
 import SubmittedPage from '@/Features/Dashboard/Components/Student/Assignments/AssignmentsPage/SubmittedPage';
 
 export default function Page() {
-  const router = useRouter();
-
   const params = useParams();
+
   const assignmentId = params?.assignmentId as string;
   const groupId = params?.groupId as string;
 
   const { assignmentDetails, assignmentDetailsAsync, isPending, error } =
     useGetAssignmentDetails();
-   console.log(JSON.stringify(assignmentDetails, null, 2));
+
   useEffect(() => {
     if (!assignmentId) return;
 
@@ -29,8 +26,7 @@ export default function Page() {
     });
   }, [assignmentId, assignmentDetailsAsync]);
 
-  if (!assignmentDetails) return null;
-
+  // Loading state
   if (isPending) {
     return (
       <div className="mx-auto max-w-7xl space-y-6 p-8">
@@ -55,6 +51,7 @@ export default function Page() {
     );
   }
 
+  // Error state
   if (error) {
     return (
       <div className="flex h-[70vh] flex-col items-center justify-center gap-4">
@@ -65,7 +62,7 @@ export default function Page() {
         <button
           onClick={() =>
             assignmentDetailsAsync({
-              p_assignment_id: assignmentId!,
+              p_assignment_id: assignmentId,
             })
           }
           className="rounded-lg bg-[#006D77] px-6 py-3 text-white"
@@ -76,23 +73,44 @@ export default function Page() {
     );
   }
 
-const { is_late, submission, can_submit } = assignmentDetails;
-console.log('submission', submission);
-// return is_late ? (
-//   <LateSubmissionPage assignmentDetails={assignmentDetails} />
-// ) : submission.status=="submitted" ?(
-//     <SubmittedPage assignmentDetails={assignmentDetails} />
+  // No data
+  if (!assignmentDetails) {
+    return null;
+  }
 
+  const { is_late, submission, can_submit } = assignmentDetails;
 
-// ) : (
-//   <NotSubmittedPage
-//     assignmentDetails={assignmentDetails}
-//     groupId={groupId}
-//     assignmentId={assignmentId}
-//   />);
-// }
-return(<NotSubmittedPage
-    assignmentDetails={assignmentDetails}
-    groupId={groupId}
-    assignmentId={assignmentId}
-  />)}
+  console.log('assignmentDetails:', assignmentDetails);
+  console.log('submission:', submission);
+  console.log('can_submit:', can_submit);
+
+  // Student can submit -> not submitted page
+  if (can_submit) {
+    return (
+      <NotSubmittedPage
+        assignmentDetails={assignmentDetails}
+        groupId={groupId}
+        assignmentId={assignmentId}
+      />
+    );
+  }
+
+  // Late submission
+  if (is_late) {
+    return <LateSubmissionPage assignmentDetails={assignmentDetails} />;
+  }
+
+  // Already submitted
+  if (submission?.status === 'submitted') {
+    return <SubmittedPage assignmentDetails={assignmentDetails} />;
+  }
+
+  // Default fallback
+  return (
+    <NotSubmittedPage
+      assignmentDetails={assignmentDetails}
+      groupId={groupId}
+      assignmentId={assignmentId}
+    />
+  );
+}

@@ -55,7 +55,7 @@ export default function StudentAvatar({
   if (!fixedAvatar || imgError) {
     return (
       <div
-        className={`flex items-center justify-center rounded-full font-semibold text-white ${bgColor}`}
+        className={`flex items-center justify-center rounded-full border-2 border-primary font-semibold text-white ${bgColor}`}
         style={{
           width: size,
           height: size,
@@ -73,7 +73,7 @@ export default function StudentAvatar({
       alt={`${firstName} ${lastName}`}
       width={size}
       height={size}
-      className="rounded-full object-cover"
+      className="rounded-full object-cover border-2 border-primary"
       onError={() => setImgError(true)}
     />
   );

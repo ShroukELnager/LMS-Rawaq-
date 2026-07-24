@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { SubmissionReviewDetailsService } from '../lib/Services/teacher/getStudentAssignmentSubmissionDetails.service';
+import { SubmissionReviewResponse } from '../Types';
 
 export default function useGetStudentSubmissionDetails({
   assignmentId,
@@ -8,7 +9,7 @@ export default function useGetStudentSubmissionDetails({
   assignmentId: string;
   studentId: string;
 }) {
-  return useQuery({
+  return useQuery<SubmissionReviewResponse>({
     queryKey: ['assignmentsStudentSubmissions', assignmentId, studentId],
     queryFn: () =>
       SubmissionReviewDetailsService({
