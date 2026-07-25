@@ -45,7 +45,7 @@ const {
 
   return (
     <div className="min-h-screen bg-[#F5F7FA] p-5">
-      {/* <HeaderCard groupId={groupId} /> */}
+      <HeaderCard groupId={groupId} />
       <div className="mx-auto max-w-7xl">
         {/* Top Cards */}
         <div className="mt-5 grid gap-4 md:grid-cols-3">
@@ -121,8 +121,16 @@ const {
 
           {/* Assignments */}
           <div>
-            <h2 className="text-xl font-bold text-[#101828]">Assignments</h2>
+            <div className="mb-5 flex items-center justify-between">
+              <h2 className="text-2xl font-bold text-[#101828]">Assignments</h2>
 
+              <button
+                onClick={() => router.push(`/group/${groupId}/assignments`)}
+                className="cursor-pointer text-sm font-medium text-teal-700 hover:text-teal-800"
+              >
+                View all
+              </button>
+            </div>
             <div className="mt-5 flex flex-col gap-4">
               {isAssignmentsLoading ? (
                 Array.from({ length: 3 }).map((_, index) => (

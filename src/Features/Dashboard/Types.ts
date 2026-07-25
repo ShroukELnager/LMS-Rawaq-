@@ -256,7 +256,7 @@ export interface GroupAssignmentsResponse {
   description: string;
   deadline: string;
   total_grade: number;
-  status: string;
+  status: 'submitted' | 'reviewed' | 'not_submitted';
   number_of_questions: number;
   number_of_submissions: number;
   total_students: number;
@@ -338,7 +338,7 @@ export type QuestionOption = {
   is_correct: boolean;
 };
 
- export interface AnswerGrade {
+export interface AnswerGrade {
   answer_id: string;
   grade_awarded: number;
   teacher_feedback: string;
@@ -348,3 +348,20 @@ export interface GradeSubmissionRequest {
   p_submission_id: string;
   p_answers: AnswerGrade[];
 }
+
+export interface StudentGroupAssignmentsRequest {
+  p_group_id: string;
+}
+export interface StudentGroupAssignment {
+  id: string;
+  title: string;
+  description: string;
+  deadline: Date;
+  total_grade: number;
+  status: 'submitted' | 'reviewed' | 'not_submitted';
+  total_grade_awarded: number;
+  submitted_at: Date;
+  created_at: Date;
+}
+
+export type StudentGroupAssignmentsResponse = StudentGroupAssignment[];
