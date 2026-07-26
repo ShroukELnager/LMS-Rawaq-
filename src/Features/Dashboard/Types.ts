@@ -365,3 +365,66 @@ export interface StudentGroupAssignment {
 }
 
 export type StudentGroupAssignmentsResponse = StudentGroupAssignment[];
+
+export interface SubmissionReviewDetailsResponse {
+  teacher: SubmissionReviewTeacher;
+  questions: SubmissionReviewQuestion[];
+  assignment: SubmissionReviewAssignment;
+  submission: SubmissionReviewSubmission;
+}
+
+export interface SubmissionReviewTeacher {
+  id: string;
+  email: string;
+  last_name: string;
+  avatar_url: string | null;
+  first_name: string;
+}
+
+export interface SubmissionReviewQuestion {
+  id: string;
+  grade: number;
+  answer: SubmissionReviewAnswer;
+  options: SubmissionReviewOption[];
+  question: string;
+  sort_order: number;
+  question_type: 'single_choice' | 'multiple_choice' | 'text';
+}
+
+export interface SubmissionReviewAnswer {
+  id: string;
+  reviewed_at: string | null;
+  text_answer: string | null;
+  grade_awarded: number | null;
+  teacher_feedback: string | null;
+  selected_option_ids: string[];
+}
+
+export interface SubmissionReviewOption {
+  id: string;
+  is_correct: boolean;
+  sort_order: number;
+  is_selected: boolean;
+  option_text: string;
+}
+
+export interface SubmissionReviewAssignment {
+  id: string;
+  title: string;
+  deadline: string;
+  created_at: string;
+  description: string;
+  total_grade: number;
+}
+
+export interface SubmissionReviewSubmission {
+  id: string;
+  status: 'submitted' | 'reviewed' | 'not_submitted';
+  submitted_at: string | null;
+  total_grade_awarded: number | null;
+}
+
+
+
+export interface SubmissionReviewDetailsRequest {
+  p_assignment_id:string}

@@ -10,12 +10,15 @@ import { AssignmentsSkeleton } from './AssignmentsSkeleton';
 import { AssignmentsHeaderSkeleton } from './AssignmentsHeaderSkeleton';
 import ErrorState from '@/Features/Dashboard/Errors/ErrorToLoadPage';
 import EmptyAssignments from './EmptyAssignments';
+import { useRouter } from 'next/navigation';
 export default function StudentAssignmentsGroup({
   groupId,
 }: {
   groupId: string;
 }) {
   const { data, isLoading,refetch,isError,error } = useStudentGroupAssignments(groupId);
+
+  const router=useRouter()
 console.log(data);
 if (isLoading) {
   return (
@@ -157,6 +160,11 @@ return (
 
             {/* Button */}
             <button
+              onClick={() =>
+                router.push(
+                  `/group/${groupId}/assignments/${assignment.id}/my-submission`
+                )
+              }
               className={`flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-primary py-2.5 text-sm font-medium transition ${
                 assignment.status === 'not_submitted'
                   ? 'bg-primary text-white hover:opacity-90'
