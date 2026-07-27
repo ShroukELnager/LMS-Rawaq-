@@ -1,9 +1,9 @@
 'use client';
 
+import GroupPage from '@/Features/Dashboard/Components/Student/GroupDetails/GroupPageComponent';
+import SingleGroupPage from '@/Features/Dashboard/Components/Teacher/SingleGroup/SingleGroupPageComponent';
 import { useAppSelector } from '@/redux/hooks';
 
-import GroupPage from '@/Features/Dashboard/Components/Student/GroupDetails/GroupPagecomponent';
-import SingleGroupPage from '@/Features/Dashboard/Components/Teacher/SingleGroup/SingleGroupPagecomponent';
 
 type Props = {
   groupId: string;

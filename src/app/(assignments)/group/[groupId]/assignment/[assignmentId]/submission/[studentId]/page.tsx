@@ -3,13 +3,13 @@
 import { useParams } from 'next/navigation';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import StudentSubmissionDetails from '@/Features/Dashboard/Components/Teacher/SubmissionReviews/StudentSubmissionDetailsPageComponent';
 import SummaryReview from '@/Features/Dashboard/Components/Teacher/SubmissionReviews/ReviewSummary';
 
 import useGetStudentSubmissionDetails from '@/Features/Dashboard/Hooks/useGetStudentAssignmentSubmissionDetails';
 import useGradeAssignment from '@/Features/Dashboard/Hooks/useGradeAssignment';
 
 import { GradeSubmissionRequest } from '@/Features/Dashboard/Types';
+import StudentSubmissionDetails from '@/Features/Dashboard/Components/Teacher/SubmissionReviews/StudentSubmissionDetailsPageComponent';
 
 export default function Page() {
   const params = useParams();
