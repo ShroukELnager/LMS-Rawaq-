@@ -62,10 +62,10 @@ export default function TeacherAssignmentsGroup({ groupId }: Props) {
               key={assignment.id}
               className="rounded-2xl border border-slate-100 bg-white p-6 shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition hover:shadow-lg"
             >
-              <div className="inline-flex items-center gap-1 rounded-full bg-[#EAF7F6] px-3 py-1 text-xs font-medium text-primary">
+              {/* <div className="inline-flex items-center gap-1 rounded-full bg-[#EAF7F6] px-3 py-1 text-xs font-medium text-primary">
                 <span className="h-2 w-2 rounded-full bg-primary" />
                 {assignment.status === 'active' ? 'Active' : 'Closed'}
-              </div>
+              </div> */}
 
               <h2 className="mt-5 line-clamp-2 text-[24px] font-bold text-[#1D2939]">
                 {assignment.title}
