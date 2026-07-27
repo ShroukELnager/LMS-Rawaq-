@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
-import { loginSchema } from '../Schema/Login';
+import { LoginForm, loginSchema } from '../Schema/Login';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginFormData } from '../Types';
 import { loginAction } from '../Actions/LoginAction';
@@ -20,9 +20,11 @@ const {
   handleSubmit,
   formState: { errors, isSubmitting },
   setError,
-} = useForm<LoginFormData>({
+} = useForm<LoginForm>({
   resolver: zodResolver(loginSchema),
   defaultValues: {
+    email: '',
+    password: '',
     rememberMe: false,
   },
 });
