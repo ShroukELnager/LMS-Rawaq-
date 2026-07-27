@@ -1,11 +1,11 @@
 'use server';
 
 import { ActionResult } from '@/Shared/Types/action-result';
-import { LoginFormData } from '../Types';
 import { AuthService } from '../AuthService';
 import { setAuthCookies } from '../Utils/SetAuthCookies';
+import { LoginForm } from '../Schema/Login';
 
-export async function loginAction(data: LoginFormData): Promise<ActionResult> {
+export async function loginAction(data:LoginForm): Promise<ActionResult> {
   try {
     const response = await AuthService.Login(data);
 

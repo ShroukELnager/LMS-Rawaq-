@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { LoginForm, loginSchema } from '../Schema/Login';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { LoginFormData } from '../Types';
 import { loginAction } from '../Actions/LoginAction';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
@@ -28,7 +27,6 @@ const {
     rememberMe: false,
   },
 });
-
   const onSubmit = async (data: LoginForm) => {
     try {
       const result = await loginAction(data);

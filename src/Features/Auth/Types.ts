@@ -4,7 +4,6 @@ import { SignupSchema } from "./Schema/SignUp";
 import { ResetPasswordSchema } from "./Schema/ResetPassword";
 
 
-  export  type LoginFormData  = z.infer<typeof loginSchema>;
   export  type SignUpFormData  = z.infer<typeof SignupSchema>;
   export  type ResetPasswordFormData  = z.infer<typeof ResetPasswordSchema>;
 

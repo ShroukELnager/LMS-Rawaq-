@@ -1,13 +1,13 @@
 import { apiRequest } from './lib/api';
+import { LoginForm } from './Schema/Login';
 import {
   ForgetPasswordRequest,
-  LoginFormData,
   ResetPasswordFormData,
   SignUpRequest,
 } from './Types';
 
 export const AuthService = {
-  Login: async (data: LoginFormData) => {
+  Login: async (data: LoginForm) => {
     return apiRequest('/auth/v1/token?grant_type=password', {
       method: 'POST',
       body: JSON.stringify(data),
