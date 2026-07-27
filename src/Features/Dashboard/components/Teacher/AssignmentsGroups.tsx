@@ -71,10 +71,9 @@ export default function TeacherAssignmentsGroup({ groupId }: Props) {
                 {assignment.title}
               </h2>
 
-              <p className="mt-3 line-clamp-2 text-[16px] leading-7 text-[#667085]">
+              <p className="mt-3 h-[56px] overflow-hidden text-[16px] leading-7 text-[#667085] line-clamp-2">
                 {assignment.description}
               </p>
-
               <div className="mt-8 grid grid-cols-2 gap-y-6">
                 <div className="flex gap-2">
                   <CalendarDays size={17} className="mt-0.5 text-[#98A2B3]" />

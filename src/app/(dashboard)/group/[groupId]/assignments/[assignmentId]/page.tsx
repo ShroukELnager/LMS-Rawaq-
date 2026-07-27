@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { CircleAlert } from 'lucide-react';
 
-import useGetAssignmentDetails from '@/Features/Dashboard/Hooks/useGetAssignmentDetails.service';
+import useGetAssignmentDetails from '@/Features/Dashboard/Hooks/useGetAssignmentDetails';
 import NotSubmittedPage from '@/Features/Dashboard/Components/Student/Assignments/AssignmentsPage/NotSubmittedPage';
 import LateSubmissionPage from '@/Features/Dashboard/Components/Student/Assignments/AssignmentsPage/LateSubmissionPage';
 import SubmittedPage from '@/Features/Dashboard/Components/Student/Assignments/AssignmentsPage/SubmittedPage';
