@@ -424,7 +424,39 @@ export interface SubmissionReviewSubmission {
   total_grade_awarded: number | null;
 }
 
-
-
 export interface SubmissionReviewDetailsRequest {
-  p_assignment_id:string}
+  p_assignment_id: string;
+}
+
+export interface GetGroupMembersRequest {
+  p_group_id: string;
+  p_page: number;
+  p_page_size: number;
+  p_search: string | null;
+}
+
+export interface GroupMember {
+  id: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+  avatar_url: string | null;
+  created_at: string; 
+}
+
+export interface Pagination {
+  page: number;
+  page_size: number;
+  total_count: number;
+  total_pages: number;
+}
+
+export interface GetGroupMemberResponse {
+  data: GroupMember[];
+  pagination: Pagination;
+}
+
+export interface RemoveMemberRequest {
+  p_group_id:string;
+  p_student_id: string;
+}

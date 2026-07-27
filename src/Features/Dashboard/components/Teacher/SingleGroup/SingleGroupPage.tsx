@@ -41,7 +41,7 @@ const {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen bg-[#F5F7FA] p-5">
+    <div className="min-h-screen  p-5">
       <div className="mx-auto max-w-7xl space-y-8">
         <AssignmentHeader groupId={groupId} />
 
@@ -123,7 +123,7 @@ const {
           </div>
 
           <div className="space-y-6">
-            <GroupMembers />
+            <GroupMembers groupId={groupId} />
             <GroupSettings />
           </div>
         </div>

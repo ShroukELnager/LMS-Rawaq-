@@ -1,66 +1,75 @@
 'use client';
 
-import { ArrowRight } from 'lucide-react';
+import useGroupMembers from '@/Features/Dashboard/Hooks/useGroupMembers';
+import { GroupMember } from '@/Features/Dashboard/Types';
+import { MembersSkeleton } from './GroupMemberSkelton';
+import { useRouter } from 'next/navigation';
+import StudentAvatar from '@/Shared/Components/StudentAvatar';
 
-type Member = {
-  id: number;
-  name: string;
-  email: string;
-  avatar: string;
-};
+export default function GroupMembers({ groupId }: { groupId: string }) {
+  const { data, isPending } = useGroupMembers({
+    p_group_id: groupId,
+    p_page: 1,
+    p_page_size: 3,
+    p_search: null,
+  });
 
-const members: Member[] = [
-  {
-    id: 1,
-    name: 'Sara Ali',
-    email: 'sara.ali@student.edu',
-    avatar: 'https://i.pravatar.cc/100?img=1',
-  },
-  {
-    id: 2,
-    name: 'Omar Khaled',
-    email: 'omar.k@student.edu',
-    avatar: 'https://i.pravatar.cc/100?img=12',
-  },
-  {
-    id: 3,
-    name: 'Laila Hassan',
-    email: 'l.hassan@student.edu',
-    avatar: 'https://i.pravatar.cc/100?img=5',
-  },
-];
+  const members = data?.data ?? [];
 
-export default function GroupMembers() {
+  const router = useRouter();
+
   return (
-    <div className="rounded-2xl bg-[#F3F6FC] p-6">
-      <div className="mb-5 flex items-center justify-between">
-        <h2 className="text-lg font-bold text-[#045D6C]">Group Members</h2>
+    <div
+      className="  flex   h-[342px]  w-[293px]  flex-col  gap-6  rounded-xl  bg-[#F0F3FF]  p-8
+      "
+    >
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <h2 className="text-sm font-bold text-[#045D6C]">Group Members</h2>
 
-        <button className="text-sm font-medium text-[#045D6C] hover:underline">
+        <button
+          onClick={() => router.push(`/group/${groupId}/members`)}
+          className=" cursor-pointer text-xs font-medium text-[#045D6C]
+          "
+        >
           View All
         </button>
       </div>
 
-      <div className="space-y-4">
-        {members.map((member) => (
-          <div
-            key={member.id}
-            className="flex items-center gap-4 rounded-xl border border-gray-100 bg-white p-3 shadow-sm"
-          >
-            <img
-              src={member.avatar}
-              alt={member.name}
-              className="h-12 w-12 rounded-full object-cover"
-            />
+      {/* Members */}
+      {isPending ? (
+        <MembersSkeleton />
+      ) : (
+        <div className="flex flex-1 flex-col gap-3 overflow-hidden">
+          {members.map((member: GroupMember) => (
+            <div
+              key={member.id}
+              className=" flex items-center gap-3 rounded-xl bg-white px-3 py-2 shadow-sm"
+            >
+              <StudentAvatar
+                firstName={member.first_name}
+                lastName={member.last_name}
+                avatarUrl={member.avatar_url}
+                size={40}
+              />
 
-            <div className="flex-1">
-              <h3 className="font-semibold text-[#101828]">{member.name}</h3>
+              <div className="min-w-0 flex-1">
+                <h3
+                  className=" truncate text-sm font-semibold text-[#101828] "
+                >
+                  {member.first_name} {member.last_name}
+                </h3>
 
-              <p className="text-xs text-gray-500">{member.email}</p>
+                <p
+                  className=" truncate text-[10px] text-gray-500 "
+                >
+                  {member.email}
+                </p>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
