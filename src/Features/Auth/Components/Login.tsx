@@ -29,7 +29,7 @@ const {
   },
 });
 
-  const onSubmit = async (data: LoginFormData) => {
+  const onSubmit = async (data: LoginForm) => {
     try {
       const result = await loginAction(data);
    if (!result.ok) {
