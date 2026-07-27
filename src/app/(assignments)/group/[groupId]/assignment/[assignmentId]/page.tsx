@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import { CircleAlert } from 'lucide-react';
 
 import AssignmentQuestions from '@/Features/Dashboard/Components/Student/Assignments/AssignmentQuestions';
-import useGetAssignmentDetails from '@/Features/Dashboard/Hooks/useGetAssignmentDetailshook.service';
+import useGetAssignmentDetails from '@/Features/Dashboard/Hooks/useGetAssignmentDetails.service';
 
 export default function AssignmentQuestionsPage() {
   const params = useParams();
