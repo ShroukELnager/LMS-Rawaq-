@@ -7,7 +7,7 @@ import { CircleAlert } from 'lucide-react';
 import NotSubmittedPage from '@/Features/Dashboard/Components/Student/Assignments/AssignmentsPage/NotSubmittedPage';
 import LateSubmissionPage from '@/Features/Dashboard/Components/Student/Assignments/AssignmentsPage/LateSubmissionPage';
 import SubmittedPage from '@/Features/Dashboard/Components/Student/Assignments/AssignmentsPage/SubmittedPage';
-import useGetAssignmentDetails from '@/Features/Dashboard/Hooks/useGetAssignmentDetailsComponent';
+import useGetAssignmentDetails from '@/Features/Dashboard/Hooks/useGetAssignmentDetails';
 
 export default function Page() {
   const params = useParams();
