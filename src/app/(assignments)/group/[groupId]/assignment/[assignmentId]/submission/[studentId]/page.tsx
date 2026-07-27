@@ -3,7 +3,7 @@
 import { useParams } from 'next/navigation';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import StudentSubmissionDetails from '@/Features/Dashboard/Components/Teacher/SubmissionReviews/StudentSubmissionDetailsPage';
+import StudentSubmissionDetails from '@/Features/Dashboard/Components/Teacher/SubmissionReviews/StudentSubmissionDetailsPageComponent';
 import SummaryReview from '@/Features/Dashboard/Components/Teacher/SubmissionReviews/ReviewSummary';
 
 import useGetStudentSubmissionDetails from '@/Features/Dashboard/Hooks/useGetStudentAssignmentSubmissionDetails';

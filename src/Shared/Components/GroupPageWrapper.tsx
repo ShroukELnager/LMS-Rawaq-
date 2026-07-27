@@ -2,8 +2,8 @@
 
 import { useAppSelector } from '@/redux/hooks';
 
-import GroupPage from '@/Features/Dashboard/Components/Student/GroupDetails/GroupPage';
-import SingleGroupPage from '@/Features/Dashboard/Components/Teacher/SingleGroup/SingleGroupPage';
+import GroupPage from '@/Features/Dashboard/Components/Student/GroupDetails/GroupPagecomponent';
+import SingleGroupPage from '@/Features/Dashboard/Components/Teacher/SingleGroup/SingleGroupPagecomponent';
 
 type Props = {
   groupId: string;
