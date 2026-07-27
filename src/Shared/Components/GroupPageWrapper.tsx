@@ -1,6 +1,6 @@
 'use client';
 
-import GroupPage from '@/Features/Dashboard/Components/Student/GroupDetails/GroupPageComponent';
+import GroupPage from '@/Features/Dashboard/Components/Student/GroupDetails/GroupPage';
 import SingleGroupPage from '@/Features/Dashboard/Components/Teacher/SingleGroup/SingleGroupPageComponent';
 import { useAppSelector } from '@/redux/hooks';
 
