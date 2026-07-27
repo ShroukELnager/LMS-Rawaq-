@@ -1,41 +1,45 @@
 import { SubmissionReviewResponse } from '@/Features/Dashboard/Types';
-import StudentAvatar from '@/Shared/Components/StudentAvatar';
-import UserAvatar from '@/Shared/Utils/UserAvatar';
 import { UseQueryResult } from '@tanstack/react-query';
-import React from 'react';
+import AssignmentDetailsCardSkeleton from './AssignmentDetailsCardSkeleton';
 
 type Props = {
   submissionDetails: UseQueryResult<SubmissionReviewResponse, Error>;
 };
+
 export default function AssignmentDetailsCard({ submissionDetails }: Props) {
+  if (submissionDetails.isPending) {
+    return <AssignmentDetailsCardSkeleton />;
+  }
+
   const data = submissionDetails.data;
 
-      const details = [
-        {
-          label: 'DEADLINE',
-          value: 'Oct 24, 2023',
-        },
-        {
-          label: 'MAX GRADE',
-          value: `${data?.total_grade ?? '--'} pts`,
-        },
-        {
-          label: 'QUESTIONS',
-          value: '12 Items',
-        },
-        {
-          label: 'TYPE',
-          value: 'Assessment',
-        },
-      ];
+  const details = [
+    {
+      label: 'DEADLINE',
+      value: 'Oct 24, 2023',
+    },
+    {
+      label: 'MAX GRADE',
+      value: `${data?.total_grade ?? '--'} pts`,
+    },
+    {
+      label: 'QUESTIONS',
+      value: '12 Items',
+    },
+    {
+      label: 'TYPE',
+      value: 'Assessment',
+    },
+  ];
 
   return (
-    <div className="flex  justify-start rounded-3xl gap-4 bg-white shadow-[0_8px_30px_rgba(0,0,0,0.08)] px-6 py-6  flex-col">
+    <div className="flex flex-col justify-start gap-4 rounded-3xl bg-white px-6 py-6 shadow-[0_8px_30px_rgba(0,0,0,0.08)]">
       <div>
-        <h1 className="font-sans font-semibold text-2xl leading-8 tracking-normal text-primary">
+        <h1 className="font-sans text-2xl font-semibold leading-8 tracking-normal text-primary">
           React Fundamentals Quiz
         </h1>
-        <p className="font-sans font-normal text-base leading-6 tracking-normal text-[#3E494A]">
+
+        <p className="font-sans text-base font-normal leading-6 tracking-normal text-[#3E494A]">
           Testing core concepts of React hooks, component lifecycles, and state
           management strategies.
         </p>
@@ -45,7 +49,7 @@ export default function AssignmentDetailsCard({ submissionDetails }: Props) {
         {details.map((item) => (
           <div
             key={item.label}
-            className="w-[178.66px] h-[66px] rounded-lg border border-[#BEC8CA] p-3 flex flex-col bg-[#F9F9FF] justify-center"
+            className="flex h-[66px] w-[178.66px] flex-col justify-center rounded-lg border border-[#BEC8CA] bg-[#F9F9FF] p-3"
           >
             <span className="font-sans text-xs font-medium leading-4 text-[#3E494A]">
               {item.label}

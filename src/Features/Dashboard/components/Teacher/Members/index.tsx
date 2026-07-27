@@ -17,5 +17,5 @@ export default function GroupMembersPage({
   });
 
   const members = data?.data ?? [];
-  return <GroupMembersTable groupId={groupId} studentId={studentId} />;
+  return <GroupMembersTable groupId={groupId}  />;
 }

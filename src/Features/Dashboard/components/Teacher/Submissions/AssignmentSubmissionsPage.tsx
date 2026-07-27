@@ -24,6 +24,7 @@ export default function AssignmentSubmissionsPage({
       <AssignmentSubmissionHeader
         AssignmentSubmissionsData={AssignmentSubmissionsData}
       />
+      
 
       <AssignmentSubmissionTable
         AssignmentSubmissionsData={AssignmentSubmissionsData}

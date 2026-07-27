@@ -17,7 +17,7 @@ export default function Page() {
   const assignmentId = params?.assignmentId as string;
   const studentId = params?.studentId as string;
 
-  const { data } = useGetStudentSubmissionDetails({
+  const { data,isLoading } = useGetStudentSubmissionDetails({
     assignmentId,
     studentId,
   });
@@ -60,9 +60,10 @@ export default function Page() {
           <aside className="h-fit">
             <SummaryReview
               totalQuestions={questionCount}
-              totalGrade={totalGrade ??0}
+              totalGrade={totalGrade ?? 0}
               onPublish={review.handleSubmit(onSubmit)}
               isPending={isPending}
+              isLoading={isLoading}
             />
           </aside>
         </div>

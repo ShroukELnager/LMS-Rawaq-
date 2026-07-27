@@ -5,6 +5,7 @@ import { Check, Search } from 'lucide-react';
 import NotSubmitted from '@/assets/icons/notsubmitted.svg';
 import Submitted from '@/assets/icons/submitted.svg';
 import { useRouter } from 'next/navigation';
+import AssignmentSubmissionTableDesktopSkeleton from './AssignmentSubmissionTableDesktopSkeleton';
 
 type Props = {
   AssignmentSubmissionsData: UseQueryResult<
@@ -40,6 +41,10 @@ console.log('students', students);
   ];
 
   const router = useRouter();
+  if (AssignmentSubmissionsData.isPending) {
+    return <AssignmentSubmissionTableDesktopSkeleton />;
+  }
+
   return (
     <div className="overflow-hidden rounded-2xl border border-[#EAECF0] bg-white shadow-sm">
       <div className="flex items-center justify-between border-b border-[#EAECF0] bg-white px-6 py-4">

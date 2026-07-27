@@ -2,14 +2,16 @@
 
 import { AnswerGrade, GradeSubmissionRequest } from "@/Features/Dashboard/Types";
 import { useFormContext } from "react-hook-form";
+import SummaryReviewSkeleton from "./SummaryReviewSkeleton";
 
 
 
 type SummaryReviewProps = {
   totalQuestions: number;
-  totalGrade:number
+  totalGrade: number;
   onPublish: () => void;
   isPending: boolean;
+  isLoading: boolean;
 };
 
 export default function SummaryReview({
@@ -17,6 +19,7 @@ export default function SummaryReview({
   totalGrade,
   onPublish,
   isPending,
+  isLoading,
 }: SummaryReviewProps) {
   const { watch } = useFormContext();
 
@@ -33,7 +36,9 @@ export default function SummaryReview({
 
   const progress = (reviewedQuestionsCount / totalQuestions) * 100;
   const remaining = totalQuestions - reviewedQuestionsCount;
-
+  if (isLoading) {
+    return <SummaryReviewSkeleton />;
+  }
   return (
     <div className="w-full rounded-3xl  p-6  bg-white shadow-[0_8px_30px_rgba(0,0,0,0.08)]">
       {/* Assignment Progress */}

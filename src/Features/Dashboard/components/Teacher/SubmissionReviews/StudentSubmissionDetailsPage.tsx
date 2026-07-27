@@ -60,6 +60,7 @@ useEffect(() => {
             awardedGrade={question.grade_awarded ?? 0}
             options={question.options}
             selectedOptionIds={question.selected_option_ids}
+            isLoading={submissionDetails.isLoading}
           />
         ))}
       </div>

@@ -5,6 +5,7 @@ import { UseQueryResult } from '@tanstack/react-query';
 import { Search } from "lucide-react";
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from "react";
+import AssignmentSubmissionTableMobileSkeleton from './AssignmentSubmissionTableMobileSkeleton';
 type Props = {
   AssignmentSubmissionsData: UseQueryResult<
     AssignmentSubmissionsResponse,
@@ -29,7 +30,9 @@ export default function AssignmentSubmissionTableMobile({
   const students = AssignmentSubmissionsData.data?.students ?? [];
   const assignment = AssignmentSubmissionsData.data?.assignment;
   const router = useRouter();
-
+if (AssignmentSubmissionsData.isPending) {
+  return <AssignmentSubmissionTableMobileSkeleton />;
+}
   const tabs = [
     {
       value: null,

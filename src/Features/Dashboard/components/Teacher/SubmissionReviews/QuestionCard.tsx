@@ -1,6 +1,7 @@
 import { GradeSubmissionRequest, QuestionOption } from '@/Features/Dashboard/Types';
 import { Check, X } from 'lucide-react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
+import QuestionCardSkeleton from './QuestionCardSkeleton';
 
 export type QuestionReviewProps = {
   questionNumber: number;
@@ -12,8 +13,8 @@ export type QuestionReviewProps = {
   awardedGrade: number;
   options: QuestionOption[] | null;
   selectedOptionIds: string[];
-      index:number
-
+  index: number;
+  isLoading?: boolean;
 };
 
 export default function QuestionCard({
@@ -26,8 +27,10 @@ export default function QuestionCard({
   awardedGrade,
   options,
   selectedOptionIds,
-  index
+  index,
+  isLoading
 }: QuestionReviewProps) {
+
   const isText = type === 'text';
   const isSingleChoice = type === 'single_choice';
 
@@ -37,7 +40,9 @@ export default function QuestionCard({
     control,
     name: 'p_answers',
   });
-
+  if (isLoading) {
+    return <QuestionCardSkeleton />;
+  }
   return (
     <div
       className={`rounded-xl bg-white p-6 shadow-md border-l-4 ${
