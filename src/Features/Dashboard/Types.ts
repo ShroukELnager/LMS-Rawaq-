@@ -441,7 +441,7 @@ export interface GroupMember {
   first_name: string;
   last_name: string;
   avatar_url: string | null;
-  created_at: string; 
+  created_at: string;
 }
 
 export interface Pagination {
@@ -457,6 +457,27 @@ export interface GetGroupMemberResponse {
 }
 
 export interface RemoveMemberRequest {
-  p_group_id:string;
+  p_group_id: string;
   p_student_id: string;
 }
+
+export type Category = {
+  category: string;
+  created_at: string;
+
+  created_by: {
+    avatar_url: string;
+    first_name: string;
+    id: string;
+    last_name: string;
+  };
+
+  current_students_count: number;
+  duration_in_days: number;
+  id: string;
+  invite_code: string | null;
+  max_no_of_students: number;
+  name: string;
+  start_date: string;
+  status: string;
+};

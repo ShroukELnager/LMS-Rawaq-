@@ -1,5 +1,8 @@
+import { Category } from "../../Types";
 
-export const GetSingleGroupService = async (groupId: string) => {
+export const GetSingleGroupService = async (
+  groupId: string
+): Promise<Category[]> => {
   const res = await fetch(`/api/singleGroup?groupId=${groupId}`, {
     method: 'GET',
     headers: {

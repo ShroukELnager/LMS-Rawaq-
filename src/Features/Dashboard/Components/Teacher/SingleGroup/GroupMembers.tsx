@@ -44,7 +44,7 @@ export default function GroupMembers({ groupId }: { groupId: string }) {
           {members.map((member: GroupMember) => (
             <div
               key={member.id}
-              className=" flex items-center gap-3 rounded-xl bg-white px-3 py-2 shadow-sm"
+              className="flex h-[66px] w-[229.33px] items-center justify-between rounded-lg border border-[#BEC8CA4D] bg-white p-3"
             >
               <StudentAvatar
                 firstName={member.first_name}
@@ -53,16 +53,12 @@ export default function GroupMembers({ groupId }: { groupId: string }) {
                 size={40}
               />
 
-              <div className="min-w-0 flex-1">
-                <h3
-                  className=" truncate text-sm font-semibold text-[#101828] "
-                >
+              <div className="min-w-0 flex-1  pl-[12px]">
+                <h3 className="truncate text-sm font-semibold text-[#101828]">
                   {member.first_name} {member.last_name}
                 </h3>
 
-                <p
-                  className=" truncate text-[10px] text-gray-500 "
-                >
+                <p className="truncate text-[10px] text-gray-500">
                   {member.email}
                 </p>
               </div>
