@@ -10,6 +10,7 @@ type HeaderCardProps = {
 export default function HeaderCard({ groupId }: HeaderCardProps) {
   const { data } = useGetSingleGroup(groupId);
   const group = data?.[0];
+  
 const router =useRouter()
   if (!group) return null;
 
@@ -63,7 +64,7 @@ const router =useRouter()
             Instructor: {group.instructor.fullName}
           </p> */}
 
-          <p
+          {/* <p
             style={{
               marginTop: '8px',
               fontSize: '14px',
@@ -71,7 +72,7 @@ const router =useRouter()
             }}
           >
             {group.description}
-          </p>
+          </p> */}
 
           {/* Buttons */}
           <div className="mt-5 flex gap-3">
