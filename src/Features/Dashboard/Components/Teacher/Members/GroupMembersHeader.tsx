@@ -3,9 +3,11 @@ import { GetGroupMemberResponse } from '@/Features/Dashboard/Types';
 
 type Props = {
   data?: GetGroupMemberResponse;
+  onExport: () => void;
+  name:string
 };
 
-export default function GroupMembersHeader({ data }: Props) {
+export default function GroupMembersHeader({ data, onExport,name}: Props) {
   return (
     <div className="mb-6 flex items-start justify-between">
       <div>
@@ -15,8 +17,8 @@ export default function GroupMembersHeader({ data }: Props) {
 
         <div className="mt-2 flex items-center gap-2">
           <span className="font-[Inter] text-sm text-[#667085]">
-            React Fundamentals
-          </span>
+            {name}     
+                 </span>
 
           <span className="rounded-full bg-[#E8EEF8] px-3 py-1 text-xs font-medium text-[#344054]">
             {data?.pagination.total_count ?? 0} Total Members
@@ -24,7 +26,10 @@ export default function GroupMembersHeader({ data }: Props) {
         </div>
       </div>
 
-      <button className="flex cursor-pointer items-center gap-2 rounded-md bg-[#E6E3D0] px-4 py-2 text-xs font-medium text-[#666556]">
+      <button
+        onClick={onExport}
+        className="flex cursor-pointer items-center gap-2 rounded-md bg-[#E6E3D0] px-4 py-2 text-xs font-medium text-[#666556]"
+      >
         <Download className="h-4 w-4" />
         Export
       </button>

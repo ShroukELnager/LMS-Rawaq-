@@ -19,13 +19,14 @@ export default function useGroupMembers({
 
 }: Props) {
   return useQuery<GetGroupMemberResponse>({
-    queryKey: ['groupMembers', p_group_id],
+    queryKey: ['groupMembers', p_group_id, p_page, p_page_size, p_search],
     queryFn: () =>
       GetGroupMembersService({
-        p_group_id: p_group_id,
-        p_page: p_page,
-        p_page_size: p_page_size,
-        p_search: p_search,
+        p_group_id,
+        p_page,
+        p_page_size,
+        p_search,
       }),
+    placeholderData: (previousData) => previousData,
   });
 }
