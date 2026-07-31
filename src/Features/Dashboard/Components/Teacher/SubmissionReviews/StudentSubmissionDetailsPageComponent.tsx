@@ -21,25 +21,22 @@ export default function StudentSubmissionDetails({
     studentId,
   });
 
-  const { reset } = useFormContext<GradeSubmissionRequest>();
+const { reset, getValues } = useFormContext<GradeSubmissionRequest>();
+  useEffect(() => {
+    if (!submissionDetails.data) return;
 
-useEffect(() => {
-  if (!submissionDetails.data) return;
-
-  reset({
-    p_submission_id: submissionDetails.data.submission_id,
-
-    p_answers: submissionDetails.data.questions.map((q) => ({
-      answer_id: q.answer_id,
-      grade_awarded: q.grade_awarded ?? 0,
-      teacher_feedback: q.teacher_feedback ?? '',
-    })),
-  });
-}, [submissionDetails.data]);
-
-
+    reset({
+      p_submission_id: submissionDetails.data.submission_id,
+      p_answers: submissionDetails.data.questions.map((q) => ({
+        answer_id: q.answer_id,
+        grade_awarded: q.grade_awarded,
+        teacher_feedback: q.teacher_feedback ?? '',
+      })),
+    });
+  }, [submissionDetails.data, reset]);
+console.log('API', submissionDetails?.data?.questions);
+console.log('Form', getValues().p_answers);
   const questions = submissionDetails.data?.questions;
-
   return (
     <div className="space-y-6">
       <StudentProfileCard submissionDetails={submissionDetails} />
@@ -48,20 +45,22 @@ useEffect(() => {
 
       <div className="space-y-6">
         {questions?.map((question, index) => (
-          <QuestionCard
-            key={question.id}
-            index={index}
-            questionNumber={index + 1}
-            title={question.question}
-            type={question.question_type}
-            maxGrade={question.grade}
-            studentAnswer={question.student_answer ?? ''}
-            feedback={question.teacher_feedback ?? ''}
-            awardedGrade={question.grade_awarded ?? 0}
-            options={question.options}
-            selectedOptionIds={question.selected_option_ids}
-            isLoading={submissionDetails.isLoading}
-          />
+          <div key={question.id} id={`question-${index}`}>
+            <QuestionCard
+              key={question.id}
+              index={index}
+              questionNumber={index + 1}
+              title={question.question}
+              type={question.question_type}
+              maxGrade={question.grade}
+              studentAnswer={question.student_answer ?? ''}
+              feedback={question.teacher_feedback ?? ''}
+              awardedGrade={question.grade_awarded }
+              options={question.options}
+              selectedOptionIds={question.selected_option_ids}
+              isLoading={submissionDetails.isLoading}
+            />
+          </div>
         ))}
       </div>
     </div>

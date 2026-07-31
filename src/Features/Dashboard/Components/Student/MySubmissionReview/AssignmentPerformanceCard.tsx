@@ -1,6 +1,7 @@
 import { SubmissionReviewDetailsResponse } from '@/Features/Dashboard/Types';
 import { UseQueryResult } from '@tanstack/react-query';
 import { CheckCircle2 } from 'lucide-react';
+import AssignmentPerformanceCardSkeleton from './AssignmentPerformanceCardSkeleton';
 
 type AssignmentPerformanceProps = {
   data: UseQueryResult<SubmissionReviewDetailsResponse, Error>;
@@ -12,7 +13,6 @@ export default function AssignmentPerformanceCard({
   const reviewData = data.data;
 
   if (!reviewData) return null;
-console.log(reviewData);
   const assignment = reviewData.assignment;
   const submission = reviewData.submission;
 
@@ -24,6 +24,13 @@ console.log(reviewData);
   const percentage =
     totalGrade > 0 ? Math.round((awardedGrade / totalGrade) * 100) : 0;
 
+    if (data.isLoading) {
+      return <AssignmentPerformanceCardSkeleton />;
+    }
+
+    if (!data.data) {
+      return null;
+    }
   return (
     <div className="flex w-full gap-6">
       {/* Performance Card - Left */}
@@ -116,7 +123,7 @@ console.log(reviewData);
             label="Teacher"
             value={
               reviewData.teacher
-                ? `Prof. ${reviewData.teacher.first_name} ${reviewData.teacher.last_name}`
+                ? `${reviewData.teacher.first_name} ${reviewData.teacher.last_name}`
                 : '-'
             }
             valueClass="font-inter text-base font-normal leading-6 tracking-normal text-[#111C2C]"

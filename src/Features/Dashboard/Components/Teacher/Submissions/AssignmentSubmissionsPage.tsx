@@ -18,7 +18,6 @@ export default function AssignmentSubmissionsPage({
     status,
     search,
   });
-  console.log('AssignmentSubmissionsData', AssignmentSubmissionsData.data);
   return (
     <section className="mx-auto w-full  space-y-6 px-4  sm:px-6 lg:px-8">
       <AssignmentSubmissionHeader

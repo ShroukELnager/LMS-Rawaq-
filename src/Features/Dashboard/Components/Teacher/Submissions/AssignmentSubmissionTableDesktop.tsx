@@ -29,7 +29,6 @@ export default function AssignmentSubmissionTableDesktop({
   assignmentId,
 }: Props) {
   const students = AssignmentSubmissionsData.data?.students ?? [];
-console.log('students', students);
   const totalGrade =
     AssignmentSubmissionsData.data?.assignment.total_grade ?? 100;
 
@@ -216,7 +215,14 @@ console.log('students', students);
 
                   <td className="px-6 py-4 text-center">
                     {student.status === 'reviewed' && (
-                      <button className=" cursor-pointer inline-flex items-center gap-2 rounded-lg border border-[#0B5D66] bg-white px-5 py-2 text-sm font-medium text-[#0B5D66] transition hover:bg-[#F2FBFA]">
+                      <button
+                        onClick={() =>
+                          router.push(
+                            `/group/${groupId}/assignment/${assignmentId}/submission/${student.user_id}`
+                          )
+                        }
+                        className=" cursor-pointer inline-flex items-center gap-2 rounded-lg border border-[#0B5D66] bg-white px-5 py-2 text-sm font-medium text-[#0B5D66] transition hover:bg-[#F2FBFA]"
+                      >
                         View
                       </button>
                     )}

@@ -25,14 +25,15 @@ export default function SummaryReview({
 
   const answers = watch('p_answers');
 
-  const totalAwardedGrade = answers.reduce(
-    (total: number, answer: AnswerGrade) => total + (answer.grade_awarded || 0),
-    0
-  );
+const totalAwardedGrade = answers.reduce(
+  (total: number, answer: AnswerGrade) =>
+    total + Number(answer.grade_awarded ?? 0),
+  0
+);
 
-  const reviewedQuestionsCount = answers.filter(
-    (answer: AnswerGrade) => answer.grade_awarded > 0
-  ).length;
+const reviewedQuestionsCount = answers.filter(
+  (answer: AnswerGrade) => answer.grade_awarded !== null
+).length;
 
   const progress = (reviewedQuestionsCount / totalQuestions) * 100;
   const remaining = totalQuestions - reviewedQuestionsCount;

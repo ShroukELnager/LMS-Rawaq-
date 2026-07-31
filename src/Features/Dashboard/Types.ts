@@ -340,7 +340,7 @@ export type QuestionOption = {
 
 export interface AnswerGrade {
   answer_id: string;
-  grade_awarded: number;
+  grade_awarded: number | null;
   teacher_feedback: string;
 }
 

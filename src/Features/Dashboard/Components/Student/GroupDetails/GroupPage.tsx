@@ -40,7 +40,7 @@ const {
   isError: isAssignmentsError,
   error: assignmentsError,
   refetch: refetchAssignments,
-} = useGetAssignments(groupId);console.log("assignments", assignments);
+} = useGetAssignments(groupId);
   const router = useRouter();
 
   return (

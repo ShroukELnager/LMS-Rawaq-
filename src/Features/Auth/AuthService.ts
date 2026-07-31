@@ -75,7 +75,7 @@ export const AuthService = {
     const fileName = `${Date.now()}-${file.name}`;
 
     const res = await fetch(
-      `${process.env.BASE_URL}storage/v1/object/uploads/users/${fileName}`,
+      `${process.env.BASE_URL}/storage/v1/object/uploads/users/${fileName}`,
       {
         method: 'POST',
         body: formData,
@@ -85,10 +85,11 @@ export const AuthService = {
       }
     );
 
-    if (!res.ok) {
-      throw new Error('Upload failed');
-    }
+if (!res.ok) {
+  const error = await res.text();
+  throw new Error(error);
+}
 
-    return `${process.env.BASE_URL}storage/v1/object/public/uploads/users/${fileName}`;
+    return `${process.env.BASE_URL}/storage/v1/object/public/uploads/users/${fileName}`;
   },
 };

@@ -23,7 +23,6 @@ export default function TeacherAssignmentsGroup({ groupId }: Props) {
   } = useGetGroupAssignments(groupId);
 
   const router = useRouter();
-  console.log('ass', assignments);
   if (isPending) {
     return <AssignmentCardSkeleton />;
   }

@@ -26,15 +26,20 @@ export async function POST(request: Request) {
       }
     );
 
+    // Success with no content
+    if (response.status === 204) {
+      return new NextResponse(null, { status: 204 });
+    }
+
     const data = await response.json();
 
     if (!response.ok) {
       return NextResponse.json(
         {
           message:
-            data.message ||
-            data.error ||
-            data.hint ||
+            data?.message ||
+            data?.error ||
+            data?.hint ||
             'Failed to Get Assignment Student Submissions',
         },
         { status: response.status }

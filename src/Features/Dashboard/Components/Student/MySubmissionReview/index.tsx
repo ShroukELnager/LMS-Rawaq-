@@ -27,6 +27,9 @@ export default function MySubmissionReview({
         teacher={assignmentDetails.teacher}
       />
       <AssignmentPerformanceCard data={reviewQuery} />
+      <h1 className="font-inter text-[24px] font-semibold leading-8 tracking-normal text-[#111C2C]">
+        Submission Review
+      </h1>
       <div className="space-y-6">
         {assignmentDetails.questions.length > 0 ? (
           assignmentDetails.questions.map((_, index) => (

@@ -11,7 +11,6 @@ export default function HeaderCard({ groupId }: HeaderCardProps) {
   const { data } = useGetSingleGroup(groupId);
   const group = data?.[0];
 const router =useRouter()
-console.log('router', router);
   if (!group) return null;
 
   return (

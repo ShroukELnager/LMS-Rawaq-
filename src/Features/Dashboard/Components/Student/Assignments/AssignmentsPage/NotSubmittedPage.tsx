@@ -12,7 +12,6 @@ type Props = {
 export default function NotSubmittedPage({ assignmentDetails, groupId, assignmentId }: Props) {
   const router = useRouter();
   if (!assignmentDetails) return null;
-console.log('deadline', assignmentDetails.deadline);
 
 //   type AssignmentStatus = 'Submitted' | 'Reviewed' | 'Not Submitted' | 'Late';
 // console.log('deadline', assignmentDetails.deadline);

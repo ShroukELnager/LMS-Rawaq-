@@ -1,7 +1,8 @@
 import { SubmissionReviewDetailsResponse } from '@/Features/Dashboard/Types';
 import { UseQueryResult } from '@tanstack/react-query';
-import { CheckCircle2, Info, XCircle } from 'lucide-react';
-
+import { CheckCircle2, XCircle } from 'lucide-react';
+import Info from '@/assets/icons/Info (2).svg';
+import QuestionCardSkeleton from './QuestionCardSkeleton';
 export type QuestionReviewProps = {
   data: UseQueryResult<SubmissionReviewDetailsResponse, Error>;
   index: number;
@@ -19,12 +20,18 @@ export default function QuestionCard({ data, index }: QuestionReviewProps) {
   const selectedOptionIds = question.answer.selected_option_ids ?? [];
 
   const isFullGrade = (question.answer.grade_awarded ?? 0) === question.grade;
+const capitalize = (str: string) =>
+  str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 
+if (data.isLoading) {
+  return <QuestionCardSkeleton />;
+}
+
+if (!question || !assignmentDetails) {
+  return null;
+}
   return (
     <>
-      <h1 className="font-inter text-[24px] font-semibold leading-8 tracking-normal text-[#111C2C]">
-        Submission Review
-      </h1>
       <div className="rounded-2xl border border-[#E5E7EB] bg-white p-6 shadow-sm">
         {/* Header */}
         <div className="mb-6 flex items-start justify-between">
@@ -33,12 +40,12 @@ export default function QuestionCard({ data, index }: QuestionReviewProps) {
               {index + 1}
             </span>
 
-            <h3 className="font-inter text-[18px] font-bold leading-7 tracking-normal text-[#111C2C]">
+            <h3 className="font-inter text-[ 1.125rem] font-bold leading-7 tracking-normal text-[#111C2C]">
               {question.question}
             </h3>
           </div>
 
-          <p className="font-inter text-sm font-semibold">
+          <p className="font-inter text-sm font-semibold whitespace-nowrap">
             Grade:{' '}
             <span className={isFullGrade ? 'text-primary' : 'text-[#DC2626]'}>
               {question.answer.grade_awarded ?? 0}
@@ -74,11 +81,11 @@ export default function QuestionCard({ data, index }: QuestionReviewProps) {
                         ? 'border border-[#F4B4B4] bg-[#FFF5F5]'
                         : isCorrectAnswer
                           ? 'border border-[#9ED8C2] bg-[#F3FCF7]'
-                          : 'border border-transparent bg-white'
+                          : 'border border-[#E7EEFF] bg-white'
                   }`}
                 >
                   <span
-                    className={`font-inter text-[15px] font-medium ${
+                    className={`font-inter  text-[15px] font-medium ${
                       isNormalOption ? 'text-[#6F797A]' : 'text-[#111C2C]'
                     }`}
                   >
@@ -94,7 +101,7 @@ export default function QuestionCard({ data, index }: QuestionReviewProps) {
                         </span>
 
                         <CheckCircle2
-                          size={18}
+                          size={20}
                           fill="#006D77"
                           className="text-white"
                         />
@@ -108,7 +115,7 @@ export default function QuestionCard({ data, index }: QuestionReviewProps) {
                           Correct Answer
                         </span>
 
-                        <CheckCircle2 size={18} className="text-[#16A34A]" />
+                        <CheckCircle2 size={20} className="text-[#16A34A]" />
                       </>
                     )}
 
@@ -139,8 +146,10 @@ export default function QuestionCard({ data, index }: QuestionReviewProps) {
             <Info size={20} className="mt-0.5 shrink-0 text-primary" />
 
             <div>
-              <p className="font-inter text-xs font-bold leading-4 tracking-normal text-primary">
-                {`Prof. ${assignmentDetails.teacher.first_name} ${assignmentDetails.teacher.last_name}'s Feedback`}
+              <p className="font-inter  pt-1  text-xs font-bold leading-4 tracking-normal text-[#00535B]">
+                {`${capitalize(assignmentDetails.teacher.first_name)} ${capitalize(
+                  assignmentDetails.teacher.last_name
+                )}'s Feedback`}{' '}
               </p>
 
               <p className="mt-2 font-inter text-base font-normal leading-[26px] text-[#3E494A]">
