@@ -14,6 +14,7 @@ import FileUploader from './FileUploader';
 import { useAppDispatch } from '@/redux/hooks';
 import { fetchCurrentUser } from '@/redux/features/userThunks';
 import { AuthService } from '../AuthService';
+import { uploadAvatarAction } from '../Actions/UploadAvatarAction';
 export default function RegisterPage() {
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -36,7 +37,7 @@ const onSubmit = async (data: SignUpFormData) => {
     let avatarUrl = '';
 
     if (avatarFile) {
-      avatarUrl = await AuthService.uploadAvatar(avatarFile);
+      avatarUrl = await uploadAvatarAction(avatarFile);
     }
 
     const result = await signupAction({
@@ -47,7 +48,6 @@ const onSubmit = async (data: SignUpFormData) => {
       accountType: accountType || 'student',
       avatarUrl,
     });
-
     if (!result.ok) {
       const rawError = result.error;
 

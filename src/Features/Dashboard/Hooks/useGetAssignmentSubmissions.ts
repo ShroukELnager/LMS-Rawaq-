@@ -21,5 +21,7 @@ export default function useGetAssignmentSubmissions({
         p_status: status,
         p_search: search,
       }),
+    placeholderData: (previousData) => previousData,
   });
+  
 }
