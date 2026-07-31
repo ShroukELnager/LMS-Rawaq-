@@ -4,7 +4,7 @@ import { GetGroupMemberResponse } from '@/Features/Dashboard/Types';
 type Props = {
   data?: GetGroupMemberResponse;
   onExport: () => void;
-  name:string
+  name:string | null
 };
 
 export default function GroupMembersHeader({ data, onExport,name}: Props) {

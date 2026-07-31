@@ -128,7 +128,7 @@ const handleExport = async () => {
 
     const link = document.createElement('a');
     link.href = url;
-    link.download = `group-members-${group.name}.csv`; 
+    link.download = `group-members-${group?.name}.csv`; 
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -145,7 +145,11 @@ return (
       </>
     ) : (
       <>
-        <GroupMembersHeader data={data} onExport={handleExport} name={group.name} />
+        <GroupMembersHeader
+          data={data}
+          onExport={handleExport}
+          name={group?.name ?? null}
+        />
         <div className="overflow-hidden rounded-xl bg-white shadow-sm">
           <div className="px-6 pt-6">
             <div className="flex h-[49px] w-[384px] items-center gap-3 rounded-lg border border-[#BEC8CA80] bg-[#F0F3FF] px-4">
