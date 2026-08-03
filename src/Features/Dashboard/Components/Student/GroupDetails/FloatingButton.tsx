@@ -11,7 +11,7 @@ export default function FloatingButton({
     <button
       onClick={onClick}
       className="
-        fixed
+        absolute
         bottom-8
         right-8
         z-50
@@ -26,6 +26,7 @@ export default function FloatingButton({
         shadow-lg
         transition
         hover:scale-105
+        left-[65%] 
       "
     >
       <Plus size={24} />

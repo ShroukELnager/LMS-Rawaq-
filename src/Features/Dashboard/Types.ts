@@ -481,3 +481,23 @@ export type Category = {
   start_date: string;
   status: string;
 };
+
+
+export type SingleGroup = {
+  id: string;
+  name: string;
+  category: string;
+  created_at: string;
+  invite_code: string | null;
+  max_no_of_students: number;
+  current_students_count: number;
+  duration_in_days: number;
+  start_date: string;
+  status: string;
+  created_by: {
+    id: string;
+    first_name: string;
+    last_name: string;
+    avatar_url: string;
+  };
+};

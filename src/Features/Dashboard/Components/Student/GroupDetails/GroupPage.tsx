@@ -16,6 +16,8 @@ import ErrorState from '@/Features/Dashboard/Errors/ErrorToLoadPage';
 import useGetAssignments from '@/Features/Dashboard/Hooks/useGetAssignments';
 import AssignmentCardSkeleton from '@/Features/Dashboard/Skeleton/Student/AssignmentsCart';
 import HeaderCard from './HeaderCard';
+import ChatBox from '../Ai/ChatBox';
+import useGetSingleGroup from '@/Features/Dashboard/Hooks/useGetSingleGroup';
 
 type GroupPageProps = {
   groupId: string;
@@ -33,7 +35,8 @@ export default function GroupPage({ groupId }: GroupPageProps) {
     refetch,
   } = useGetPosts(groupId, 3);
 
-
+  const { data } = useGetSingleGroup(groupId);
+  const group = data?.[0];
 const {
   data: assignments,
   isLoading: isAssignmentsLoading,
@@ -44,7 +47,7 @@ const {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen bg-[#F5F7FA] p-5">
+    <div className="min-h-screen  p-5">
       <HeaderCard groupId={groupId} />
       <div className="mx-auto max-w-7xl">
         {/* Top Cards */}
@@ -164,6 +167,7 @@ const {
                 ))
               )}
             </div>
+            {group && <ChatBox group={group} />}{' '}
           </div>
         </div>
 
