@@ -44,13 +44,13 @@ export default function ModernInterfaceSection() {
         </div>
 
         {/* Mobile */}
-        <div className="mt-[40px] flex justify-center md:hidden">
+        <div className="mt-[40px] flex justify-center md:hidden w-full">
           <Image
             src="/images/interface-mobile.png"
             alt="Modern Interface"
             width={240}
             height={434}
-            className="h-auto w-full max-w-[240px]"
+            className="h-auto w-full "
           />
         </div>
       </div>

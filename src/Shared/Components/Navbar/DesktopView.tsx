@@ -2,15 +2,16 @@
 
 import UserAvatar from "@/Shared/Utils/UserAvatar";
 import Image from "next/image";
+import Link from "next/link";
 
 
 export default function DesktopNavbar() {
   return (
     <header className="hidden lg:flex h-16 items-center justify-between border-b border-gray-200 bg-white px-6">
       <div>
-        <h1 className="text-lg font-bold text-primary">
+        <Link href='/' className="text-lg font-bold text-primary" >
           Rawaq
-        </h1>
+        </Link>
       </div>
 
       <div className="relative w-full max-w-md">

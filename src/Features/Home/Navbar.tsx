@@ -51,7 +51,7 @@ export default function Navbar() {
           </Link>
 
           <Link
-            href="/sign"
+            href="/signup"
             className="rounded-full bg-[#016D77] px-[24px] py-[8px] font-inter text-[14px] font-medium leading-[20px] tracking-[0.14px] text-center text-white shadow-[0px_4px_6px_-4px_#0000001A,0px_10px_15px_-3px_#0000001A] hover:bg-[#00535B]"
           >
             Get Started
@@ -128,7 +128,7 @@ export default function Navbar() {
               </Link>
 
               <Link
-                href="/sign"
+                href="/signup"
                 onClick={() => setOpen(false)}
                 className="rounded-[8px] bg-[#016D77] py-[16px] text-center font-inter text-[18px] font-bold leading-[28px] text-white shadow-[0px_4px_6px_-4px_#0000001A,0px_10px_15px_-3px_#0000001A]"
               >

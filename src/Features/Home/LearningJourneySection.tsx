@@ -13,7 +13,7 @@ export default function LearningJourneySection() {
           educational platform online.
         </p>
         <Link
-          href="/sign"
+          href="/signup"
           className="inline-block h-14 w-[224px] mt-[16px] py-4 px-8 rounded-full bg-white text-[#006D77] font-inter font-bold text-[16px] leading-[24px] tracking-[0px] text-center"
         >
           Create Free Account
