@@ -52,7 +52,7 @@ export default function HeroSection() {
             />
 
             <Image
-              src="/images/overlay.png"
+              src="/images/Overlay.png"
               alt="Overlay Image"
               width={194.94}
               height={72}
