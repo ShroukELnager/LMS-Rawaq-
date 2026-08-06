@@ -1,9 +1,9 @@
-import Feature1 from '@/assets/icons/feature1.png';
-import Feature2 from '@/assets/icons/feature2.png';
-import Feature3 from '@/assets/icons/feature3.png';
-import Feature4 from '@/assets/icons/feature4.png';
-import Feature5 from '@/assets/icons/feature5.png';
-import Feature6 from '@/assets/icons/feature6.png';
+import Feature1 from '@/assets/icons/feature1.svg';
+import Feature2 from '@/assets/icons/feature2.svg';
+import Feature3 from '@/assets/icons/feature3.svg';
+import Feature4 from '@/assets/icons/feature4.svg';
+import Feature5 from '@/assets/icons/feature5.svg';
+import Feature6 from '@/assets/icons/feature6.svg';
 
 import FeatureCard from './FeatureCard';
 

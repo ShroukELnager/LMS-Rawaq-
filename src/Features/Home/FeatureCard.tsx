@@ -1,13 +1,13 @@
-import Image, { StaticImageData } from 'next/image';
+import { ComponentType, SVGProps } from 'react';
 
 type FeatureCardProps = {
-  imageSrc: StaticImageData;
+  imageSrc: ComponentType<SVGProps<SVGSVGElement>>;
   title: string;
   description: string;
 };
 
 export default function FeatureCard({
-  imageSrc,
+  imageSrc: Icon,
   title,
   description,
 }: FeatureCardProps) {
@@ -16,35 +16,35 @@ export default function FeatureCard({
       className="
         flex
         flex-col
-        p-[32px]
-        gap-[12px]
-        rounded-[0.75rem]
+        gap-3
+        rounded-xl
         border
         border-[#D8E3FA]
         bg-white
+        p-8
         shadow-[0_1px_2px_0_#0000000D]
       "
     >
-      <Image src={imageSrc} alt={title} width={48} height={48} />
+      <Icon className="h-12 w-12" />
 
-      <h1
+      <h3
         className="
           font-inter
-          text-[1.5rem]
+          text-2xl
           font-semibold
-          leading-[2rem]
+          leading-8
           text-[#111C2C]
         "
       >
         {title}
-      </h1>
+      </h3>
 
       <p
         className="
           font-inter
-          text-[1rem]
+          text-base
           font-normal
-          leading-[1.5rem]
+          leading-6
           text-[#3E494A]
         "
       >
