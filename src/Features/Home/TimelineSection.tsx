@@ -1,52 +1,50 @@
 import Image, { StaticImageData } from 'next/image';
 
-import CAcount from '../../assets/icons/createAcountIcon.png';
-import JGroup from '../../assets/icons/JoinGroupIcon.png';
-import Learn from '../../assets/icons/learnIcon.png';
-import Scale from '../../assets/icons/scaleIcon.png';
+import CAcount from '../../assets/icons/createAcountIcon.svg';
+import JGroup from '../../assets/icons/JoinGroupIcon.svg';
+import Learn from '../../assets/icons/learnIcon.svg';
+import Scale from '../../assets/icons/scaleIcon.svg';
+import { Icon } from 'lucide-react';
+
+import { ComponentType, SVGProps } from 'react';
 
 const steps: {
   title: string;
   description: string;
-  icon: StaticImageData;
-  width: number;
-  height: number;
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
 }[] = [
   {
     title: 'Create Account',
     description:
       'Set up your profile and identify your learning objectives and expertise.',
     icon: CAcount,
-    width: 27.5,
-    height: 20,
+  
   },
   {
     title: 'Join Group',
     description:
       'Browse specialized groups and join the cohort that matches your schedule and pace.',
     icon: JGroup,
-    width: 30,
-    height: 28.75,
+
   },
   {
     title: 'Engage & Learn',
     description:
       'Access curriculum, complete assignments, and receive feedback from mentors.',
     icon: Learn,
-    width: 27.5,
-    height: 20,
+
   },
   {
     title: 'Scale & Grow',
     description:
       'Certify your knowledge and move into advanced cohorts or mentorship roles.',
     icon: Scale,
-    width: 27.5,
-    height: 23.13,
+   
   },
 ];
 
 export default function TimelineSection() {
+  
   return (
     <section className="py-[64px] md:py-[6rem]">
       <div className="container mx-auto px-6">
@@ -66,7 +64,7 @@ export default function TimelineSection() {
           <div className="flex flex-col md:flex-row">
             {steps.map((step, index) => {
               const isLast = index === steps.length - 1;
-
+const StepIcon = step.icon;
               return (
                 <div
                   key={step.title}
@@ -89,27 +87,18 @@ export default function TimelineSection() {
 
                     <div className="relative z-10 shrink-0 rounded-full bg-white p-[4px] shadow-[0px_8px_10px_-6px_#0000001A,0px_20px_25px_-5px_#0000001A]">
                       <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#016D77]">
-                        <Image
-                          src={step.icon}
-                          alt={step.title}
-                          width={step.width}
-                          height={step.height}
-                        />
+                        <StepIcon className="h-7 w-7" />
                       </div>
                     </div>
                   </div>
 
                   {/* Content */}
                   <div className="flex-1 pb-[48px]  md:pt-[24px]">
-                    <h3
-                      className=" font-inter text-[16px] md:text-[1.5rem] font-semibold leading-[24px] md:leading-[2rem] text-[#111C2C]   "
-                    >
+                    <h3 className=" font-inter text-[16px] md:text-[1.5rem] font-semibold leading-[24px] md:leading-[2rem] text-[#111C2C]   ">
                       {step.title}
                     </h3>
 
-                    <p
-                      className=" pt-[8px] font-inter text-[16px] md:text-[1rem] font-normal leading-[24px] md:leading-[1.5rem] text-[#3E494A]"
-                    >
+                    <p className=" pt-[8px] font-inter text-[16px] md:text-[1rem] font-normal leading-[24px] md:leading-[1.5rem] text-[#3E494A]">
                       {step.description}
                     </p>
                   </div>

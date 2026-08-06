@@ -3,9 +3,10 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   webpack(config) {
-    config.module.rules.push({
+    // This must precede Next's `oneOf` rules, otherwise the SVG reaches
+    // webpack's parser before SVGR is considered.
+    config.module.rules.unshift({
       test: /\.svg$/i,
-      issuer: /\.[jt]sx?$/,
       use: ['@svgr/webpack'],
     });
 
