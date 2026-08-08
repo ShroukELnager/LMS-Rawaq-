@@ -482,7 +482,6 @@ export type Category = {
   status: string;
 };
 
-
 export type SingleGroup = {
   id: string;
   name: string;
@@ -501,3 +500,21 @@ export type SingleGroup = {
     avatar_url: string;
   };
 };
+
+export type CalendarAssignmentsRequest = {
+  p_start_date: Date | null;
+  p_end_date: Date | null;
+};
+export type CalendarAssignments = {
+  assignment_id: string;
+  assignment_title: string;
+  deadline: Date ;
+  group_id: string;
+  group_name: string;
+  submission_status: 'submitted' | 'reviewed' | 'not_submitted' | 'delayed';
+  submitted: boolean;
+  reviewed: boolean;
+  total_grade: number;
+  total_grade_awarded: number | null;
+};
+export type CalendarAssignmentsResponse = CalendarAssignments[];

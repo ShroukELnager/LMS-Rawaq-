@@ -144,3 +144,496 @@
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
+
+
+/* ===== Default React DatePicker ===== */
+
+.react-datepicker {
+  border: none !important;
+  border-radius: 12px !important;
+  padding: 20px !important;
+  background: #fff;
+  font-family: inherit;
+}
+
+.react-datepicker__header {
+  background: transparent !important;
+  border-bottom: none !important;
+  padding: 0 !important;
+}
+
+.react-datepicker__current-month {
+  display: none;
+}
+
+/* Week names */
+
+.react-datepicker__day-names {
+  display: grid;
+  grid-template-columns: repeat(7, 36.2857px);
+  gap: 4px;
+  margin: 0 0 8px;
+}
+
+.react-datepicker__day-name {
+  width: 36.2857px !important;
+  height: 32px !important;
+  margin: 0 !important;
+  padding: 8px !important;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Weeks */
+
+.react-datepicker__week {
+  display: grid;
+  grid-template-columns: repeat(7, 36.2857px);
+  gap: 4px;
+}
+
+/* Days */
+.react-datepicker__day {
+  width: 36.2857px !important;
+  height: 32px !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  border-radius: 6px;
+
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: #041b3c;
+
+  box-sizing: border-box;
+}
+/* Previous / Next month */
+
+.react-datepicker__day--outside-month {
+  color: #cbd5e1 !important;
+}
+
+/* Hover */
+
+.react-datepicker__day:hover {
+  background: #00535b33 !important;
+  color: #00535b !important;
+}
+
+/* Range */
+
+.react-datepicker__day--in-range,
+.react-datepicker__day--in-selecting-range {
+  background: #00535b33 !important;
+  color: #00535b !important;
+}
+
+/* Range start */
+
+.react-datepicker__day--range-start,
+.react-datepicker__day--selecting-range-start {
+  background: #00535b33 !important;
+  color: #00535b !important;
+  border-radius: 6px !important;
+}
+
+/* Range end */
+
+.react-datepicker__day--range-end,
+.react-datepicker__day--selecting-range-end {
+  background: #00535b33 !important;
+  color: #00535b !important;
+  border-radius: 6px !important;
+}
+
+/* Keyboard */
+
+.react-datepicker__day--keyboard-selected {
+  background: transparent !important;
+  color: #111c2c !important;
+}
+
+/* Hide default arrows */
+
+.react-datepicker__navigation {
+  display: none !important;
+}
+/* Normal days */
+
+.react-datepicker__day {
+  width: 36.2857px !important;
+  height: 32px !important;
+  margin: 0 !important;
+  padding: 8px !important;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 6px;
+
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0;
+  text-align: center;
+  color: #041b3c;
+}
+/* Selected Range */
+
+.react-datepicker__day--in-range,
+.react-datepicker__day--in-selecting-range,
+.react-datepicker__day--range-start,
+.react-datepicker__day--range-end,
+.react-datepicker__day--selecting-range-start,
+.react-datepicker__day--selecting-range-end {
+  color: #00535b !important;
+}
+.react-datepicker__day--outside-month {
+  color: #cbd5e1 !important;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+/* Range Days */
+
+.react-datepicker__day--in-range,
+.react-datepicker__day--in-selecting-range,
+.react-datepicker__day--range-start,
+.react-datepicker__day--range-end,
+.react-datepicker__day--selecting-range-start,
+.react-datepicker__day--selecting-range-end {
+  font-family: "Inter", sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 12px !important;
+  line-height: 16px !important;
+  letter-spacing: 0 !important;
+  text-align: center !important;
+  color: #00535b !important;
+}
+
+/* Calendar Container */
+.calendar-container {
+  width: 100%;
+  background: #f9f9ff;
+  border: 1px solid #bec8ca4d;
+  border-radius: 12px;
+  box-shadow: 0px 16px 32px -12px #0000001f;
+  overflow: hidden;
+}
+
+/* =========================
+   Legend
+========================= */
+
+.calendar-legend {
+  width: 100%;
+  min-height: 49px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: #ffffff;
+  border-bottom: 1px solid #bec8ca4d;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: Inter, sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 16px;
+  color: #3e494a;
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+
+.legend-submitted {
+  background: #3b82f6;
+}
+
+.legend-reviewed {
+  background: #10b981;
+}
+
+.legend-not-submitted {
+  background: #f97316;
+}
+
+.legend-delayed {
+  background: #ef4444;
+}
+
+/* =========================
+   FullCalendar
+========================= */
+
+.calendar-container .fc {
+  background: #f9f9ff;
+  font-family: Inter, sans-serif;
+}
+
+/* Remove FullCalendar default border */
+.calendar-container .fc-theme-standard td,
+.calendar-container .fc-theme-standard th {
+  border-color: #e2e8f0;
+}
+
+/* =========================
+   Week Days Header
+========================= */
+
+.calendar-container .fc-col-header {
+  background: #ffffff;
+}
+
+.calendar-container .fc-col-header-cell {
+  height: 28px;
+  background: #ffffff;
+  color: #3e494a;
+  font-family: Inter, sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 16px;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+.calendar-container .fc-col-header-cell-cushion {
+  color: #3e494a;
+  text-decoration: none;
+  padding: 8px 0;
+}
+
+/* =========================
+   Calendar Day Cells
+========================= */
+
+.calendar-container .fc-daygrid-day {
+  background: #f9f9ff;
+}
+
+.calendar-container .fc-daygrid-day-frame {
+  min-height: 80px;
+}
+
+/* First and last day columns */
+.calendar-container .fc-day-sun,
+.calendar-container .fc-day-sat {
+  background: #f9fafb;
+}
+
+/* Day number */
+.calendar-container .fc-daygrid-day-number {
+  color: #111c2c;
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  text-decoration: none;
+  padding: 8px;
+}
+
+/* Previous / next month days */
+.calendar-container .fc-day-other .fc-daygrid-day-number {
+  color: #94a3b8;
+}
+
+/* =========================
+   Events
+========================= */
+
+.calendar-container .fc-daygrid-event {
+  margin: 2px 4px;
+  border: none !important;
+  border-radius: 4px;
+  min-height: 24px;
+  padding: 4px 8px;
+  box-shadow: 0px 1px 2px 0px #0000000d;
+
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+/* Event content */
+.calendar-container .fc-event-title {
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+/* =========================
+   Submitted
+========================= */
+
+.calendar-container .event-submitted {
+  background: #3b82f6 !important;
+  color: #ffffff !important;
+}
+
+.calendar-container .event-submitted .fc-event-title {
+  color: #ffffff !important;
+}
+
+/* =========================
+   Reviewed
+========================= */
+
+.calendar-container .event-reviewed {
+  background: #DCFCE7 !important;
+  color: #166534 !important;
+}
+
+.calendar-container .event-reviewed .fc-event-title {
+  color: #166534 !important;
+}
+
+/* =========================
+   Delayed
+========================= */
+
+.calendar-container .event-delayed {
+  background: #ef4444 !important;
+  color: #ffffff !important;
+}
+
+.calendar-container .event-delayed .fc-event-title {
+  color: #ffffff !important;
+}
+
+/* =========================
+   Not Submitted
+========================= */
+
+.calendar-container .event-not_submitted {
+  background: #ffedd5 !important;
+  color: #9a3412 !important;
+}
+
+.calendar-container .event-not_submitted .fc-event-title {
+  color: #9a3412 !important;
+}
+
+/* =========================
+   Today
+========================= */
+
+.calendar-container .fc-day-today {
+  background: #e7eeff !important;
+  border: 1px solid #00535b !important;
+}
+/* Today cell */
+.calendar-container .fc-day-today {
+  background: #e7eeff !important;
+  box-shadow: inset 0 0 0 1px #00535b;
+}
+
+/* Today number - circle */
+.calendar-container .fc-day-today .fc-daygrid-day-number {
+  width: 24px !important;
+  height: 24px !important;
+
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+
+  margin: 4px;
+  padding: 0 !important;
+
+  border-radius: 50% !important;
+
+  background-color: #00535b !important;
+  color: #ffffff !important;
+
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+
+  text-decoration: none;
+}
+.calendar-container .fc-daygrid-event {
+  margin: 2px 4px;
+  border: none !important;
+  border-radius: 4px;
+  min-height: 24px;
+  height: 24px;
+  padding: 4px 8px;
+  box-shadow: 0px 1px 2px 0px #0000000d;
+
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.calendar-container .fc-event-title {
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  padding: 0 !important;
+}
+
+/* Hide FullCalendar event time */
+.calendar-container .fc-event-time {
+  display: none !important;
+}
+/* Today */
+.calendar-container .fc-day-today {
+  background: #e7eeff !important;
+  box-shadow: inset 0 0 0 1px #00535b;
+  border: none !important;
+}
+
+.custom-more-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 4px;
+  padding: 4px 8px;
+
+  border-radius: 6px;
+
+  background: #f0f3ff;
+  color: #00535b;
+
+  font-family: Inter, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 16px;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.custom-more-link:hover {
+  background: #e2e8ff;
+}

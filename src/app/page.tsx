@@ -1,7 +1,9 @@
+import { cookies } from 'next/headers';
+
 import FAQSection from '@/Features/Home/FAQSection';
-import FeatureSection from '@/Features/Home/FeatureSection'
+import FeatureSection from '@/Features/Home/FeatureSection';
 import Footer from '@/Features/Home/Footer';
-import HeroSection from '@/Features/Home/HeroSection'
+import HeroSection from '@/Features/Home/HeroSection';
 import LearningJourneySection from '@/Features/Home/LearningJourneySection';
 import ModernInterfaceSection from '@/Features/Home/ModernInterfaceSection';
 import Navbar from '@/Features/Home/Navbar';
@@ -9,12 +11,16 @@ import StorySection from '@/Features/Home/StorySection';
 import TimelineSection from '@/Features/Home/TimelineSection';
 import WhyRawaqSection from '@/Features/Home/WhyRawaqSection';
 
-export default function Page() {
+export default async function Page() {
+  const cookieStore = await cookies();
+
+  const accessToken = cookieStore.get('access_token');
+
+  const isLoggedIn = !!accessToken?.value;
+
   return (
     <div className="overflow-x-hidden">
-      <div className="bg-[#F9F9FF]">
-        <Navbar />
-      </div>
+      <Navbar isLoggedIn={isLoggedIn} />
 
       <div className="bg-[#F9F9FF]">
         <HeroSection />
