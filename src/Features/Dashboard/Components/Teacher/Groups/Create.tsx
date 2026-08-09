@@ -49,7 +49,7 @@ export default function CreateGroup() {
       reset();
       setStudents(20);
 
-      router.push("/Dashboard");
+      router.push("/group");
     },
 
     onError: (error: unknown) => {
