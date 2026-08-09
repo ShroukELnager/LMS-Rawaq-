@@ -1,10 +1,10 @@
 import { CreateGroupFormData } from "../../../Types";
 
 export const createGroupService = async (data: CreateGroupFormData) => {
-  const res = await fetch("/api/teacher/groups", {
-    method: "POST",
+  const res = await fetch('/api/teacher/createGroups', {
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
   });
