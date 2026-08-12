@@ -2,6 +2,7 @@ import { formatRequestTime } from "@/Features/Dashboard/lib/FormatRequestTime";
 import { TeacherGroup } from "@/Features/Dashboard/Types";
 import { Stat } from "./Stat";
 import { useRouter } from "next/navigation";
+        import { ArrowRight } from 'lucide-react';
 
 export function GroupCard({ group }: { group: TeacherGroup }) {
   const router = useRouter();
@@ -24,12 +25,12 @@ export function GroupCard({ group }: { group: TeacherGroup }) {
         <p className="text-xs text-[#9CA3AF]">
           Created {formatRequestTime(group.created_at)}
         </p>
-
         <button
           onClick={() => router.push(`/group/${group.id}`)}
-          className="mt-5 h-11 w-full cursor-pointer rounded-lg bg-primary text-sm font-medium text-white transition hover:bg-[#014950]"
+          className="group mt-5 flex h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary text-sm font-medium text-white transition hover:bg-[#014950]"
         >
           Open Group
+          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
         </button>
       </div>
     </div>

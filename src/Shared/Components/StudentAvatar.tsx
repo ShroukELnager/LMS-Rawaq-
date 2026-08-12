@@ -1,34 +1,21 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { useMemo, useState } from "react";
-import { fixSupabaseUrl } from "@/Features/Dashboard/lib/FixSupabaseUrl";
+import Image from 'next/image';
+import { useState } from 'react';
+import { fixSupabaseUrl } from '@/Features/Dashboard/lib/FixSupabaseUrl';
 
 interface StudentAvatarProps {
-  firstName: string;
-  lastName: string;
+  firstName: string | null | undefined;
+  lastName: string | null | undefined;
   avatarUrl?: string | null;
   size?: number;
 }
 
-const COLORS = [
-  "bg-red-500",
-  "bg-orange-500",
-  "bg-amber-500",
-  "bg-yellow-500",
-  "bg-lime-500",
-  "bg-green-500",
-  "bg-emerald-500",
-  "bg-teal-500",
-  "bg-cyan-500",
-  "bg-sky-500",
-  "bg-blue-500",
-  "bg-indigo-500",
-  "bg-violet-500",
-  "bg-purple-500",
-  "bg-pink-500",
-  "bg-rose-500",
-];
+const getRandomColor = () => {
+  const hue = Math.floor(Math.random() * 360);
+
+  return `hsl(${hue}, 70%, 50%)`;
+};
 
 export default function StudentAvatar({
   firstName,
@@ -38,28 +25,22 @@ export default function StudentAvatar({
 }: StudentAvatarProps) {
   const [imgError, setImgError] = useState(false);
 
+  const [bgColor] = useState(() => getRandomColor());
+
   const fixedAvatar = fixSupabaseUrl(avatarUrl?.trim());
 
-  const initials = `${firstName?.[0] ?? ""}${lastName?.[0] ?? ""}`.toUpperCase();
-
-  const bgColor = useMemo(() => {
-    const text = `${firstName}${lastName}`;
-
-    const hash = text
-      .split("")
-      .reduce((acc, char) => acc + char.charCodeAt(0), 0);
-
-    return COLORS[hash % COLORS.length];
-  }, [firstName, lastName]);
+  const initials =
+    `${firstName?.[0] ?? ''}${lastName?.[0] ?? ''}`.toUpperCase();
 
   if (!fixedAvatar || imgError) {
     return (
       <div
-        className={`flex items-center justify-center rounded-full border-2 border-primary font-semibold text-white ${bgColor}`}
+        className="flex items-center justify-center rounded-full border-2 border-primary font-semibold text-white"
         style={{
           width: size,
           height: size,
           fontSize: size * 0.4,
+          backgroundColor: bgColor,
         }}
       >
         {initials}
@@ -73,7 +54,7 @@ export default function StudentAvatar({
       alt={`${firstName} ${lastName}`}
       width={size}
       height={size}
-      className="rounded-full object-cover border-2 border-primary"
+      className="rounded-full border-2 border-primary object-cover"
       onError={() => setImgError(true)}
     />
   );

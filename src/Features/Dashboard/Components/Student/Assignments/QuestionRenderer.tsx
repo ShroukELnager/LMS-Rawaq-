@@ -45,7 +45,7 @@ export default function QuestionRenderer({
                     cursor-pointer
                     items-center
                     gap-4
-                    rounded-2xl
+                    rounded-[12px]
                     border
                     p-5
                     transition
@@ -97,7 +97,7 @@ export default function QuestionRenderer({
                       cursor-pointer
                       items-center
                       gap-4
-                      rounded-2xl
+                      rounded-[12px]
                       border
                       p-5
                       transition
@@ -148,7 +148,7 @@ export default function QuestionRenderer({
           placeholder="Write your answer here..."
           className="
             w-full
-            rounded-2xl
+            rounded-[12px]
             border
             border-gray-300
             p-5

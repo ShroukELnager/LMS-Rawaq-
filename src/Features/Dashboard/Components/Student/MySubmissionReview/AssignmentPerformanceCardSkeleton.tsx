@@ -1,6 +1,6 @@
 export default function AssignmentPerformanceCardSkeleton() {
   return (
-    <div className="flex w-full gap-6 animate-pulse">
+    <div className="flex w-full gap-6 animate-pulse ">
       {/* Performance Card */}
       <div className="w-[31.64%] rounded-xl border border-[#E5E7EB] bg-white p-6 shadow-sm">
         <div className="mx-auto h-3 w-32 rounded bg-gray-200" />

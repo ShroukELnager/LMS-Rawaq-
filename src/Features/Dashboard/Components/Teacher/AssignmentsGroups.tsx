@@ -139,7 +139,13 @@ export default function TeacherAssignmentsGroup({ groupId }: Props) {
               </div>
 
               <div className="mt-8 space-y-3">
-                <button className="flex h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary font-medium text-white transition hover:bg-[#094B53]">
+                <button 
+                onClick={()=>{
+                  router.push(
+                    `/group/${groupId}/assignment/${assignment.id}`
+                  );
+                }}
+                className="flex h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary font-medium text-white transition hover:bg-[#094B53]">
                   View Details
                   <ArrowRight size={18} />
                 </button>

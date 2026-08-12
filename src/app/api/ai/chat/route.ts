@@ -46,10 +46,7 @@ ${group.category}
 Description:
 ${group.description ?? 'No description provided.'}
 
-Additional Information:
-- Status: ${group.status}
-- Duration: ${group.duration_in_days} days
-- Students: ${group.current_students_count}/${group.max_no_of_students}
+
 
 ========================
 RULES

@@ -15,7 +15,9 @@ export default function AssignmentSubmitModal({
   onClose,
   totalQuestions,
   onSubmit,
-}: Props) {
+}: Props)
+ {
+  
   const { watch, handleSubmit } =
     useFormContext<AssignmentSubmissionRequestBody>();
 
@@ -36,12 +38,18 @@ export default function AssignmentSubmitModal({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
+      onClick={(event) => {
+        if (event.target === event.currentTarget) {
+          onClose();
+        }
+      }}
+    >
       <div className="w-full max-w-md overflow-hidden rounded-3xl bg-white shadow-2xl">
         <div className="relative bg-[#006D77] pb-14 pt-6">
           <div className="absolute left-1/2 top-full flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-lg">
-      
-            <HeaderIcon  size={24}/>
+            <HeaderIcon size={24} />
           </div>
         </div>
 

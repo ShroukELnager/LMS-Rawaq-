@@ -169,10 +169,7 @@ export type Question = {
   options: Option[];
 };
 
-export type AssignmentQuestionsProps = {
-  questions: Question[];
-  assignmentId: string;
-};
+
 
 export interface TeacherGroup {
   id: string;
@@ -495,9 +492,9 @@ export type SingleGroup = {
   status: string;
   created_by: {
     id: string;
-    first_name: string;
-    last_name: string;
-    avatar_url: string;
+    first_name: string |null;
+    last_name: string | null;
+    avatar_url: string |null;
   };
 };
 

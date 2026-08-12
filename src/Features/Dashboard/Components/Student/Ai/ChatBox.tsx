@@ -129,7 +129,7 @@ export default function ChatBox({ group }: Props) {
 
   return (
     <div
-      className={`mt-8 overflow-hidden rounded-[12px] bg-white transition-all duration-300 ${
+      className={`mt-8 overflow-hidden rounded-[12px] bg-white transition-all duration-300 hidden md:block ${
         isOpen ? 'h-[356px]' : 'h-[64px]'
       }`}
     >

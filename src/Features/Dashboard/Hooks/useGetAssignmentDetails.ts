@@ -11,7 +11,6 @@ export default function useGetAssignmentDetails() {
       GetAssignmentDetailsService(data),
 
     onSuccess: () => {
-      toast.success('Assignment details retrieved successfully');
 
       queryClient.invalidateQueries({
         queryKey: ['assignment-details'],

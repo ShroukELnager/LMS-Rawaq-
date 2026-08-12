@@ -5,6 +5,7 @@ import useJoinGroups from '../../Hooks/useJoinedGroup';
 import { useRouter } from 'next/navigation';
 import ErrorState from '../../Errors/ErrorToLoadPage';
 import JoinedGroupSkelton from '../../Skeleton/Student/joinedGroup';
+import { ArrowRight } from 'lucide-react';
 
 export default function JoinedGroup() {
   const router = useRouter();
@@ -35,10 +36,11 @@ export default function JoinedGroup() {
                 className="rounded-xl border border-gray-300 bg-white p-4 shadow-sm transition hover:shadow-md"
               >
                 <div className="flex items-start justify-between">
-                  {group.category &&(<span className="rounded-[75px] bg-primary px-3 py-1 text-sm font-medium text-white">
-                    {group.category}
-                  </span>)}
-                  
+                  {group.category && (
+                    <span className="rounded-[75px] bg-primary px-3 py-1 text-sm font-medium text-white">
+                      {group.category}
+                    </span>
+                  )}
                 </div>
 
                 <h2 className="mt-4 text-xl font-semibold text-gray-900">
@@ -104,14 +106,14 @@ export default function JoinedGroup() {
                     </span>
                   </span>
                 </div>
-
                 <button
-                  className={`mt-5 w-full cursor-pointer rounded-lg py-3 bg-primary text-sm font-medium transition text-white`}
+                  className="group mt-5 flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary py-3 text-sm font-medium text-white transition hover:opacity-90"
                   onClick={() => {
                     router.push(`/group/${group.id}`);
                   }}
                 >
                   Open Group
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </button>
               </div>
             );

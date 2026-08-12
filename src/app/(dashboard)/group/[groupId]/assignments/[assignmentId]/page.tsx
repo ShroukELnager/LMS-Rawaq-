@@ -101,9 +101,9 @@ export default function Page() {
   }
 
   // Already submitted
-  if (submission?.status === 'submitted') {
-    return <SubmittedPage assignmentDetails={assignmentDetails} />;
-  }
+  // if (submission?.status === 'submitted') {
+  //   return <SubmittedPage assignmentDetails={assignmentDetails} />;
+  // }
 
   // Default fallback
   return (

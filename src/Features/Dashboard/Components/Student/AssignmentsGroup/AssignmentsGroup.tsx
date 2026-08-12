@@ -1,43 +1,60 @@
+'use client';
+
 import useStudentGroupAssignments from '@/Features/Dashboard/Hooks/useStudentGroupAssignments';
 import { format } from 'date-fns';
-import CalendarDays from '@/assets/icons/CalendarDays.svg'
 import Eye2 from '@/assets/icons/Eye2.svg';
 import Upload from '@/assets/icons/Upload.svg';
-import DateIcon from '@/assets/icons/date.svg'
-import Check from '@/assets/icons/CalendarDays.svg'
+import DateIcon from '@/assets/icons/date.svg';
+import CalendarDays from '@/assets/icons/CalendarDays.svg';
 import Star from '@/assets/icons/Star.svg';
 import { AssignmentsSkeleton } from './AssignmentsSkeleton';
-import { AssignmentsHeaderSkeleton } from './AssignmentsHeaderSkeleton';
 import ErrorState from '@/Features/Dashboard/Errors/ErrorToLoadPage';
 import EmptyAssignments from './EmptyAssignments';
 import { useRouter } from 'next/navigation';
+
 export default function StudentAssignmentsGroup({
   groupId,
 }: {
   groupId: string;
 }) {
-  const { data, isLoading,refetch,isError,error } = useStudentGroupAssignments(groupId);
+  const { data, isLoading, refetch, isError, error } =
+    useStudentGroupAssignments(groupId);
 
-  const router=useRouter()
-console.log(data);
-if (isLoading) {
-  return (
-    <div className="space-y-6">
-      <AssignmentsHeaderSkeleton />
-      <AssignmentsSkeleton />
-    </div>
-  );
-}
-if(isError){
-    return <ErrorState
-                  message={error?.message || 'Failed to load Assignments'}
-                  onRetry={() => refetch()}
-                />
-}
-if(data?.length === 0){
-    return (<EmptyAssignments/>)
-}
-  const assignments = data?? [];
+  const router = useRouter();
+
+  if (isLoading) {
+    return (
+      <>
+        <div className="mb-6">
+          <h1 className="font-inter text-2xl font-bold text-[#101828]">
+            Assignments
+          </h1>
+
+          <p className="mt-2 font-inter text-base font-normal leading-6 text-[#3E494A]">
+            Track your assignments and submission progress across your enrolled
+            study groups.
+          </p>
+        </div>
+
+        <AssignmentsSkeleton />
+      </>
+    );
+  }
+
+  if (isError) {
+    return (
+      <ErrorState
+        message={error?.message || 'Failed to load Assignments'}
+        onRetry={() => refetch()}
+      />
+    );
+  }
+
+  if (data?.length === 0) {
+    return <EmptyAssignments />;
+  }
+
+  const assignments = data ?? [];
 
   const statusConfig = {
     not_submitted: {
@@ -60,132 +77,139 @@ if(data?.length === 0){
     },
   };
 
-return (
-  <div className="space-y-6">
-    <div className="flex flex-col gap-3">
-      <h2 className="font-inter text-[32px] font-semibold leading-[40px] tracking-[-0.32px] text-[#111C2C]">
-        Group Assignments
-      </h2>
+  return (
+    <>
+      <div className="mb-6">
+        <h1 className="font-inter text-2xl font-bold text-[#101828]">
+          Assignments
+        </h1>
 
-      <p className="font-inter text-base font-normal leading-6 tracking-normal text-[#3E494A]">
-        Track your assignments and submission progress across your enrolled
-        study groups.
-      </p>
-    </div>
+        <p className="mt-2 font-inter text-base font-normal leading-6 tracking-normal text-[#3E494A]">
+          Track your assignments and submission progress across your enrolled
+          study groups.
+        </p>
+      </div>
 
-    <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-      {assignments.map((assignment) => {
-        const config = statusConfig[assignment.status];
-        const Icon = config.btnIcon;
+      <div className="grid min-w-0 grid-cols-1 items-stretch gap-5 md:grid-cols-2 xl:grid-cols-3">
+        {assignments.map((assignment) => {
+          const config = statusConfig[assignment.status];
+          const Icon = config.btnIcon;
 
-        return (
-          <div
-            key={assignment.id}
-            className={`flex h-[360px] flex-col rounded-xl border border-slate-200 border-t-[7px] ${config.border} bg-white p-5 shadow-sm transition hover:shadow-md`}
-          >
-            {/* Header */}
-            <div className="mb-4 flex items-center justify-between">
-              <span
-                className={`rounded-full px-3 py-1 text-xs font-medium capitalize ${config.badge}`}
-              >
-                {assignment.status.replace('_', ' ')}
-              </span>
+          const isOverdue =
+            assignment.status === 'not_submitted' &&
+            new Date(assignment.deadline) < new Date();
 
-              {assignment.status === 'reviewed' && (
-                <span className="font-inter text-xs font-medium leading-5 tracking-[0.14px] text-[#5E4700]">
-                  {assignment.total_grade_awarded} / {assignment.total_grade}
+          return (
+            <div
+              key={assignment.id}
+              className={`flex min-w-0 w-full flex-col rounded-xl border border-slate-200 border-t-[7px] ${config.border} bg-white p-5 shadow-sm transition hover:shadow-md`}
+            >
+              <div className="mb-4 flex min-w-0 items-center justify-between gap-3">
+                <span
+                  className={`shrink-0 rounded-full px-3 py-1 text-xs font-medium capitalize ${config.badge}`}
+                >
+                  {assignment.status.replace('_', ' ')}
                 </span>
-              )}
 
-              {assignment.status === 'submitted' && (
-                <span className="font-inter text-xs font-medium leading-5 tracking-[0.14px] text-[#5E4700]">
-                  Waiting for review
-                </span>
-              )}
+                {assignment.status === 'reviewed' && (
+                  <span className="shrink-0 whitespace-nowrap font-inter text-xs font-medium leading-5 tracking-[0.14px] text-[#5E4700]">
+                    {assignment.total_grade_awarded} / {assignment.total_grade}
+                  </span>
+                )}
 
-              {assignment.status === 'not_submitted' && (
-                <span className="font-inter text-xs font-medium leading-5 tracking-[0.14px] text-[#5E4700]">
-                  Not graded
-                </span>
-              )}
-            </div>
+                {assignment.status === 'not_submitted' && (
+                  <span className="flex shrink-0 items-center gap-1 whitespace-nowrap font-inter text-xs font-medium leading-5 tracking-[0.14px] text-[#5E4700]">
+                    <Star className="h-4 w-4 text-[#F5B800]" />
+                    {assignment.total_grade} Pts
+                  </span>
+                )}
+              </div>
 
-            {/* Title */}
-            <h3 className="mb-3 line-clamp-2 min-h-[56px] text-xl font-bold">
-              {assignment.title}
-            </h3>
+              <h3 className="mb-3 line-clamp-2 min-w-0 text-lg font-bold leading-7 text-[#101828] md:text-xl">
+                {assignment.title}
+              </h3>
+              <div className="mb-4 hidden min-w-0 md:block">
+                <p className="line-clamp-2 font-inter text-base font-normal leading-6 text-[#6F797A]">
+                  {assignment.description || ' '}
+                </p>
+              </div>
 
-            {/* Description */}
-            <div className="mb-4 h-[76px] overflow-hidden">
-              <p className="font-inter text-base font-normal leading-6 tracking-normal text-[#6F797A]">
-                {assignment.description || ' '}
-              </p>
-            </div>
+              <div className="mb-4 flex min-h-[68px] flex-col justify-start">
+                {assignment.status === 'submitted' && (
+                  <div className="flex min-h-[68px] items-center gap-3 rounded-lg bg-slate-50 p-3">
+                    <DateIcon size={18} className="shrink-0 text-red-500" />
 
-            <div className="mb-4 h-[68px]">
-              {assignment.status !== 'reviewed' && (
-                <div className="flex h-full items-center gap-3 rounded-lg bg-slate-50 p-3">
-                  <DateIcon size={18} className="text-red-500" />
+                    <div className="min-w-0">
+                      <p className="font-inter text-xs font-semibold uppercase leading-4 tracking-[-0.3px] text-[#6F797A]">
+                        Submitted On
+                      </p>
 
-                  <div>
-                    <p className="font-inter text-xs font-semibold uppercase leading-4 tracking-[-0.3px] text-[#6F797A]">
-                      {assignment.status === 'submitted'
-                        ? 'Submitted On'
-                        : 'Deadline'}
-                    </p>
-
-                    <div className="flex items-center gap-2">
-                      <p className="text-sm font-medium">
+                      <p className="whitespace-nowrap text-sm font-medium text-[#101828]">
                         {format(
-                          new Date(
-                            assignment.status === 'submitted'
-                              ? assignment.submitted_at!
-                              : assignment.deadline
-                          ),
+                          new Date(assignment.submitted_at!),
                           'MMM dd, yyyy'
                         )}
                       </p>
+                    </div>
+                  </div>
+                )}
 
-                      {assignment.status === 'not_submitted' &&
-                        new Date(assignment.deadline) < new Date() && (
-                          <span className="rounded-full bg-red-100 px-2 py-0.5 text-xs font-semibold text-red-700">
+                {assignment.status === 'not_submitted' && (
+                  <div className="flex min-h-[68px] items-center gap-3 rounded-lg bg-slate-50 p-3">
+                    <DateIcon size={18} className="shrink-0 text-red-500" />
+
+                    <div className="min-w-0">
+                      <p className="font-inter text-xs font-semibold uppercase leading-4 tracking-[-0.3px] text-[#6F797A]">
+                        Deadline
+                      </p>
+
+                      <div className="flex min-w-0 flex-wrap items-center gap-2">
+                        <p className="whitespace-nowrap text-sm font-medium text-[#101828]">
+                          {format(
+                            new Date(assignment.deadline),
+                            'MMM dd, yyyy'
+                          )}
+                        </p>
+
+                        {isOverdue && (
+                          <span className="whitespace-nowrap rounded-full bg-red-100 px-2 py-0.5 text-xs font-semibold text-red-700">
                             Overdue
                           </span>
                         )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
-            </div>
+                )}
+              </div>
 
-            {/* Button */}
-            <button
-              onClick={() =>
-                router.push(
-                  `/group/${groupId}/assignments/${assignment.id}/my-submission`
-                )
-              }
-              className={`flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-primary py-2.5 text-sm font-medium transition ${
-                assignment.status === 'not_submitted'
-                  ? 'bg-primary text-white hover:opacity-90'
-                  : 'bg-white text-primary hover:bg-slate-50'
-              }`}
-            >
-              {config.btn}
-
-              <Icon
-                size={16}
-                className={
-                  assignment.status === 'not_submitted'
-                    ? 'text-white'
-                    : 'text-primary'
+              <button
+                type="button"
+                onClick={() =>
+                  router.push(
+                    `/group/${groupId}/assignments/${assignment.id}/my-submission`
+                  )
                 }
-              />
-            </button>
-          </div>
-        );
-      })}
-    </div>
-  </div>
-);
+                className={`mt-auto flex h-11 min-h-11 w-full min-w-0 shrink-0 cursor-pointer items-center justify-center gap-2 rounded-lg border border-primary px-3 text-center font-inter text-sm font-medium leading-5 transition ${
+                  assignment.status === 'not_submitted'
+                    ? 'bg-primary text-white hover:opacity-90'
+                    : 'bg-white text-primary hover:bg-slate-50'
+                }`}
+              >
+                <span className="truncate">{config.btn}</span>
+
+                <Icon
+                  size={16}
+                  className={
+                    assignment.status === 'not_submitted'
+                      ? 'shrink-0 text-white'
+                      : 'shrink-0 text-primary'
+                  }
+                />
+              </button>
+            </div>
+          );
+        })}
+      </div>
+    </>
+  );
 }

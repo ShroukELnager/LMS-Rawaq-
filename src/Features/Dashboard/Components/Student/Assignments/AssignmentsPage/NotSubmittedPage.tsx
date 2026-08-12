@@ -6,55 +6,26 @@ import { useRouter } from 'next/navigation';
 type Props = {
   assignmentDetails: AssignmentDetails;
   groupId: string;
-  assignmentId:string
+  assignmentId: string;
 };
 
-export default function NotSubmittedPage({ assignmentDetails, groupId, assignmentId }: Props) {
+export default function NotSubmittedPage({
+  assignmentDetails,
+  groupId,
+  assignmentId,
+}: Props) {
   const router = useRouter();
   if (!assignmentDetails) return null;
 
-//   type AssignmentStatus = 'Submitted' | 'Reviewed' | 'Not Submitted' | 'Late';
-// console.log('deadline', assignmentDetails.deadline);
-//   const status: AssignmentStatus =
-//     assignmentDetails.submission.status === 'graded'
-//       ? 'Reviewed'
-//       : assignmentDetails.submission.status === 'submitted'
-//         ? 'Submitted'
-//         : assignmentDetails.submission.status === 'is_late'
-//           ? 'Late'
-//           : 'Not Submitted';
+  const status = 'Not Submitted';
 
-//   const statusStyles: Record<
-//     AssignmentStatus,
-//     {
-//       badge: string;
-//     }
-//   > = {
-//     Submitted: {
-//       badge: 'bg-[#006D77] text-white',
-//     },
-
-//     'Not Submitted': {
-//       badge: 'bg-red-100 text-red-600',
-//     },
-
-//     Reviewed: {
-//       badge: 'bg-blue-100 text-blue-700',
-//     },
-
-//     Late: {
-//       badge: 'bg-orange-100 text-orange-700',
-//     },
-//   };
-
-//   const currentStyle = statusStyles[status];
   return (
     <>
       <div className="hidden lg:block">
         <div className="mx-auto max-w-7xl space-y-4 p-8">
           {/* Status Badge */}
           <div className="flex">
-            {/* <span
+            <span
               className={`
         inline-flex
         items-center
@@ -64,16 +35,18 @@ export default function NotSubmittedPage({ assignmentDetails, groupId, assignmen
         py-2
         text-xs
         font-semibold
-        ${currentStyle.badge}
+       bg-[#D8E3FA] text-[#3E494A]
       `}
             >
               <span className="size-2 rounded-full bg-current" />
               {status}
-            </span> */}
+            </span>
           </div>
 
           {/* Assignment Card */}
-          <div className="rounded-3xl bg-white p-10 shadow-xl">
+          <div className="relative overflow-hidden rounded-3xl bg-white p-10 shadow-xl">
+            <div className="pointer-events-none absolute -right-[120px] -top-[120px] h-[240px] w-[240px] rounded-full bg-[#D8E3FA]" />
+
             <h1 className="text-4xl font-bold text-[#045D6C]">
               {assignmentDetails.title}
             </h1>
@@ -115,10 +88,10 @@ export default function NotSubmittedPage({ assignmentDetails, groupId, assignmen
               </p>
             )}
 
-            <div className="mt-8 flex gap-4  pt-6">
+            <div className="mt-8 flex gap-4 pt-6">
               <button
                 onClick={() =>
-                  router.push(`/group/${groupId}/assignments/${assignmentId}`)
+                  router.push(`/group/${groupId}/assignment/${assignmentId}`)
                 }
                 className="flex w-fit cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#006D77] px-8 py-3 font-medium text-white transition hover:bg-[#00545c]"
               >
@@ -158,7 +131,9 @@ export default function NotSubmittedPage({ assignmentDetails, groupId, assignmen
             />
           </div>
 
-          <div className="relative mt-4 rounded-2xl bg-[#EAF0FF] p-4">
+          <div className="relative mt-4 overflow-hidden rounded-2xl bg-[#EAF0FF] p-4">
+            <div className="pointer-events-none absolute -right-[70px] -top-[70px] h-[140px] w-[140px] rounded-full bg-[#D8E3FA]" />
+
             <p className="text-xs font-semibold uppercase tracking-wide text-[#667085]">
               Due Date
             </p>
@@ -174,7 +149,7 @@ export default function NotSubmittedPage({ assignmentDetails, groupId, assignmen
               )}
             </p>
 
-           {/* <span
+            <span
               className={`
           absolute
           right-4
@@ -184,11 +159,10 @@ export default function NotSubmittedPage({ assignmentDetails, groupId, assignmen
           py-1
           text-[10px]
           font-bold
-          ${currentStyle.badge}
-        `}
+bg-[#FFDAD6] text-[#93000A]        `}
             >
               {status}
-            </span>  */}
+            </span>
           </div>
 
           <div className="mt-10 flex flex-col items-center">
