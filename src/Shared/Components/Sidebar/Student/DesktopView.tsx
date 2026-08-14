@@ -1,54 +1,130 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
+
+import Explore from '@/assets/sidebarIcons/explore.svg';
+import Group from '@/assets/sidebarIcons/group.svg';
+import Calender from '@/assets/sidebarIcons/Calender.svg';
+import Copy from '@/assets/sidebarIcons/copy.svg';
+import Assignment from '@/assets/sidebarIcons/Assignment.svg';
+import Create from '@/assets/sidebarIcons/CreatePost.svg';
+import Student from '@/assets/sidebarIcons/Student.svg';
+
 import LogoutButton from '../../Ui/LogoutButton';
 
-const menuItems = [
-  { name: 'My Groups', href: '/group/joined', icon: '/images/groups.png' },
-  { name: 'Explore Groups', href: '/group', icon: '/images/Vector.png' },
-  {
-    name: 'Assignments',
-    href: '/assignments',
-    icon: '/images/assignments.png',
-  },
-  { name: 'Join Requests', href: '/requests', icon: '/images/requests.png' },
-];
-
-const Items = [
-  { name: 'Profile', href: '/profile', icon: '/images/profile.png' },
-  { name: 'Settings', href: '/settings', icon: '/images/setting.png' },
-];
+type MenuItem = {
+  name: string;
+  href: string;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+};
 
 export default function DesktopSidebar() {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-  const isDashboardActive = pathname === '/dashboard';
+  // Get groupId from ?groupId=
+  const queryGroupId = searchParams?.get('groupId');
+
+  // Get groupId if we're already inside /group/[groupId]/...
+  const pathnameGroupId = pathname?.match(/^\/group\/([^/]+)/)?.[1];
+
+  const groupId = queryGroupId || pathnameGroupId;
+
+  const menuItems: MenuItem[] = [
+    {
+      name: 'Explore Groups',
+      href: '/group',
+      icon: Explore,
+    },
+    {
+      name: 'My Groups',
+      href: '/group/joined',
+      icon: Group,
+    },
+    {
+      name: 'My Calendar',
+      href: '/my-calender',
+      icon: Calender,
+    },
+  ];
+
+  const groupMenuItems: MenuItem[] = groupId
+    ? [
+        {
+          name: 'Group Posts',
+          href: `/group/${encodeURIComponent(groupId)}/posts`,
+          icon: Copy,
+        },
+        {
+          name: 'Group Assignments',
+          href: `/group/${encodeURIComponent(groupId)}/assignments`,
+          icon: Assignment,
+        },
+        {
+          name: 'Create New Post',
+          href: `/group/${encodeURIComponent(groupId)}/posts`,
+          icon: Create,
+        },
+      ]
+    : [];
+
+  const isActive = (href: string) => {
+    return pathname === href;
+  };
+
+  const renderMenuItem = (item: MenuItem) => {
+    const Icon = item.icon;
+    const active = isActive(item.href);
+
+    return (
+      <Link
+        key={item.name}
+        href={item.href}
+        className={`
+          flex
+          w-full
+          items-center
+          gap-3
+          rounded-lg
+          px-3
+          py-[12px]
+          text-sm
+          transition
+          ${
+            active
+              ? 'bg-[#00535B] text-white'
+              : 'text-[#48473A] hover:bg-white/40'
+          }
+        `}
+      >
+        <Icon className={active ? 'text-white' : 'text-[#48473A]'} />
+
+        <span className="font-medium">{item.name}</span>
+      </Link>
+    );
+  };
 
   return (
-  <aside
-  className="
-    hidden
-    lg:block
-    w-72
-    h-[calc(100vh-4rem)]
-    overflow-y-auto
-    bg-[#E6E3D0]
-    p-5
-    shrink-0
-  "
->
-
+    <aside
+      className="
+        sticky
+        top-16
+        hidden
+        h-[calc(100vh-4rem)]
+        w-72
+        shrink-0
+        overflow-y-auto
+        bg-[#E6E3D0]
+        p-5
+        lg:flex
+        lg:flex-col
+      "
+    >
       {/* Logo */}
-      <div className="mb-8 flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary">
-          <Image
-            src="/images/teacherportal.png"
-            alt="Student Logo"
-            width={22}
-            height={22}
-          />
+      <div className="mb-6 flex shrink-0 items-center gap-3">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary">
+          <Student color='white' />
         </div>
 
         <div className="leading-tight">
@@ -62,107 +138,16 @@ export default function DesktopSidebar() {
         </div>
       </div>
 
-      {/* Dashboard */}
-      <Link
-        href="/dashboard"
-        className={`
-          mb-5
-          flex
-          w-full
-          items-center
-          gap-3
-          rounded-xl
-          px-4
-          py-3
-          text-sm
-          transition
-
-          ${
-            isDashboardActive
-              ? 'bg-primary text-white'
-              : 'text-[#48473A] hover:bg-white/40'
-          }
-        `}
-      >
-        <Image
-          src="/images/dashboard.png"
-          alt="Dashboard Icon"
-          width={18}
-          height={18}
-        />
-
-        <span className="font-medium">Dashboard</span>
-      </Link>
-
       {/* Main Menu */}
-      <nav className="flex flex-1 flex-col gap-2">
-        {menuItems.map((item) => {
-          const isActive = pathname === item.href;
+      <nav className="flex min-h-0 flex-col gap-[4px]">
+        {menuItems.map(renderMenuItem)}
 
-          return (
-            <Link
-              key={item.name}
-              href={item.href}
-              className={`
-                flex
-                items-center
-                gap-3
-                rounded-xl
-                px-4
-                py-3
-                text-sm
-                transition
-
-                ${
-                  isActive
-                    ? 'bg-primary text-white'
-                    : 'text-[#48473A] hover:bg-white/40'
-                }
-              `}
-            >
-              <Image src={item.icon} alt={item.name} width={20} height={20} />
-
-              <span>{item.name}</span>
-            </Link>
-          );
-        })}
+        {/* Group Menu - ONLY when group is selected */}
+        {groupId && groupMenuItems.map(renderMenuItem)}
       </nav>
 
-      {/* Divider */}
-      <div className="my-5 border-t border-text/10" />
-
-      {/* Bottom Menu */}
-      <div className="flex flex-col gap-3">
-        {Items.map((item) => {
-          const isActive = pathname === item.href;
-
-          return (
-            <Link
-              key={item.name}
-              href={item.href}
-              className={`
-                flex
-                items-center
-                gap-3
-                rounded-xl
-                px-4
-                py-3
-                text-sm
-                transition
-
-                ${
-                  isActive
-                    ? 'bg-primary text-white'
-                    : 'text-[#48473A] hover:bg-white/40'
-                }
-              `}
-            >
-              <Image src={item.icon} alt={item.name} width={20} height={20} />
-
-              <span>{item.name}</span>
-            </Link>
-          );
-        })}
+      {/* Push Sign Out to bottom */}
+      <div className="mt-auto shrink-0 pt-5">
         <LogoutButton />
       </div>
     </aside>

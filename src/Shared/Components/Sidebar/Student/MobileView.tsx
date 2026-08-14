@@ -1,68 +1,140 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import Link from 'next/link';
+import { usePathname, useSearchParams } from 'next/navigation';
 
-const navItems = [
-  {
-    name: "Home",
-    href: "/",
-    icon: "/images/home.png",
-  },
-  {
-    name: "Groups",
-    href: "/",
-    icon: "/images/groups.png",
-  },
-  {
-    name: "Requests",
-    href: "/requests",
-    icon: "/images/requests.png",
-  },
-  {
-    name: "Tasks",
-    href: "/assignments",
-    icon: "/images/assignments.png",
-  },
-  {
-    name: "Profile",
-    href: "/profile",
-    icon: "/images/profile.png",
-  },
-];
+import Explore from '@/assets/sidebarIcons/explore.svg';
+import Group from '@/assets/sidebarIcons/group.svg';
+import Calender from '@/assets/sidebarIcons/Calender.svg';
+import Copy from '@/assets/sidebarIcons/copy.svg';
+import Assignment from '@/assets/sidebarIcons/Assignment.svg';
+
+type NavItem = {
+  name: string;
+  href: string;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+};
 
 export default function MobileBottomNav() {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  // Get groupId from ?groupId=
+  const queryGroupId = searchParams?.get('groupId');
+
+  // Get groupId from /group/[groupId]/...
+  const pathnameGroupId = pathname?.match(/^\/group\/([^/]+)/)?.[1];
+
+  const groupId = queryGroupId || pathnameGroupId;
+
+  const navItems: NavItem[] = [
+    {
+      name: 'Explore',
+      href: '/group',
+      icon: Explore,
+    },
+    {
+      name: 'Groups',
+      href: '/group/joined',
+      icon: Group,
+    },
+    {
+      name: 'Calendar',
+      href: '/my-calender',
+      icon: Calender,
+    },
+  ];
+
+  const groupNavItems: NavItem[] = groupId
+    ? [
+        {
+          name: 'Posts',
+          href: `/group/${encodeURIComponent(groupId)}/posts`,
+          icon: Copy,
+        },
+        {
+          name: 'Assignments',
+          href: `/group/${encodeURIComponent(groupId)}/assignments`,
+          icon: Assignment,
+        },
+      ]
+    : [];
+
+  const isActive = (href: string) => {
+    return pathname === href;
+  };
+
+  const renderNavItem = (item: NavItem) => {
+    const Icon = item.icon;
+    const active = isActive(item.href);
+
+    return (
+      <Link
+        key={item.name}
+        href={item.href}
+        className={`
+          flex
+          min-w-0
+          flex-1
+          flex-col
+          items-center
+          justify-center
+          rounded-xl
+          px-2
+          py-1.5
+          transition
+          ${active ? 'text-[#00535B]' : 'text-[#48473A]'}
+        `}
+      >
+        <span className="flex h-5 w-5 shrink-0 items-center justify-center">
+          <Icon
+            className={`
+           
+              shrink-0
+              ${active ? 'text-[#00535B]' : 'text-[#48473A]'}
+            `}
+          />
+        </span>
+
+        <span className="mt-1 truncate text-[11px] font-medium">
+          {item.name}
+        </span>
+      </Link>
+    );
+  };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden">
-      <div className="flex items-center justify-between bg-white px-4 py-2  shadow-[0_-4px_12px_rgba(0,0,0,0.08)]">
-        {navItems.map((item) => {
-          const isActive = pathname === item.href;
+    <>
+      {/* 
+        Spacer:
+        بيحجز مساحة للـ fixed bottom nav
+        عشان آخر محتوى في الصفحة مايتغطاش
+      */}
+      <div className="h-[72px] lg:hidden" />
 
-          return (
-            <Link
-              key={item.name}
-              href={item.href}
-              className={`flex flex-col items-center justify-center rounded-xl px-3 py-2 transition
-                ${isActive ? "text-primary" : "text-[#48473A]"}`}
-            >
-              <Image
-                src={item.icon}
-                alt={item.name}
-                width={20}
-                height={20}
-                className={isActive ? "opacity-100" : "opacity-70"}
-              />
+      {/* Bottom Navigation */}
+      <nav
+        className="
+          fixed
+          bottom-0
+          left-0
+          right-0
+          z-50
+          border-t
+          border-[#BEC8CA1A]
+          bg-white
+          shadow-[0_-4px_12px_rgba(0,0,0,0.08)]
+          lg:hidden
+        "
+      >
+        <div className="mx-auto flex w-full items-center px-2 py-2">
+          {/* Main navigation */}
+          {navItems.map(renderNavItem)}
 
-              <span className="mt-1 text-[11px] font-medium">
-                {item.name}
-              </span>
-            </Link>
-          );
-        })}
-      </div>
-    </div>
+          {/* Group navigation */}
+          {groupId && groupNavItems.map(renderNavItem)}
+        </div>
+      </nav>
+    </>
   );
 }

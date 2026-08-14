@@ -1,7 +1,7 @@
 'use client';
 
 import { logoutAction } from '@/Features/Auth/Actions/LogoutAction';
-import { LogOut } from 'lucide-react';
+import SignOut from '@/assets/sidebarIcons/SignOut.svg';
 
 export default function LogoutButton() {
   const handleLogout = async () => {
@@ -16,17 +16,20 @@ export default function LogoutButton() {
         w-full
         items-center
         gap-3
-        rounded-xl
+        rounded-[8px]
+        border
+        border-[#BA1A1A]
+        bg-transparent
         px-4
         py-3
         text-sm
-        text-[#48473A]
+        text-[#BA1A1A]
         transition
-        hover:bg-white/40
+        hover:bg-[#BA1A1A]/5
         cursor-pointer
       "
     >
-      <LogOut className="h-5 w-5" />
+      <SignOut className="h-5 w-5 text-[#BA1A1A]" />
       <span>Logout</span>
     </button>
   );
