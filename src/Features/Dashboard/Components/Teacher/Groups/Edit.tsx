@@ -62,7 +62,7 @@ export default function EditGroup() {
 
     reset({
       name: group.name ?? '',
-      description: group.description ?? '',
+      // description: group.description ?? '',
       no_of_students: group.max_no_of_students ?? 1,
       category: group.category ?? '',
       start_date: group.start_date ? String(group.start_date).slice(0, 10) : '',
