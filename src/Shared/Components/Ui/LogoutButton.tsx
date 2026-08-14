@@ -1,7 +1,7 @@
 'use client';
 
 import { logoutAction } from '@/Features/Auth/Actions/LogoutAction';
-import SignOut from '@/assets/sidebarIcons/SignOut.svg';
+import SignOut from '@/assets/sidebarICN/SignOut.svg';
 
 export default function LogoutButton() {
   const handleLogout = async () => {

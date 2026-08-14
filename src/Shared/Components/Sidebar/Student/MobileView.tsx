@@ -3,11 +3,11 @@
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 
-import Explore from '@/assets/sidebarIcons/explore.svg';
-import Group from '@/assets/sidebarIcons/group.svg';
-import Calender from '@/assets/sidebarIcons/Calender.svg';
-import Copy from '@/assets/sidebarIcons/copy.svg';
-import Assignment from '@/assets/sidebarIcons/Assignment.svg';
+import Explore from '@/assets/sidebarICN/explore.svg';
+import Group from '@/assets/sidebarICN/group.svg';
+import Calender from '@/assets/sidebarICN/Calender.svg';
+import Copy from '@/assets/sidebarICN/copy.svg';
+import Assignment from '@/assets/sidebarICN/Assignment.svg';
 
 type NavItem = {
   name: string;

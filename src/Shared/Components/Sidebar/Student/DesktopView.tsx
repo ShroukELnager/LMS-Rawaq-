@@ -3,13 +3,13 @@
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 
-import Explore from '@/assets/sidebarIcons/explore.svg';
-import Group from '@/assets/sidebarIcons/group.svg';
-import Calender from '@/assets/sidebarIcons/Calender.svg';
-import Copy from '@/assets/sidebarIcons/copy.svg';
-import Assignment from '@/assets/sidebarIcons/Assignment.svg';
-import Create from '@/assets/sidebarIcons/CreatePost.svg';
-import Student from '@/assets/sidebarIcons/Student.svg';
+import Explore from '@/assets/sidebarICN/explore.svg';
+import Group from '@/assets/sidebarICN/group.svg';
+import Calender from '@/assets/sidebarICN/Calender.svg';
+import Copy from '@/assets/sidebarICN/copy.svg';
+import Assignment from '@/assets/sidebarICN/Assignment.svg';
+import Create from '@/assets/sidebarICN/CreatePost.svg';
+import Student from '@/assets/sidebarICN/Student.svg';
 
 import LogoutButton from '../../Ui/LogoutButton';
 
@@ -124,7 +124,7 @@ export default function DesktopSidebar() {
       {/* Logo */}
       <div className="mb-6 flex shrink-0 items-center gap-3">
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary">
-          <Student color='white' />
+          <Student color="white" />
         </div>
 
         <div className="leading-tight">
