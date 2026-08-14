@@ -1,18 +1,36 @@
 'use client';
+
 import Image from 'next/image';
 import { StudentGroups } from '../../Types';
 import useJoinGroups from '../../Hooks/useJoinedGroup';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import ErrorState from '../../Errors/ErrorToLoadPage';
 import JoinedGroupSkelton from '../../Skeleton/Student/joinedGroup';
 import { ArrowRight } from 'lucide-react';
 
 export default function JoinedGroup() {
   const router = useRouter();
+
   const { groups, isPending, isError, error, refetch } = useJoinGroups();
+
+  console.log('groups', groups);
+
+  const searchParams = useSearchParams();
+
+  const selectedGroupId = searchParams?.get('groupId');
+
+  const handleSelectGroup = (group: StudentGroups) => {
+    router.push(`?groupId=${encodeURIComponent(group.id)}`, {
+      scroll: false,
+    });
+  };
+
   if (isPending) return <JoinedGroupSkelton />;
-  if (isError)
+
+  if (isError) {
     return <ErrorState message={error?.message} onRetry={() => refetch()} />;
+  }
+
   return (
     <div>
       <div className="px-4 py-6">
@@ -27,13 +45,25 @@ export default function JoinedGroup() {
           </p>
         </div>
       </div>
+
       {groups?.length > 0 ? (
         <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
           {groups?.map((group: StudentGroups) => {
+            const isSelected = selectedGroupId === group.id;
+
             return (
               <div
                 key={group.id}
-                className="rounded-xl border border-gray-300 bg-white p-4 shadow-sm transition hover:shadow-md"
+                onClick={() => handleSelectGroup(group)}
+                className={`
+                  cursor-pointer rounded-xl border bg-white p-4
+                  shadow-sm transition
+                  ${
+                    isSelected
+                      ? 'border-primary ring-2 ring-primary/20'
+                      : 'border-gray-300 hover:border-primary hover:shadow-md'
+                  }
+                `}
               >
                 <div className="flex items-start justify-between">
                   {group.category && (
@@ -87,6 +117,7 @@ export default function JoinedGroup() {
                     </span>
                   </span>
                 </div>
+
                 <div className="mt-4 flex items-center gap-2 text-sm text-gray-600">
                   <Image
                     src="/images/duration.png"
@@ -106,6 +137,7 @@ export default function JoinedGroup() {
                     </span>
                   </span>
                 </div>
+
                 <button
                   className="group mt-5 flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary py-3 text-sm font-medium text-white transition hover:opacity-90"
                   onClick={() => {

@@ -9,14 +9,28 @@ export default function DashboardLayout({
 }) {
   return (
     <div className="h-screen overflow-hidden bg-surface">
-      <header className="h-16">
+      {/* Navbar */}
+      <header className="h-16 shrink-0">
         <Navbar />
       </header>
 
-      <div className="flex h-[calc(100vh-4rem)]">
+      {/* Content Area */}
+      <div className="flex h-[calc(100vh-4rem)] min-h-0">
+        {/* Desktop Sidebar */}
         <SidebarSwitcher />
 
-        <main className="flex-1 overflow-y-auto p-4 lg:p-6">
+        {/* Main Content */}
+        <main
+          className="
+            min-w-0
+            flex-1
+            overflow-y-auto
+            p-4
+            pb-24
+            lg:p-6
+            lg:pb-6
+          "
+        >
           <AuthProvider>{children}</AuthProvider>
         </main>
       </div>

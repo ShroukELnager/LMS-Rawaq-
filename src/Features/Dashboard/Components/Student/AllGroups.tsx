@@ -59,9 +59,10 @@ export default function ListGroups() {
 
       <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
         {groupsQuery.data?.map((group: ListGroupsResponse) => {
+          console.log('group', group);
+
           const percentage =
             (group.current_students_count / group.max_no_of_students) * 100;
-
           return (
             <div
               key={group.id}
@@ -74,15 +75,28 @@ export default function ListGroups() {
                   </span>
                 )}
 
-                <div className="flex items-center gap-1 text-xs text-gray-500">
-                  <Image
-                    src="/images/clock.png"
-                    alt="clock"
-                    width={12}
-                    height={12}
-                  />
-                  {group.duration_in_days} Weeks
-                </div>
+                {group.duration_in_days != null && (
+                  <div className="flex items-center gap-1 text-xs text-gray-500">
+                    <Image
+                      src="/images/clock.png"
+                      alt="clock"
+                      width={12}
+                      height={12}
+                    />
+
+                    <span>
+                      {group.duration_in_days < 7
+                        ? `${group.duration_in_days} ${
+                            group.duration_in_days === 1 ? 'Day' : 'Days'
+                          }`
+                        : `${Math.floor(group.duration_in_days / 7)} ${
+                            Math.floor(group.duration_in_days / 7) === 1
+                              ? 'Week'
+                              : 'Weeks'
+                          }`}
+                    </span>
+                  </div>
+                )}
               </div>
 
               <h2 className="mt-4 text-xl font-semibold text-gray-900">

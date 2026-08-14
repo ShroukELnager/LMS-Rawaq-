@@ -124,7 +124,7 @@ const {
 
           <div className="space-y-6">
             <GroupMembers groupId={groupId} />
-            <GroupSettings />
+            <GroupSettings groupId={groupId} />
           </div>
         </div>
       </div>

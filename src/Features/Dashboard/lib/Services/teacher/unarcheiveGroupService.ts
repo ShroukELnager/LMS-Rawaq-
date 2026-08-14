@@ -1,13 +1,12 @@
-import { Category } from "../../Types";
+import { ArcheiveRequest } from '@/Features/Dashboard/Types';
 
-export const GetSingleGroupService = async (
-  groupId: string
-): Promise<Category[]> => {
-  const res = await fetch(`/api/singleGroup?groupId=${groupId}`, {
-    method: 'GET',
+export const UnArcheiveGroupService = async (data: ArcheiveRequest) => {
+  const res = await fetch('/api/teacher/unarcheive', {
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
+    body: JSON.stringify(data),
   });
 
   if (!res.ok) {

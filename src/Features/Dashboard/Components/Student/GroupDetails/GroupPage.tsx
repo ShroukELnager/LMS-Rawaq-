@@ -17,7 +17,7 @@ import useGetAssignments from '@/Features/Dashboard/Hooks/useGetAssignments';
 import AssignmentCardSkeleton from '@/Features/Dashboard/Skeleton/Student/AssignmentsCart';
 import HeaderCard from './HeaderCard';
 import ChatBox from '../Ai/ChatBox';
-import useGetSingleGroup from '@/Features/Dashboard/Hooks/useGetSingleGroup';
+import useGetSingleGroup from '@/Features/Dashboard/Hooks/useGetStudentSingleGroup';
 
 type GroupPageProps = {
   groupId: string;
@@ -37,13 +37,13 @@ export default function GroupPage({ groupId }: GroupPageProps) {
 
   const { data } = useGetSingleGroup(groupId);
   const group = data?.[0];
-const {
-  data: assignments,
-  isLoading: isAssignmentsLoading,
-  isError: isAssignmentsError,
-  error: assignmentsError,
-  refetch: refetchAssignments,
-} = useGetAssignments(groupId);
+  const {
+    data: assignments,
+    isLoading: isAssignmentsLoading,
+    isError: isAssignmentsError,
+    error: assignmentsError,
+    refetch: refetchAssignments,
+  } = useGetAssignments(groupId);
   const router = useRouter();
 
   return (

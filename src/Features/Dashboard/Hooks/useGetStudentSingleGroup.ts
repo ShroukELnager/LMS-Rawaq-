@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
-import {  GetSingleGroupService } from "../lib/Services/singleGroup.service";
 import { SingleGroup } from '../Types';
+import { GetSingleGroupService } from "../lib/Services/student/studentSingleGroup.service";
 
 
 export default function useGetSingleGroup(groupId: string) {

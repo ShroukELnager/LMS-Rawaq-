@@ -3,24 +3,22 @@
 import { ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
-import useGetSingleGroup from '@/Features/Dashboard/Hooks/useGetSingleGroup';
+import useGetTeacherSingleGroup from '@/Features/Dashboard/Hooks/useGetTeacherSingleGroup';
 
 type AssignmentHeaderProps = {
   groupId: string;
 };
 
-export default function AssignmentHeader({
-  groupId,
-}: AssignmentHeaderProps) {
+export default function AssignmentHeader({ groupId }: AssignmentHeaderProps) {
   const router = useRouter();
 
-  const { data, isPending } = useGetSingleGroup(groupId);
+  const { data, isPending } = useGetTeacherSingleGroup(groupId);
 
   const group = data?.[0];
 
   if (isPending) {
     return (
-      <div className="flex items-center gap-4 animate-pulse">
+      <div className="flex animate-pulse items-center gap-4">
         <div className="h-10 w-10 rounded-full bg-gray-200" />
 
         <div className="space-y-2">
@@ -43,15 +41,9 @@ export default function AssignmentHeader({
       </button>
 
       <div>
-        <h1 className="text-4xl font-bold text-[#045D6C]">
-          {group.name}
-        </h1>
+        <h1 className="text-4xl font-bold text-[#045D6C]">{group.name}</h1>
 
-        <p className="mt-1 text-lg text-[#667085]">
-          {group.created_by.first_name} {group.created_by.last_name}
-          <span className="mx-2">•</span>
-          {group.current_students_count} members
-        </p>
+
       </div>
     </div>
   );

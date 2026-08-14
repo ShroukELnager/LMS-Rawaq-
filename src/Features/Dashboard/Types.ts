@@ -169,19 +169,20 @@ export type Question = {
   options: Option[];
 };
 
-
-
-export interface TeacherGroup {
+export type TeacherGroup = {
   id: string;
   name: string;
   description: string;
-  invite_code: null;
+  invite_code: string | null;
   created_at: string;
+  is_archived: boolean;
   members_count: number;
   assignments_count: number;
   posts_count: number;
-}
+};
 
+
+export type TeacherSingleGroupResponse = TeacherGroup[];
 export interface Assignment {
   id: string;
   group_id: string;
@@ -492,9 +493,9 @@ export type SingleGroup = {
   status: string;
   created_by: {
     id: string;
-    first_name: string |null;
+    first_name: string | null;
     last_name: string | null;
-    avatar_url: string |null;
+    avatar_url: string | null;
   };
 };
 
@@ -505,7 +506,7 @@ export type CalendarAssignmentsRequest = {
 export type CalendarAssignments = {
   assignment_id: string;
   assignment_title: string;
-  deadline: Date ;
+  deadline: Date;
   group_id: string;
   group_name: string;
   submission_status: 'submitted' | 'reviewed' | 'not_submitted' | 'delayed';
@@ -515,3 +516,17 @@ export type CalendarAssignments = {
   total_grade_awarded: number | null;
 };
 export type CalendarAssignmentsResponse = CalendarAssignments[];
+
+export type ArcheiveRequest = {
+  p_group_id: string;
+};
+
+
+export type UpdateGroupPayload = {
+  name: string;
+  description?: string;
+  no_of_students: number;
+  category?: string;
+  start_date?: string;
+  duration_in_days?: number;
+};

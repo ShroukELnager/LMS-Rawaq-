@@ -10,13 +10,17 @@ import { PostCardProps } from '@/Features/Dashboard/Types';
 import ErrorState from '@/Features/Dashboard/Errors/ErrorToLoadPage';
 import PostCard from '@/Features/Dashboard/Components/Student/GroupDetails/PostCard';
 import { useParams } from 'next/navigation';
-import PostHeader from '@/Features/Dashboard/Components/Student/GroupDetails/PostHeader';
+
+import StudentPostHeader from '@/Features/Dashboard/Components/Student/GroupDetails/StudentPostHeader';
+import TeacherPostHeader from '@/Features/Dashboard/Components/Teacher/TeacherPostHeader';
 
 export default function PostsPage() {
   const params = useParams();
   const groupId = params?.groupId as string;
 
   const user = useAppSelector((state) => state.user.user);
+
+  const role = user?.user_metadata?.account_type;
 
   const [content, setContent] = useState('');
 
@@ -45,6 +49,8 @@ export default function PostsPage() {
     );
   };
 
+  const PostHeader = role === 'teacher' ? TeacherPostHeader : StudentPostHeader;
+
   return (
     <div className="min-h-screen bg-[#F5F7FA] py-8">
       <div className="mx-auto max-w-3xl px-5">
@@ -63,15 +69,15 @@ export default function PostsPage() {
               onChange={(e) => setContent(e.target.value)}
               placeholder="Share an update with the group..."
               className="
-            h-20
-            flex-1
-            resize-none
-            border-0
-            text-sm
-            text-[#344054]
-            outline-none
-            placeholder:text-[#98A2B3]
-          "
+                h-20
+                flex-1
+                resize-none
+                border-0
+                text-sm
+                text-[#344054]
+                outline-none
+                placeholder:text-[#98A2B3]
+              "
             />
           </div>
 
@@ -82,18 +88,18 @@ export default function PostsPage() {
               onClick={handlePublish}
               disabled={isCreating}
               className="
-            cursor-pointer
-            rounded-lg
-            bg-[#006D77]
-            px-6
-            py-2
-            text-sm
-            font-medium
-            text-white
-            transition
-            hover:bg-[#005761]
-            disabled:opacity-60
-          "
+                cursor-pointer
+                rounded-lg
+                bg-[#006D77]
+                px-6
+                py-2
+                text-sm
+                font-medium
+                text-white
+                transition
+                hover:bg-[#005761]
+                disabled:opacity-60
+              "
             >
               {isCreating ? 'Posting...' : 'Post'}
             </button>
