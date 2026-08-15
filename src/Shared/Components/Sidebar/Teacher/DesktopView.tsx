@@ -3,13 +3,13 @@
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 
-import Group from '@/assets/sidebarICN/group.svg';
-import Copy from '@/assets/sidebarICN/copy.svg';
-import Assignment from '@/assets/sidebarICN/Assignment.svg';
-import Student from '@/assets/sidebarICN/Student.svg';
-import Create from '@/assets/sidebarICN/CreatePost.svg';
-import Join from '@/assets/sidebarICN/Join.svg';
-import Teacher from '@/assets/sidebarICN/Teacher.svg';
+import Group from '@/assets/sidebarAssets/group.svg';
+import Copy from '@/assets/sidebarAssets/copy.svg';
+import Assignment from '@/assets/sidebarAssets/Assignment.svg';
+import Student from '@/assets/sidebarAssets/Student.svg';
+import Create from '@/assets/sidebarAssets/CreatePost.svg';
+import Join from '@/assets/sidebarAssets/JReq.svg';
+import Teacher from '@/assets/sidebarAssets/Teacher.svg';
 
 import LogoutButton from '../../Ui/LogoutButton';
 
