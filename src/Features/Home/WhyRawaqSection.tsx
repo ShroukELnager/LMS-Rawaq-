@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import EIcon from '@/assets/icons/experianceIcon.svg';
 import MIcon from '@/assets/icons/mentorIcon.svg';
 export default function WhyRawaqSection() {

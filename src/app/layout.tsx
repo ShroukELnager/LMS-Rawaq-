@@ -1,20 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import ReduxProvider from "@/redux/provider";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { queryClient } from "@/Shared/lib/Provider";
-import { Toaster } from "sonner";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import AppToaster from '@/Shared/Components/AppToaster';
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -27,19 +13,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col"> 
-                    <QueryClientProvider client={queryClient}>
-
-               <ReduxProvider>{children}
-                        <Toaster richColors position="top-right" />
-
-               </ReduxProvider>
-                    </QueryClientProvider>
-</body>
+    <html lang="en" className="h-full antialiased">
+      <body className="min-h-full flex flex-col">
+        {children}
+        <AppToaster />
+      </body>
     </html>
   );
 }

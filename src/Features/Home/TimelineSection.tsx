@@ -1,11 +1,7 @@
-import Image, { StaticImageData } from 'next/image';
-
 import CAcount from '../../assets/icons/createAcountIcon.svg';
 import JGroup from '../../assets/icons/JoinGroupIcon.svg';
 import Learn from '../../assets/icons/learnIcon.svg';
 import Scale from '../../assets/icons/scaleIcon.svg';
-import { Icon } from 'lucide-react';
-
 import { ComponentType, SVGProps } from 'react';
 
 const steps: {

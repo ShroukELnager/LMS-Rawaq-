@@ -54,9 +54,9 @@ export default function HeroSection() {
             <Image
               src="/images/Overlay.png"
               alt="Overlay Image"
-              width={194.94}
-              height={72}
-              priority
+              width={235}
+              height={112}
+              quality={60}
               className="hidden md:block absolute -bottom-8 lg:-bottom-14 -left-6 lg:-left-10 w-[9rem] lg:w-[12.18rem] h-auto object-cover"
             />
           </div>

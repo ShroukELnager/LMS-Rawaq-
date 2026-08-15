@@ -1,6 +1,7 @@
 import AuthProvider from '@/Features/Dashboard/Guards/AuthInitializer';
 import Navbar from '@/Shared/Components/Navbar/Navbar';
 import SidebarSwitcher from '@/Shared/Components/Sidebar/SidebarSwitcher';
+import AppProviders from '@/Shared/Components/AppProviders';
 
 export default function DashboardLayout({
   children,
@@ -8,6 +9,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
+    <AppProviders>
     <div className="h-screen overflow-hidden bg-surface">
       {/* Navbar */}
       <header className="h-16 shrink-0">
@@ -35,5 +37,6 @@ export default function DashboardLayout({
         </main>
       </div>
     </div>
+    </AppProviders>
   );
 }
