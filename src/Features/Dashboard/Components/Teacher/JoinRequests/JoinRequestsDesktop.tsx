@@ -2,30 +2,35 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-
 import Image from 'next/image';
 import { EllipsisVertical } from 'lucide-react';
 
 import UserAvatar from '@/Shared/Utils/UserAvatar';
-
 import { formatRequestTime } from '@/Features/Dashboard/lib/FormatRequestTime';
-import {
-  JoinGroupResponse,
-  JoinRequestsDesktopProps,
-} from '@/Features/Dashboard/Types';
-
-import JoinRequestsHeader from './JoinRequestsDesktopHeader';
+import { JoinGroupResponse } from '@/Features/Dashboard/Types';
 
 import useAcceptRequest from '@/Features/Dashboard/Hooks/useAcceptRequest';
 import useRejectRequest from '@/Features/Dashboard/Hooks/useRejectRequest';
+import Pagination from '@/Shared/Components/Pagination';
+
+interface Props {
+  requests: JoinGroupResponse[];
+  totalCount: number;
+  currentPage: number;
+  pageSize: number;
+  onPageChange: (page: number) => void;
+}
 
 export default function JoinRequestsDesktop({
   requests,
-}: JoinRequestsDesktopProps) {
+  totalCount,
+  currentPage,
+  pageSize,
+  onPageChange,
+}: Props) {
   const menuRef = useRef<HTMLDivElement | null>(null);
 
   const [openMenu, setOpenMenu] = useState<string | null>(null);
-
   const [selectedRequest, setSelectedRequest] =
     useState<JoinGroupResponse | null>(null);
 
@@ -41,9 +46,6 @@ export default function JoinRequestsDesktop({
   const acceptRequest = useAcceptRequest();
   const rejectRequest = useRejectRequest();
 
-  // =========================================================
-  // Close menu when clicking outside
-  // =========================================================
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Node;
@@ -61,9 +63,6 @@ export default function JoinRequestsDesktop({
     };
   }, []);
 
-  // =========================================================
-  // Update menu position
-  // =========================================================
   const updateMenuPosition = (button: HTMLButtonElement) => {
     const rect = button.getBoundingClientRect();
 
@@ -75,37 +74,21 @@ export default function JoinRequestsDesktop({
     const menuHeight = menuRef.current?.getBoundingClientRect().height ?? 100;
 
     const gap = 8;
+    const menuWidth = 200;
 
     const fitsBelow = spaceBelow >= menuHeight + gap;
-
     const fitsAbove = spaceAbove >= menuHeight + gap;
 
     let top: number;
     let placement: 'top' | 'bottom';
 
-    // =======================================================
-    // 1. Enough space below
-    //    → Keep the normal behavior
-    // =======================================================
     if (fitsBelow) {
       top = rect.bottom + gap;
       placement = 'bottom';
-    }
-
-    // =======================================================
-    // 2. Not enough below but enough above
-    //    → Show above
-    // =======================================================
-    else if (fitsAbove) {
+    } else if (fitsAbove) {
       top = rect.top - menuHeight - gap;
       placement = 'top';
-    }
-
-    // =======================================================
-    // 3. Not enough in either direction
-    //    → Choose the side with more space
-    // =======================================================
-    else if (spaceBelow >= spaceAbove) {
+    } else if (spaceBelow >= spaceAbove) {
       top = rect.bottom + gap;
       placement = 'bottom';
     } else {
@@ -113,14 +96,8 @@ export default function JoinRequestsDesktop({
       placement = 'top';
     }
 
-    // =======================================================
-    // Horizontal position
-    // =======================================================
-    const menuWidth = 200;
-
     let left = rect.right - menuWidth;
 
-    // Don't allow popup to go outside viewport
     left = Math.max(gap, Math.min(left, window.innerWidth - menuWidth - gap));
 
     setMenuPosition({
@@ -131,30 +108,23 @@ export default function JoinRequestsDesktop({
     setMenuPlacement(placement);
   };
 
-  // =========================================================
-  // Open / Close menu
-  // =========================================================
   const handleMenuToggle = (
     event: React.MouseEvent<HTMLButtonElement>,
-    row: JoinGroupResponse
+    request: JoinGroupResponse
   ) => {
-    if (openMenu === row.id) {
+    if (openMenu === request.id) {
       setOpenMenu(null);
       setSelectedRequest(null);
       return;
     }
 
-    setSelectedRequest(row);
-    setOpenMenu(row.id);
+    setSelectedRequest(request);
+    setOpenMenu(request.id);
 
-    // First calculate using expected popup height.
-    // The real position will be recalculated after render.
     const rect = event.currentTarget.getBoundingClientRect();
 
     const viewportHeight = window.innerHeight;
-
     const spaceBelow = viewportHeight - rect.bottom;
-
     const spaceAbove = rect.top;
 
     const estimatedMenuHeight = 96;
@@ -169,14 +139,12 @@ export default function JoinRequestsDesktop({
       placement = 'bottom';
     } else if (spaceAbove >= estimatedMenuHeight + gap) {
       top = rect.top - estimatedMenuHeight - gap;
-
       placement = 'top';
     } else if (spaceBelow >= spaceAbove) {
       top = rect.bottom + gap;
       placement = 'bottom';
     } else {
       top = Math.max(gap, rect.top - estimatedMenuHeight - gap);
-
       placement = 'top';
     }
 
@@ -192,9 +160,6 @@ export default function JoinRequestsDesktop({
     setMenuPlacement(placement);
   };
 
-  // =========================================================
-  // Recalculate after popup has rendered
-  // =========================================================
   useEffect(() => {
     if (!openMenu || !menuRef.current) {
       return;
@@ -204,16 +169,11 @@ export default function JoinRequestsDesktop({
       `[data-action-button="${openMenu}"]`
     ) as HTMLButtonElement | null;
 
-    if (!button) {
-      return;
+    if (button) {
+      updateMenuPosition(button);
     }
-
-    updateMenuPosition(button);
   }, [openMenu]);
 
-  // =========================================================
-  // Recalculate on resize / scroll
-  // =========================================================
   useEffect(() => {
     if (!openMenu) {
       return;
@@ -230,62 +190,47 @@ export default function JoinRequestsDesktop({
     };
 
     window.addEventListener('resize', handleReposition);
-
     window.addEventListener('scroll', handleReposition, true);
 
     return () => {
       window.removeEventListener('resize', handleReposition);
-
       window.removeEventListener('scroll', handleReposition, true);
     };
   }, [openMenu]);
 
   return (
     <>
-      <JoinRequestsHeader count={requests?.length ?? 0} />
-
-      {requests?.length > 0 ? (
+      {requests.length > 0 ? (
         <div className="mx-auto w-[95%] overflow-x-auto rounded-xl border border-gray-200 bg-white">
           <table className="min-w-full text-sm">
-            {/* =========================
-                Table Header
-            ========================= */}
             <thead className="bg-[#F0F3FF] text-left text-xs uppercase text-gray-500">
               <tr>
                 <th className="px-6 py-3">Student</th>
-
                 <th className="px-6 py-3">Group Name</th>
-
                 <th className="px-6 py-3">Requested</th>
-
                 <th className="px-6 py-3 text-right">Actions</th>
               </tr>
             </thead>
 
-            {/* =========================
-                Table Body
-            ========================= */}
             <tbody className="divide-y divide-gray-100">
-              {requests.map((row: JoinGroupResponse) => (
-                <tr key={row.id} className="transition hover:bg-gray-50">
-                  {/* Student */}
+              {requests.map((request) => (
+                <tr key={request.id} className="transition hover:bg-gray-50">
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
                       <UserAvatar size={44} />
 
                       <div>
                         <p className="font-medium text-gray-900">
-                          {row.user.first_name} {row.user.last_name}
+                          {request.user.first_name} {request.user.last_name}
                         </p>
 
                         <p className="text-xs text-gray-500">
-                          {row.user.email}
+                          {request.user.email}
                         </p>
                       </div>
                     </div>
                   </td>
 
-                  {/* Group */}
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-2">
                       <Image
@@ -296,23 +241,21 @@ export default function JoinRequestsDesktop({
                       />
 
                       <span className="font-medium text-gray-800">
-                        {row.group_name}
+                        {request.group_name}
                       </span>
                     </div>
                   </td>
 
-                  {/* Requested */}
                   <td className="px-6 py-4 text-gray-500">
-                    {formatRequestTime(row.created_at)}
+                    {formatRequestTime(request.created_at)}
                   </td>
 
-                  {/* Actions */}
                   <td className="px-6 py-4">
                     <div className="flex justify-center">
                       <button
                         type="button"
-                        data-action-button={row.id}
-                        onClick={(event) => handleMenuToggle(event, row)}
+                        data-action-button={request.id}
+                        onClick={(event) => handleMenuToggle(event, request)}
                         className="rounded-md p-1 hover:bg-gray-100"
                         aria-label="Actions"
                       >
@@ -333,9 +276,16 @@ export default function JoinRequestsDesktop({
         </div>
       )}
 
-      {/* =====================================================
-          Actions Popup
-      ===================================================== */}
+      <div className="mx-auto w-[95%] pb-6">
+        <Pagination
+          currentPage={currentPage}
+          totalCount={totalCount}
+          pageSize={pageSize}
+          onPageChange={onPageChange}
+          label="requests"
+        />
+      </div>
+
       {selectedRequest &&
         openMenu &&
         typeof document !== 'undefined' &&
@@ -349,9 +299,9 @@ export default function JoinRequestsDesktop({
             }}
             data-placement={menuPlacement}
           >
-            {/* Approve */}
             <button
               type="button"
+              disabled={acceptRequest.isPending}
               onClick={() => {
                 acceptRequest.acceptRequest({
                   p_request_id: selectedRequest.id,
@@ -360,7 +310,7 @@ export default function JoinRequestsDesktop({
                 setOpenMenu(null);
                 setSelectedRequest(null);
               }}
-              className="flex w-full items-center gap-3 px-4 py-3 hover:bg-green-50"
+              className="flex w-full items-center gap-3 px-4 py-3 hover:bg-green-50 disabled:opacity-50"
             >
               <Image
                 src="/images/approved.png"
@@ -369,12 +319,14 @@ export default function JoinRequestsDesktop({
                 height={18}
               />
 
-              <span className="text-green-700">Approve Request</span>
+              <span className="text-green-700">
+                {acceptRequest.isPending ? 'Approving...' : 'Approve Request'}
+              </span>
             </button>
 
-            {/* Reject */}
             <button
               type="button"
+              disabled={rejectRequest.isPending}
               onClick={() => {
                 rejectRequest.rejectRequest({
                   p_request_id: selectedRequest.id,
@@ -383,7 +335,7 @@ export default function JoinRequestsDesktop({
                 setOpenMenu(null);
                 setSelectedRequest(null);
               }}
-              className="flex w-full items-center gap-3 px-4 py-3 hover:bg-red-50"
+              className="flex w-full items-center gap-3 px-4 py-3 hover:bg-red-50 disabled:opacity-50"
             >
               <Image
                 src="/images/rejected.png"
@@ -392,7 +344,9 @@ export default function JoinRequestsDesktop({
                 height={18}
               />
 
-              <span className="text-red-600">Reject Request</span>
+              <span className="text-red-600">
+                {rejectRequest.isPending ? 'Rejecting...' : 'Reject Request'}
+              </span>
             </button>
           </div>,
           document.body
