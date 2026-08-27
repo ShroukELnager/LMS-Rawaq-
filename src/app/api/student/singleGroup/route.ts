@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
     }
 
     const response = await fetch(
-      `${process.env.BASE_URL}/rest/v1/groups_with_status?id=eq.${groupId}`,
+      `${process.env.BASE_URL}/rest/v1/groups_with_status`,
       {
         method: 'GET',
         headers: {
