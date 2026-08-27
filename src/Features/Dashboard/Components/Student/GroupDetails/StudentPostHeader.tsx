@@ -44,9 +44,8 @@ export default function AssignmentHeader({ groupId }: AssignmentHeaderProps) {
         <h1 className="text-4xl font-bold text-[#045D6C]">{group.name}</h1>
 
         <p className="mt-1 text-lg text-[#667085]">
-          {group.created_by.first_name} {group.created_by.last_name}
+          {group.teacher.first_name} {group.teacher.last_name}
           <span className="mx-2">•</span>
-          {group.current_students_count} members
         </p>
       </div>
     </div>
