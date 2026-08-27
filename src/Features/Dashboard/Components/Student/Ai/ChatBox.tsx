@@ -9,11 +9,11 @@ import ErrorState from './ErrorState';
 import ChatInput from './ChatInput';
 import { ChatMessage } from './Types';
 
-import { SingleGroup } from '@/Features/Dashboard/Types';
+import { StudentGroup } from '@/Features/Dashboard/Types';
 import { useAppSelector } from '@/redux/hooks';
 
 type Props = {
-  group: SingleGroup;
+  group: StudentGroup;
 };
 
 export default function ChatBox({ group }: Props) {
@@ -129,7 +129,7 @@ export default function ChatBox({ group }: Props) {
 
   return (
     <div
-      className={`mt-8 overflow-hidden rounded-[12px] bg-white transition-all duration-300 hidden md:block ${
+      className={`mt-8 hidden overflow-hidden rounded-[12px] bg-white transition-all duration-300 md:block ${
         isOpen ? 'h-[356px]' : 'h-[64px]'
       }`}
     >
@@ -137,7 +137,7 @@ export default function ChatBox({ group }: Props) {
       <button
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
-        className="flex w-full items-center bg-[#EDF2F8] p-[20px] cursor-pointer"
+        className="flex w-full cursor-pointer items-center bg-[#EDF2F8] p-[20px]"
       >
         <Chat className="mr-[8px]" />
 
@@ -145,6 +145,7 @@ export default function ChatBox({ group }: Props) {
           AI Learning Assistant
         </h1>
       </button>
+
       {isOpen && (
         <>
           {/* Content */}

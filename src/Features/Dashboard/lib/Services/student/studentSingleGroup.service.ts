@@ -1,8 +1,8 @@
-import { Category } from "@/Features/Dashboard/Types";
+import { StudentGroupsResponse } from '@/Features/Dashboard/Types';
 
 export const GetSingleGroupService = async (
   groupId: string
-): Promise<Category[]> => {
+): Promise<StudentGroupsResponse> => {
   const res = await fetch(`/api/student/singleGroup?groupId=${groupId}`, {
     method: 'GET',
     headers: {

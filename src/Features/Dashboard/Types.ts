@@ -172,15 +172,38 @@ export type Question = {
 export type TeacherGroup = {
   id: string;
   name: string;
-  description: string;
+  created_by: string;
   invite_code: string | null;
   created_at: string;
+  description: string;
+  no_of_students: number;
+  category: string;
+  start_date: string;
+  duration_in_days: number;
   is_archived: boolean;
   members_count: number;
   assignments_count: number;
   posts_count: number;
 };
+export type Teacher = {
+  id: string;
+  last_name: string;
+  avatar_url: string;
+  first_name: string;
+};
 
+export type StudentGroup = {
+  id: string;
+  name: string;
+  created_at: string;
+  category: string;
+  start_date: string;
+  duration_in_days: number;
+  teacher: Teacher;
+  description: string;
+};
+
+export type StudentGroupsResponse = StudentGroup[];
 
 export type TeacherSingleGroupResponse = TeacherGroup[];
 export interface Assignment {

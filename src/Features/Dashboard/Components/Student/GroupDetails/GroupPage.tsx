@@ -9,7 +9,11 @@ import { useState } from 'react';
 import CreatePostModal from '../Posts/CreatePostModal';
 import SuccessModal from '../Posts/SuccessModal';
 import useGetPosts from '@/Features/Dashboard/Hooks/useGetPosts';
-import { Assignment, PostCardProps } from '@/Features/Dashboard/Types';
+import {
+  Assignment,
+  PostCardProps,
+  StudentGroup,
+} from '@/Features/Dashboard/Types';
 import PostCardSkeleton from '@/Features/Dashboard/Skeleton/Student/PostCardSkeleton';
 import { useRouter } from 'next/navigation';
 import ErrorState from '@/Features/Dashboard/Errors/ErrorToLoadPage';
@@ -35,8 +39,17 @@ export default function GroupPage({ groupId }: GroupPageProps) {
     refetch,
   } = useGetPosts(groupId, 3);
 
-  const { data } = useGetSingleGroup(groupId);
-  const group = data?.[0];
+  const {
+    data: studentGroups,
+    isLoading: isGroupLoading,
+    isError: isGroupError,
+    error: groupError,
+    refetch: refetchGroup,
+  } = useGetSingleGroup(groupId);
+
+  // StudentGroupsResponse = StudentGroup[]
+  const group: StudentGroup | undefined = studentGroups?.[0];
+
   const {
     data: assignments,
     isLoading: isAssignmentsLoading,
@@ -44,11 +57,13 @@ export default function GroupPage({ groupId }: GroupPageProps) {
     error: assignmentsError,
     refetch: refetchAssignments,
   } = useGetAssignments(groupId);
+
   const router = useRouter();
 
   return (
-    <div className="min-h-screen  p-5">
+    <div className="min-h-screen p-5">
       <HeaderCard groupId={groupId} />
+
       <div className="mx-auto max-w-7xl">
         {/* Top Cards */}
         <div className="mt-5 grid gap-4 md:grid-cols-3">
@@ -99,7 +114,6 @@ export default function GroupPage({ groupId }: GroupPageProps) {
               </button>
             </div>
 
-            {/* Assignments */}
             <div className="flex min-w-0 gap-4 overflow-x-auto pb-2 touch-pan-x [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden lg:flex-col lg:overflow-x-visible lg:pb-0">
               {isAssignmentsLoading ? (
                 Array.from({ length: 3 }).map((_, index) => (
@@ -143,7 +157,22 @@ export default function GroupPage({ groupId }: GroupPageProps) {
             </div>
 
             {/* Chat */}
-            {group && <ChatBox group={group} />}
+            {isGroupLoading ? (
+              <div className="mt-6 rounded-2xl bg-white p-6 shadow-sm">
+                Loading group...
+              </div>
+            ) : isGroupError ? (
+              <div className="mt-6">
+                <ErrorState
+                  message={
+                    groupError?.message || 'Failed to load group information'
+                  }
+                  onRetry={() => refetchGroup()}
+                />
+              </div>
+            ) : group ? (
+              <ChatBox group={group} />
+            ) : null}
           </div>
 
           {/* ================= Posts ================= */}
@@ -161,7 +190,6 @@ export default function GroupPage({ groupId }: GroupPageProps) {
               </button>
             </div>
 
-            {/* Posts */}
             <div className="flex min-w-0 flex-col gap-4">
               {isPending ? (
                 Array.from({ length: 3 }).map((_, index) => (
@@ -189,7 +217,6 @@ export default function GroupPage({ groupId }: GroupPageProps) {
               )}
             </div>
 
-            {/* Mobile Button */}
             <button
               onClick={() => router.push(`/group/${groupId}/assignments`)}
               className="mt-6 h-[44px] w-full rounded-[12px] bg-[#00535B] px-4 py-[12px] text-center font-inter text-[14px] font-bold leading-[20px] tracking-[0.14px] text-white transition hover:bg-[#014950] lg:hidden"
@@ -198,6 +225,7 @@ export default function GroupPage({ groupId }: GroupPageProps) {
             </button>
           </div>
         </div>
+
         <FloatingButton onClick={() => setIsCreatePostOpen(true)} />
 
         {isCreatePostOpen && (

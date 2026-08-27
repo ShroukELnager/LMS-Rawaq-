@@ -1,8 +1,11 @@
+'use client';
+
 import { ChevronUp, Copy } from 'lucide-react';
 import Trash from '@assets/icons/delete.svg';
+
 type Props = {
   remove: () => void;
-  duplicate?: () => void;
+  duplicate: () => void;
   setCollapsed: (value: boolean) => void;
   collapsed: boolean;
 };
@@ -16,49 +19,54 @@ export default function QuestionFooter({
   return (
     <div className="flex items-center justify-end bg-[#F0F3FF] pt-4">
       <div className="flex items-center gap-6 text-sm font-medium">
+        {/* Duplicate */}
         <button
           type="button"
           onClick={duplicate}
-          className="flex items-center gap-2 cursor-pointer text-slate-600 transition hover:text-teal-700"
+          className="flex cursor-pointer items-center gap-2 text-slate-600 transition hover:text-teal-700"
         >
           <Copy size={18} />
+
           <span>Duplicate</span>
         </button>
 
+        {/* Delete */}
         <button
           type="button"
           onClick={remove}
-          className="flex items-center gap-2 cursor-pointer text-red-500 transition hover:text-red-600"
+          className="flex cursor-pointer items-center gap-2 text-red-500 transition hover:text-red-600"
         >
           <Trash size={18} />
+
           <span>Delete</span>
         </button>
 
+        {/* Collapse */}
         <button
           type="button"
           onClick={() => setCollapsed(!collapsed)}
           className="
-    flex items-center gap-2
-    text-slate-600
-    transition-all duration-300 ease-in-out
-    hover:text-teal-700
-    hover:scale-[1.02]
-  "
+            flex
+            items-center
+            gap-2
+            text-slate-600
+            transition-all
+            duration-300
+            ease-in-out
+            hover:scale-[1.02]
+            hover:text-teal-700
+          "
         >
-          <span
-            className="
-      transition-all duration-300 ease-in-out
-    "
-          >
-            {collapsed ? 'Expand' : 'Collapse'}
-          </span>
+          <span>{collapsed ? 'Expand' : 'Collapse'}</span>
 
           <ChevronUp
             size={18}
             className={`
-      transition-all duration-300 ease-in-out
-      ${collapsed ? 'rotate-180' : 'rotate-0'}
-    `}
+              transition-all
+              duration-300
+              ease-in-out
+              ${collapsed ? 'rotate-180' : 'rotate-0'}
+            `}
           />
         </button>
       </div>

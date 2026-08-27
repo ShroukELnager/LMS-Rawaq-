@@ -14,6 +14,7 @@ import useEditGroup from '@/Features/Dashboard/Hooks/useEditGroup';
 import { editGroupSchema } from '@/Features/Dashboard/Schema/EditGroup';
 import { UpdateGroupPayload } from '@/Features/Dashboard/Types';
 import useGetSingleGroup from '@/Features/Dashboard/Hooks/useGetStudentSingleGroup';
+import useGetTeacherSingleGroup from '@/Features/Dashboard/Hooks/useGetTeacherSingleGroup';
 
 export default function EditGroup() {
   const router = useRouter();
@@ -29,7 +30,7 @@ export default function EditGroup() {
     isPending: isLoadingGroup,
     isError: isGroupError,
     refetch,
-  } = useGetSingleGroup(groupId);
+  } = useGetTeacherSingleGroup(groupId);
 
   const group = groupData?.[0];
 
@@ -62,14 +63,14 @@ export default function EditGroup() {
 
     reset({
       name: group.name ?? '',
-      // description: group.description ?? '',
-      no_of_students: group.max_no_of_students ?? 1,
+       description: group.description ?? '',
+      no_of_students: group.no_of_students?? 1,
       category: group.category ?? '',
       start_date: group.start_date ? String(group.start_date).slice(0, 10) : '',
       duration_in_days: group.duration_in_days ?? undefined,
     });
 
-    setStudents(group.max_no_of_students ?? 1);
+    setStudents(group.no_of_students ?? 1);
   }, [group, reset]);
 
   /**

@@ -1,3 +1,5 @@
+'use client';
+
 import { useFormContext } from 'react-hook-form';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
@@ -8,15 +10,24 @@ import QuestionTypeSelector from './QuestionTypeSelector';
 import QuestionFooter from './QuestionFooter';
 import SingleChoice from './SingleChoice';
 import MobileQuestionHeader from './MobileQuestionHeader';
+
 import { AssignmentRequestBody } from '@/Features/Dashboard/Types';
 
 type QuestionItemProps = {
   id: string;
   index: number;
   remove: (index: number) => void;
+  duplicate: (index: number) => void;
+  autoOpenQuestionType?: boolean;
 };
 
-export default function QuestionItem({ id, index, remove }: QuestionItemProps) {
+export default function QuestionItem({
+  id,
+  index,
+  remove,
+  duplicate,
+  autoOpenQuestionType = false,
+}: QuestionItemProps) {
   const [collapsed, setCollapsed] = useState(false);
 
   const {
@@ -41,11 +52,12 @@ export default function QuestionItem({ id, index, remove }: QuestionItemProps) {
       }}
       className="rounded-xl border border-[#D9E2F2] bg-white shadow-sm"
     >
+      {/* Mobile Header */}
       <div className="md:hidden">
         <MobileQuestionHeader
           index={index}
           remove={() => remove(index)}
-          duplicate={() => {}}
+          duplicate={() => duplicate(index)}
           attributes={attributes}
           listeners={listeners}
         />
@@ -53,6 +65,7 @@ export default function QuestionItem({ id, index, remove }: QuestionItemProps) {
 
       <div className="p-4">
         <div className="flex items-start gap-4">
+          {/* Drag Handle + Question Number */}
           <div className="hidden flex-col items-center gap-1 pt-2 md:flex">
             <button
               type="button"
@@ -72,6 +85,7 @@ export default function QuestionItem({ id, index, remove }: QuestionItemProps) {
           </div>
 
           <div className="flex flex-1 flex-col gap-4">
+            {/* Question */}
             <div>
               <textarea
                 rows={2}
@@ -108,74 +122,85 @@ export default function QuestionItem({ id, index, remove }: QuestionItemProps) {
               )}
             </div>
 
+            {/* Collapsible Content */}
             {!collapsed && (
-              <div className="flex flex-col gap-4 md:flex-row">
-                <div className="w-full md:w-[260px]">
-                  <QuestionTypeSelector index={index} />
-                </div>
-
-                <div className="w-full md:w-[150px]">
-                  <div
-                    className={`
-                      flex
-                      h-[46px]
-                      items-center
-                      rounded-xl
-                      border
-                      bg-white
-                      px-4
-                      transition
-                      ${
-                        errors.p_questions?.[index]?.grade
-                          ? 'border-red-500'
-                          : 'border-[#D9E2F2] focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20'
-                      }
-                    `}
-                  >
-                    <span className="mr-2 text-sm font-medium text-slate-500">
-                      Grade:
-                    </span>
-
-                    <input
-                      {...register(`p_questions.${index}.grade`, {
-                        valueAsNumber: true,
-                        required: 'Grade is required',
-                        min: {
-                          value: 1,
-                          message: 'Grade must be greater than zero',
-                        },
-                      })}
-                      type="number"
-                      min={1}
-                      className="w-full border-none bg-transparent text-center font-semibold outline-none"
+              <div className="flex flex-col gap-4">
+                {/* Question Type + Grade */}
+                <div className="flex flex-col gap-4 md:flex-row">
+                  {/* Question Type */}
+                  <div className="w-full md:w-[260px]">
+                    <QuestionTypeSelector
+                      index={index}
+                      autoOpen={autoOpenQuestionType}
                     />
                   </div>
 
-                  {errors.p_questions?.[index]?.grade && (
-                    <p className="mt-1 text-xs text-red-500">
-                      {errors.p_questions[index]?.grade?.message}
-                    </p>
-                  )}
+                  {/* Grade */}
+                  <div className="w-full md:w-[150px]">
+                    <div
+                      className={`
+                        flex
+                        h-[46px]
+                        items-center
+                        rounded-xl
+                        border
+                        bg-white
+                        px-4
+                        transition
+                        ${
+                          errors.p_questions?.[index]?.grade
+                            ? 'border-red-500'
+                            : 'border-[#D9E2F2] focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20'
+                        }
+                      `}
+                    >
+                      <span className="mr-2 text-sm font-medium text-slate-500">
+                        Grade:
+                      </span>
+
+                      <input
+                        {...register(`p_questions.${index}.grade`, {
+                          valueAsNumber: true,
+                          required: 'Grade is required',
+                          min: {
+                            value: 1,
+                            message: 'Grade must be greater than zero',
+                          },
+                        })}
+                        type="number"
+                        min={1}
+                        className="w-full border-none bg-transparent text-center font-semibold outline-none"
+                      />
+                    </div>
+
+                    {errors.p_questions?.[index]?.grade && (
+                      <p className="mt-1 text-xs text-red-500">
+                        {errors.p_questions[index]?.grade?.message}
+                      </p>
+                    )}
+                  </div>
                 </div>
+
+                {/* Choices */}
+                {questionType === 'single_choice' && (
+                  <SingleChoice index={index} type="radio" />
+                )}
+
+                {questionType === 'multiple_choice' && (
+                  <SingleChoice index={index} type="checkbox" />
+                )}
               </div>
-            )}
-
-            {questionType === 'single_choice' && (
-              <SingleChoice index={index} type="radio" />
-            )}
-
-            {questionType === 'multiple_choice' && (
-              <SingleChoice index={index} type="checkbox" />
             )}
           </div>
         </div>
       </div>
 
+      {/* Footer */}
       <div className="hidden border-t border-[#E5EAF3] bg-[#F0F3FF] px-4 py-3 md:block">
         <QuestionFooter
           remove={() => remove(index)}
-          duplicate={() => {}}
-          setCollapsed={() => setCollapsed((prev) => !prev)}
+          duplicate={() => duplicate(index)}
+          setCollapsed={setCollapsed}
           collapsed={collapsed}
         />
       </div>
